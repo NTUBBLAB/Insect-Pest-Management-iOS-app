@@ -21,7 +21,11 @@
 		9590547E22CDF5F900A859B9 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9590547D22CDF5F900A859B9 /* HomeViewController.swift */; };
 		95DDD33522EFE39D00716219 /* EnvironViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DDD33422EFE39D00716219 /* EnvironViewController.swift */; };
 		95DDD33A22F16A9F00716219 /* FarmSummaryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DDD33922F16A9F00716219 /* FarmSummaryCollectionViewCell.swift */; };
+		95E211BE230BC04700ADF7B1 /* detailSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E211BD230BC04700ADF7B1 /* detailSubView.swift */; };
+		95E211C0230BD66A00ADF7B1 /* PagerTabStrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E211BF230BD66A00ADF7B1 /* PagerTabStrip.swift */; };
+		95E211C2230BDBA300ADF7B1 /* ChildExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E211C1230BDBA300ADF7B1 /* ChildExampleViewController.swift */; };
 		95FA428B22F94E6D00FDDAAF /* FarmDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FA428A22F94E6D00FDDAAF /* FarmDetailViewController.swift */; };
+		95FA428D22FA78EB00FDDAAF /* farmMenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FA428C22FA78EB00FDDAAF /* farmMenuBar.swift */; };
 		A1F80FED6ADBB7F733433ACB /* Pods_pestMonitoring_v0_5Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0789AE3E2BDB9EEA3413C6F5 /* Pods_pestMonitoring_v0_5Tests.framework */; };
 /* End PBXBuildFile section */
 
@@ -66,7 +70,11 @@
 		9590547D22CDF5F900A859B9 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		95DDD33422EFE39D00716219 /* EnvironViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironViewController.swift; sourceTree = "<group>"; };
 		95DDD33922F16A9F00716219 /* FarmSummaryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmSummaryCollectionViewCell.swift; sourceTree = "<group>"; };
+		95E211BD230BC04700ADF7B1 /* detailSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = detailSubView.swift; sourceTree = "<group>"; };
+		95E211BF230BD66A00ADF7B1 /* PagerTabStrip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerTabStrip.swift; sourceTree = "<group>"; };
+		95E211C1230BDBA300ADF7B1 /* ChildExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildExampleViewController.swift; sourceTree = "<group>"; };
 		95FA428A22F94E6D00FDDAAF /* FarmDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmDetailViewController.swift; sourceTree = "<group>"; };
+		95FA428C22FA78EB00FDDAAF /* farmMenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = farmMenuBar.swift; sourceTree = "<group>"; };
 		AEC1E9E633298136EFD4238A /* Pods-pestMonitoring_v0.5Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pestMonitoring_v0.5Tests.debug.xcconfig"; path = "Target Support Files/Pods-pestMonitoring_v0.5Tests/Pods-pestMonitoring_v0.5Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		B444A3F51FE44701F60A7961 /* Pods-pestMonitoring_v0.5Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pestMonitoring_v0.5Tests.release.xcconfig"; path = "Target Support Files/Pods-pestMonitoring_v0.5Tests/Pods-pestMonitoring_v0.5Tests.release.xcconfig"; sourceTree = "<group>"; };
 		C8074B99ECF4C2E0BD978811 /* Pods_pestMonitoring_v0_5UITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pestMonitoring_v0_5UITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -173,6 +181,8 @@
 		95DDD33722F1328700716219 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				95FA428C22FA78EB00FDDAAF /* farmMenuBar.swift */,
+				95E211BD230BC04700ADF7B1 /* detailSubView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -180,6 +190,8 @@
 		95DDD33822F1329000716219 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				95E211BF230BD66A00ADF7B1 /* PagerTabStrip.swift */,
+				95E211C1230BDBA300ADF7B1 /* ChildExampleViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -428,11 +440,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95E211BE230BC04700ADF7B1 /* detailSubView.swift in Sources */,
 				9590544F22CB595200A859B9 /* LoginViewController.swift in Sources */,
 				95FA428B22F94E6D00FDDAAF /* FarmDetailViewController.swift in Sources */,
 				9590545522CB595200A859B9 /* pestMonitoring_v0_5.xcdatamodeld in Sources */,
+				95FA428D22FA78EB00FDDAAF /* farmMenuBar.swift in Sources */,
 				9590544D22CB595200A859B9 /* AppDelegate.swift in Sources */,
+				95E211C0230BD66A00ADF7B1 /* PagerTabStrip.swift in Sources */,
 				957C498522F1800100E304D8 /* Environment.swift in Sources */,
+				95E211C2230BDBA300ADF7B1 /* ChildExampleViewController.swift in Sources */,
 				95DDD33A22F16A9F00716219 /* FarmSummaryCollectionViewCell.swift in Sources */,
 				95DDD33522EFE39D00716219 /* EnvironViewController.swift in Sources */,
 				9590547E22CDF5F900A859B9 /* HomeViewController.swift in Sources */,

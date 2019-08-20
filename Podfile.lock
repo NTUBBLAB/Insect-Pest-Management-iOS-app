@@ -2,21 +2,29 @@ PODS:
   - Charts (3.3.0):
     - Charts/Core (= 3.3.0)
   - Charts/Core (3.3.0)
+  - Parchment (1.6.0)
   - SwiftyJSON (4.3.0)
+  - XLPagerTabStrip (9.0.0)
 
 DEPENDENCIES:
   - Charts
+  - Parchment
   - SwiftyJSON (~> 4.0)
+  - XLPagerTabStrip (~> 9.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Charts
+    - Parchment
     - SwiftyJSON
+    - XLPagerTabStrip
 
 SPEC CHECKSUMS:
   Charts: e0dd4cd8f257bccf98407b58183ddca8e8d5b578
+  Parchment: d3a7b367c529fa6ef51aa43f5717a7ff36d4b1f5
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
+  XLPagerTabStrip: 61c57fd61f611ee5f01ff1495ad6fbee8bf496c5
 
-PODFILE CHECKSUM: d1dd90d82aef954ee69975dcafc686e743864212
+PODFILE CHECKSUM: 272409426d4dd1a9a13b68b7721e19c68907efd1
 
 COCOAPODS: 1.7.3

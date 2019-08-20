@@ -25,10 +25,12 @@ class EnvironViewController: UIViewController, UICollectionViewDataSource, UICol
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let farmDetail = storyboard?.instantiateViewController(withIdentifier: "FarmDetailViewController") as? FarmDetailViewController
+        let pager = storyboard?.instantiateViewController(withIdentifier: "PagerMenu") as? PagerTabStrip
         farmDetail?.name = locations[indexPath.row]
-        print(farmDetail?.name)
-        //self.navigationController?.present(farmDetail!, animated: true)
-        self.navigationController?.pushViewController(farmDetail!, animated: true)
+        // print(farmDetail?.name)
+        // self.navigationController?.present(farmDetail!, animated: true)
+        // self.navigationController?.pushViewController(farmDetail!, animated: true)
+        self.navigationController?.pushViewController(pager!, animated: true)
     }
     func collectionView(_ collcetionView: UICollectionView, cellForItemAt
         indexPath: IndexPath) -> UICollectionViewCell{

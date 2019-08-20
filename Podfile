@@ -10,6 +10,10 @@ target 'pestMonitoring_v0.5' do
   
   pod 'SwiftyJSON', '~> 4.0'
   
+  pod 'Parchment'
+  
+  pod 'XLPagerTabStrip', '~> 9.0'
+  
   target 'pestMonitoring_v0.5Tests' do
     inherit! :search_paths
     # Pods for testing
