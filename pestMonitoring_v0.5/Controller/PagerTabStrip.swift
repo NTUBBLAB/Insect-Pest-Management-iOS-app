@@ -10,20 +10,23 @@ import XLPagerTabStrip
 import Foundation
 
 class PagerTabStrip: ButtonBarPagerTabStripViewController {
-   
+    
+    var location = "none"
     var isReload = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        buttonBarView.selectedBar.backgroundColor = .orange
-        buttonBarView.backgroundColor = UIColor(red: 7/255, green: 185/255, blue: 155/255, alpha: 1)
+        settings.style.buttonBarItemBackgroundColor = .blue
+        buttonBarView.selectedBar.backgroundColor = .white
+        buttonBarView.backgroundColor = UIColor(red: 0, green: 0, blue: 1, alpha: 1)
+        //buttonBarView.tintColor = UIColor.blue
     }
     
     // MARK: - PagerTabStripDataSource
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
         //let child_1 = TableChildExampleViewController(style: .plain, itemInfo: "Table View")
-        let child_2 = ChildExampleViewController(itemInfo: "Environment")
+        let EnvironChildView = EnvironmentViewController(itemInfo: "Environment")
+        EnvironChildView.location = self.location
         //let child_3 = TableChildExampleViewController(style: .grouped, itemInfo: "Table View 2")
         let child_4 = ChildExampleViewController(itemInfo: "Weather")
         //let child_5 = TableChildExampleViewController(style: .plain, itemInfo: "Table View 3")
@@ -32,10 +35,10 @@ class PagerTabStrip: ButtonBarPagerTabStripViewController {
         let child_8 = ChildExampleViewController(itemInfo: "Disease")
         
         guard isReload else {
-            return [child_2, child_4, child_6, child_8]
+            return [EnvironChildView, child_4, child_6, child_8]
         }
         
-        var childViewControllers = [child_2, child_4, child_6, child_8]
+        var childViewControllers = [EnvironChildView, child_4, child_6, child_8]
         
         for index in childViewControllers.indices {
             let nElements = childViewControllers.count - index

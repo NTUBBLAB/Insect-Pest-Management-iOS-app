@@ -276,7 +276,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8it-PA-Xfj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4233" y="790"/>
+            <point key="canvasLocation" x="5105" y="493"/>
         </scene>
         <!--Pager Tab Strip-->
         <scene sceneID="7M0-qc-dCL">
@@ -287,22 +287,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Cn-2c-cx9">
-                                <rect key="frame" x="0.0" y="128" width="375" height="539"/>
+                                <rect key="frame" x="0.0" y="84" width="375" height="583"/>
                             </scrollView>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ok8-4w-SLy">
-                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="MeS-z6-lYQ"/>
-                                </constraints>
-                                <items>
-                                    <navigationItem title="Title" id="7kS-AK-4q8"/>
-                                </items>
-                            </navigationBar>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="fo1-Zw-R54" customClass="ButtonBarView" customModule="XLPagerTabStrip">
-                                <rect key="frame" x="0.0" y="64" width="375" height="64"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="64"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="64" id="OO9-e4-TNp"/>
+                                    <constraint firstAttribute="height" constant="64" id="Caz-HR-94P"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="nLo-Zn-1UX">
                                     <size key="itemSize" width="50" height="50"/>
@@ -324,16 +315,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="fo1-Zw-R54" firstAttribute="top" secondItem="ok8-4w-SLy" secondAttribute="bottom" id="Des-PA-hDD"/>
-                            <constraint firstAttribute="bottom" secondItem="1Cn-2c-cx9" secondAttribute="bottom" id="SuM-j1-c8K"/>
-                            <constraint firstItem="1Cn-2c-cx9" firstAttribute="leading" secondItem="6ym-Qz-9bg" secondAttribute="leading" id="a1h-tg-s5g"/>
-                            <constraint firstItem="fo1-Zw-R54" firstAttribute="trailing" secondItem="6ym-Qz-9bg" secondAttribute="trailing" id="aU7-k2-mm0"/>
-                            <constraint firstItem="fo1-Zw-R54" firstAttribute="leading" secondItem="6ym-Qz-9bg" secondAttribute="leading" id="cy0-60-IwV"/>
-                            <constraint firstItem="ok8-4w-SLy" firstAttribute="trailing" secondItem="6ym-Qz-9bg" secondAttribute="trailing" id="dPx-Ac-zGL"/>
-                            <constraint firstItem="1Cn-2c-cx9" firstAttribute="top" secondItem="fo1-Zw-R54" secondAttribute="bottom" id="e4Y-dY-gYl"/>
-                            <constraint firstItem="ok8-4w-SLy" firstAttribute="top" secondItem="6ym-Qz-9bg" secondAttribute="top" id="gPv-KV-8CX"/>
-                            <constraint firstItem="1Cn-2c-cx9" firstAttribute="trailing" secondItem="6ym-Qz-9bg" secondAttribute="trailing" id="o0Y-h0-3pz"/>
-                            <constraint firstItem="ok8-4w-SLy" firstAttribute="leading" secondItem="6ym-Qz-9bg" secondAttribute="leading" id="pXz-Wc-OAy"/>
+                            <constraint firstItem="1Cn-2c-cx9" firstAttribute="trailing" secondItem="6ym-Qz-9bg" secondAttribute="trailing" id="0xG-Sc-p4D"/>
+                            <constraint firstItem="1Cn-2c-cx9" firstAttribute="leading" secondItem="6ym-Qz-9bg" secondAttribute="leading" id="AKL-uu-13f"/>
+                            <constraint firstItem="1Cn-2c-cx9" firstAttribute="top" secondItem="fo1-Zw-R54" secondAttribute="bottom" id="Cz3-6k-y7h"/>
+                            <constraint firstItem="fo1-Zw-R54" firstAttribute="leading" secondItem="1Cn-2c-cx9" secondAttribute="leading" id="HHv-tj-rRl"/>
+                            <constraint firstItem="fo1-Zw-R54" firstAttribute="top" secondItem="6ym-Qz-9bg" secondAttribute="top" id="L0g-Hu-y5a"/>
+                            <constraint firstItem="1Cn-2c-cx9" firstAttribute="bottom" secondItem="6ym-Qz-9bg" secondAttribute="bottom" id="UlU-Xk-xSi"/>
+                            <constraint firstItem="fo1-Zw-R54" firstAttribute="trailing" secondItem="1Cn-2c-cx9" secondAttribute="trailing" id="hdT-fW-0AY"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6ym-Qz-9bg"/>
                     </view>
@@ -344,7 +332,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j2A-fc-3dN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4233" y="27"/>
+            <point key="canvasLocation" x="4228" y="493"/>
         </scene>
         <!--Weather-->
         <scene sceneID="OdV-ki-BB1">
@@ -360,7 +348,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LCG-Oh-ftE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2383" y="-317"/>
+            <point key="canvasLocation" x="2420" y="-454"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="ONa-K1-gSc">

@@ -34,15 +34,13 @@ class FarmDetailViewController: UIViewController {
 //            detailView?.labelName = "tab2"
 //        }
         
-        setupMenuBar()
+  //      setupMenuBar()
 
         
     }
     
     let menubar: farmMenuBar = {
         let mb = farmMenuBar()
-        //mb.frame = CGRect(x: 300, y: 300, width: 300, height: 300)
-        //mb.backgroundColor = UIColor.blue
         return mb
     }()
     let newView = UIView()
@@ -53,7 +51,6 @@ class FarmDetailViewController: UIViewController {
         let menuConstraint = NSLayoutConstraint.constraints(withVisualFormat: "H:|[menubar]|", options: .alignAllTop, metrics: nil, views: views)
         let cn2 = NSLayoutConstraint.constraints(withVisualFormat: "V:|[menubar(50)]", options: .alignAllTop, metrics: nil, views: views)
         
-        print("???")
         menubar.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
         self.view.addConstraint(menuConstraint[0])
         self.view.addConstraint(cn2[0])

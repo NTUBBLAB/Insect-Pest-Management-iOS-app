@@ -72,5 +72,25 @@ class Environment: NSObject {
             
         }.resume()
     }
+    public func getDailyEnv(type: String, handler: @escaping ([Any]) -> Void){
+        let dailyURL = URL(string: "http://140.112.94.123:20000/PEST_DETECT/_app/data_envi_daily.php?loc=" + self.farm! + "&type=" + type)
+        URLSession.shared.dataTask(with: dailyURL!){ (data: Data?, response: URLResponse?, error: Error?) in
+            if error != nil{
+                print(error!)
+                return
+            }
+            do {
+                //
+                let json = try JSON(data: data!)
+                print("GETTING DB RESULT")
+                //handler(json["RESULT"][0]["NUM"].stringValue)
+                handler([json["dates"].arrayObject, json["values"].arrayObject])
+                
+            }
+            catch let jsonError{
+                print(jsonError)
+            }
+        }.resume()
+    }
     
 }

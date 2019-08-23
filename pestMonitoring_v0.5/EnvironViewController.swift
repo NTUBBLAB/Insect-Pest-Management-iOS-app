@@ -27,6 +27,7 @@ class EnvironViewController: UIViewController, UICollectionViewDataSource, UICol
         let farmDetail = storyboard?.instantiateViewController(withIdentifier: "FarmDetailViewController") as? FarmDetailViewController
         let pager = storyboard?.instantiateViewController(withIdentifier: "PagerMenu") as? PagerTabStrip
         farmDetail?.name = locations[indexPath.row]
+        pager?.location = locations[indexPath.row]
         // print(farmDetail?.name)
         // self.navigationController?.present(farmDetail!, animated: true)
         // self.navigationController?.pushViewController(farmDetail!, animated: true)
