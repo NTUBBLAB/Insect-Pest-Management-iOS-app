@@ -30,11 +30,11 @@ class Environment: NSObject {
                     return
                 }
                 do{
-                    print("GETTING CURRENT ENVS")
+                    //print("GETTING CURRENT ENVS")
                     let currentEnvJson = try JSON(data: data!)
-                    let currentTemp = currentEnvJson["T"][0].stringValue
-                    let currentHumid = currentEnvJson["H"][0].stringValue
-                    let currentLight = currentEnvJson["L"][0].stringValue
+                    let currentTemp = currentEnvJson["values"][0].stringValue
+                    let currentHumid = currentEnvJson["values"][1].stringValue
+                    let currentLight = currentEnvJson["values"][2].stringValue
                     handler([currentTemp, currentHumid, currentLight])
                 }
                 catch let jsonError{
@@ -48,23 +48,16 @@ class Environment: NSObject {
     func getDbNumber(dbUrl: String, handler: @escaping (String) -> Void) {
         let url = URL(string: dbUrl)
         
-//        let json = JSON(data: url)
-        
         URLSession.shared.dataTask(with: url!) { (data: Data?, response: URLResponse?, error: Error?) in
             if error != nil{
                 print(error!)
                 return
             }
             do {
-//
                 let json = try JSON(data: data!)
-                print("GETTING DB RESULT")
-                
-                //self.dbNum?.append(json["RESULT"][0]["NUM"].stringValue)
-                //let results = json["RESULT"][0]["NUM"].string
+                //print("GETTING DB RESULT")
                 handler(json["RESULT"][0]["NUM"].stringValue)
-                //print(dbNumber)
-                
+        
             }
             catch let jsonError{
                 print(jsonError)
@@ -82,9 +75,13 @@ class Environment: NSObject {
             do {
                 //
                 let json = try JSON(data: data!)
-                print("GETTING DB RESULT")
-                //handler(json["RESULT"][0]["NUM"].stringValue)
-                handler([json["dates"].arrayObject, json["values"].arrayObject])
+                let allDates = json["dates"].arrayObject
+                let allValues = json["values"].arrayObject
+                let dates = Array(allDates![allDates!.count-14 ..< allDates!.count])
+                
+                let values = Array(allValues![allValues!.count-14 ..< allValues!.count])
+                //print("GETTING DB RESULT")
+                handler([dates, values])
                 
             }
             catch let jsonError{

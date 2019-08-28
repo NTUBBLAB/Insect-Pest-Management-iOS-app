@@ -24,7 +24,7 @@ class ChildExampleViewController: UIViewController, IndicatorInfoProvider {
         
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "XLPagerTabStrip"
+        label.text = "Coming Soon"
         
         view.addSubview(label)
         view.backgroundColor = .white

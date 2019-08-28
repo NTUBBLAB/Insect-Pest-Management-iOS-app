@@ -10,16 +10,18 @@ import UIKit
 
 class EnvironViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
 
+    //@IBOutlet weak var homeCollectionView: UICollectionView!
+    
+    
     let locations = ["CHIAYI_GH", "YUNLIN_GH", "TAICHUNGSB_GH", "TAINANMO_FF"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        navigationItem.title = "Home"
+        //homeCollectionView.register(FarmSummaryCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
     }
-    func createNewCardView(farms: String) {
-        
-    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return locations.count
     }
@@ -28,35 +30,32 @@ class EnvironViewController: UIViewController, UICollectionViewDataSource, UICol
         let pager = storyboard?.instantiateViewController(withIdentifier: "PagerMenu") as? PagerTabStrip
         farmDetail?.name = locations[indexPath.row]
         pager?.location = locations[indexPath.row]
-        // print(farmDetail?.name)
-        // self.navigationController?.present(farmDetail!, animated: true)
-        // self.navigationController?.pushViewController(farmDetail!, animated: true)
         self.navigationController?.pushViewController(pager!, animated: true)
     }
     func collectionView(_ collcetionView: UICollectionView, cellForItemAt
         indexPath: IndexPath) -> UICollectionViewCell{
-        // var resultEnv: [String]?
-        let currentEnv = Environment(location: locations[indexPath.row])
         
-        
-//        currentEnv.getDbNumber(dbUrl: "http://140.112.94.123:20000/PEST_DETECT/_android/get_number_of_dbs.php?location=CHIAYI_GH"){ (result) in
-//            print(result)
-//        }
         
         let cell = collcetionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! FarmSummaryCollectionViewCell
         
         cell.farmName.text = locations[indexPath.row]
+        
+        let currentEnv = Environment(location: locations[indexPath.row])
+        
         currentEnv.getCurrentEnv(location: locations[indexPath.row]) { (result) in
             DispatchQueue.main.async {
-                cell.tempLabel.text = result[0] + "°C"
-                cell.humidLabel.text = result[1] + "%"
-                cell.lightLabel.text = result[2] + "lux"
+                cell.tempLabel.text = result[0] + " °C"
+                cell.humidLabel.text = result[1] + " %"
+                cell.lightLabel.text = result[2] + " lux"
             }
-            
-            //return result
         }
         
-        
+        let currentPest = Pest(location: locations[indexPath.row])
+        currentPest.getCurrentPest(){ (result1, result2) in
+            //cell.species = result1
+            print(result1)
+            print(result2)
+        }
         
         cell.contentView.layer.cornerRadius = 4.0
         cell.contentView.layer.borderWidth = 1.0

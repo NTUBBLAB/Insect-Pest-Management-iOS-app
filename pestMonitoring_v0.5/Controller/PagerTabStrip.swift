@@ -19,26 +19,25 @@ class PagerTabStrip: ButtonBarPagerTabStripViewController {
         settings.style.buttonBarItemBackgroundColor = .blue
         buttonBarView.selectedBar.backgroundColor = .white
         buttonBarView.backgroundColor = UIColor(red: 0, green: 0, blue: 1, alpha: 1)
+        
         //buttonBarView.tintColor = UIColor.blue
     }
     
     // MARK: - PagerTabStripDataSource
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
-        //let child_1 = TableChildExampleViewController(style: .plain, itemInfo: "Table View")
-        let EnvironChildView = EnvironmentViewController(itemInfo: "Environment")
+        
+        let EnvironChildView = EnvironmentChildView(itemInfo: "Environment")
         EnvironChildView.location = self.location
-        //let child_3 = TableChildExampleViewController(style: .grouped, itemInfo: "Table View 2")
+        let pestChildView = PestChildView(itemInfo: "Pest")
+        pestChildView.location = self.location
         let child_4 = ChildExampleViewController(itemInfo: "Weather")
-        //let child_5 = TableChildExampleViewController(style: .plain, itemInfo: "Table View 3")
-        let child_6 = ChildExampleViewController(itemInfo: "Pest")
-        //let child_7 = TableChildExampleViewController(style: .grouped, itemInfo: "Table View 4")
         let child_8 = ChildExampleViewController(itemInfo: "Disease")
         
         guard isReload else {
-            return [EnvironChildView, child_4, child_6, child_8]
+            return [EnvironChildView, child_4, pestChildView, child_8]
         }
         
-        var childViewControllers = [EnvironChildView, child_4, child_6, child_8]
+        var childViewControllers = [EnvironChildView, child_4, pestChildView, child_8]
         
         for index in childViewControllers.indices {
             let nElements = childViewControllers.count - index
