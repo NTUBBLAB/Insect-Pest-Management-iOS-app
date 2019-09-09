@@ -32,10 +32,19 @@ class Environment: NSObject {
                 do{
                     //print("GETTING CURRENT ENVS")
                     let currentEnvJson = try JSON(data: data!)
-                    let currentTemp = currentEnvJson["values"][0].stringValue
-                    let currentHumid = currentEnvJson["values"][1].stringValue
-                    let currentLight = currentEnvJson["values"][2].stringValue
-                    handler([currentTemp, currentHumid, currentLight])
+                    
+                    if currentEnvJson["status"] == 3{
+                    
+                        let currentTemp = currentEnvJson["values"][0].stringValue
+                        let currentHumid = currentEnvJson["values"][1].stringValue
+                        let currentLight = currentEnvJson["values"][2].stringValue
+                        handler([currentTemp, currentHumid, currentLight])
+                    }
+                    else{
+                        print("No data available")
+                        handler(["none", "none", "none"])
+                        return
+                    }
                 }
                 catch let jsonError{
                     print(jsonError)
@@ -75,6 +84,7 @@ class Environment: NSObject {
             do {
                 //
                 let json = try JSON(data: data!)
+                if json["status"] == 3{
                 let allDates = json["dates"].arrayObject
                 let allValues = json["values"].arrayObject
                 let dates = Array(allDates![allDates!.count-14 ..< allDates!.count])
@@ -82,6 +92,11 @@ class Environment: NSObject {
                 let values = Array(allValues![allValues!.count-14 ..< allValues!.count])
                 //print("GETTING DB RESULT")
                 handler([dates, values])
+                }
+                else{
+                    print("No available data")
+                    return
+                }
                 
             }
             catch let jsonError{

@@ -19,7 +19,10 @@
 		9590546522CB595500A859B9 /* pestMonitoring_v0_5Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9590546422CB595500A859B9 /* pestMonitoring_v0_5Tests.swift */; };
 		9590547022CB595500A859B9 /* pestMonitoring_v0_5UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9590546F22CB595500A859B9 /* pestMonitoring_v0_5UITests.swift */; };
 		9590547E22CDF5F900A859B9 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9590547D22CDF5F900A859B9 /* HomeViewController.swift */; };
-		95DDD33522EFE39D00716219 /* EnvironViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DDD33422EFE39D00716219 /* EnvironViewController.swift */; };
+		95B567D42323732C007C47FE /* WSNMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B567D32323732C007C47FE /* WSNMenuController.swift */; };
+		95B567D62323739B007C47FE /* GeneralMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B567D52323739B007C47FE /* GeneralMenuController.swift */; };
+		95B567D823237642007C47FE /* DiseaseChildView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B567D723237642007C47FE /* DiseaseChildView.swift */; };
+		95B567DA23237DFA007C47FE /* Disease.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B567D923237DFA007C47FE /* Disease.swift */; };
 		95DDD33A22F16A9F00716219 /* FarmSummaryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DDD33922F16A9F00716219 /* FarmSummaryCollectionViewCell.swift */; };
 		95E211BE230BC04700ADF7B1 /* detailSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E211BD230BC04700ADF7B1 /* detailSubView.swift */; };
 		95E211C0230BD66A00ADF7B1 /* PagerTabStrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E211BF230BD66A00ADF7B1 /* PagerTabStrip.swift */; };
@@ -29,6 +32,9 @@
 		95E211C92313B64100ADF7B1 /* Pest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E211C82313B64100ADF7B1 /* Pest.swift */; };
 		95E211CB2313D0DA00ADF7B1 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E211CA2313D0DA00ADF7B1 /* HomeController.swift */; };
 		95E211CE231516D600ADF7B1 /* PestChildView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E211CD231516D600ADF7B1 /* PestChildView.swift */; };
+		95E211D023166A0C00ADF7B1 /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E211CF23166A0C00ADF7B1 /* CameraController.swift */; };
+		95E211D22316764800ADF7B1 /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E211D12316764800ADF7B1 /* RegistrationController.swift */; };
+		95E211D5231F993700ADF7B1 /* menuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E211D4231F993700ADF7B1 /* menuController.swift */; };
 		95FA428B22F94E6D00FDDAAF /* FarmDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FA428A22F94E6D00FDDAAF /* FarmDetailViewController.swift */; };
 		95FA428D22FA78EB00FDDAAF /* farmMenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FA428C22FA78EB00FDDAAF /* farmMenuBar.swift */; };
 		A1F80FED6ADBB7F733433ACB /* Pods_pestMonitoring_v0_5Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0789AE3E2BDB9EEA3413C6F5 /* Pods_pestMonitoring_v0_5Tests.framework */; };
@@ -73,7 +79,10 @@
 		9590546F22CB595500A859B9 /* pestMonitoring_v0_5UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pestMonitoring_v0_5UITests.swift; sourceTree = "<group>"; };
 		9590547122CB595500A859B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9590547D22CDF5F900A859B9 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		95DDD33422EFE39D00716219 /* EnvironViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironViewController.swift; sourceTree = "<group>"; };
+		95B567D32323732C007C47FE /* WSNMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSNMenuController.swift; sourceTree = "<group>"; };
+		95B567D52323739B007C47FE /* GeneralMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralMenuController.swift; sourceTree = "<group>"; };
+		95B567D723237642007C47FE /* DiseaseChildView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiseaseChildView.swift; sourceTree = "<group>"; };
+		95B567D923237DFA007C47FE /* Disease.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Disease.swift; sourceTree = "<group>"; };
 		95DDD33922F16A9F00716219 /* FarmSummaryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmSummaryCollectionViewCell.swift; sourceTree = "<group>"; };
 		95E211BD230BC04700ADF7B1 /* detailSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = detailSubView.swift; sourceTree = "<group>"; };
 		95E211BF230BD66A00ADF7B1 /* PagerTabStrip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerTabStrip.swift; sourceTree = "<group>"; };
@@ -83,6 +92,10 @@
 		95E211C82313B64100ADF7B1 /* Pest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pest.swift; sourceTree = "<group>"; };
 		95E211CA2313D0DA00ADF7B1 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		95E211CD231516D600ADF7B1 /* PestChildView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PestChildView.swift; sourceTree = "<group>"; };
+		95E211CF23166A0C00ADF7B1 /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
+		95E211D12316764800ADF7B1 /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
+		95E211D32318F62600ADF7B1 /* pestMonitoring_v0.5.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = pestMonitoring_v0.5.entitlements; sourceTree = "<group>"; };
+		95E211D4231F993700ADF7B1 /* menuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = menuController.swift; sourceTree = "<group>"; };
 		95FA428A22F94E6D00FDDAAF /* FarmDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmDetailViewController.swift; sourceTree = "<group>"; };
 		95FA428C22FA78EB00FDDAAF /* farmMenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = farmMenuBar.swift; sourceTree = "<group>"; };
 		AEC1E9E633298136EFD4238A /* Pods-pestMonitoring_v0.5Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pestMonitoring_v0.5Tests.debug.xcconfig"; path = "Target Support Files/Pods-pestMonitoring_v0.5Tests/Pods-pestMonitoring_v0.5Tests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -144,6 +157,7 @@
 		9590544B22CB595200A859B9 /* pestMonitoring_v0.5 */ = {
 			isa = PBXGroup;
 			children = (
+				95E211D32318F62600ADF7B1 /* pestMonitoring_v0.5.entitlements */,
 				95E211C7231378CF00ADF7B1 /* Lib */,
 				95DDD33822F1329000716219 /* Controller */,
 				95DDD33722F1328700716219 /* View */,
@@ -155,7 +169,6 @@
 				9590545822CB595500A859B9 /* LaunchScreen.storyboard */,
 				9590545B22CB595500A859B9 /* Info.plist */,
 				9590545322CB595200A859B9 /* pestMonitoring_v0_5.xcdatamodeld */,
-				95DDD33422EFE39D00716219 /* EnvironViewController.swift */,
 				95FA428A22F94E6D00FDDAAF /* FarmDetailViewController.swift */,
 			);
 			path = pestMonitoring_v0.5;
@@ -182,6 +195,7 @@
 		95DDD33622F1327800716219 /* Ｍodel */ = {
 			isa = PBXGroup;
 			children = (
+				95B567D923237DFA007C47FE /* Disease.swift */,
 				957C498422F1800100E304D8 /* Environment.swift */,
 				95E211C82313B64100ADF7B1 /* Pest.swift */,
 			);
@@ -205,6 +219,11 @@
 				95E211CA2313D0DA00ADF7B1 /* HomeController.swift */,
 				95E211BF230BD66A00ADF7B1 /* PagerTabStrip.swift */,
 				9590544E22CB595200A859B9 /* LoginViewController.swift */,
+				95E211CF23166A0C00ADF7B1 /* CameraController.swift */,
+				95E211D12316764800ADF7B1 /* RegistrationController.swift */,
+				95E211D4231F993700ADF7B1 /* menuController.swift */,
+				95B567D32323732C007C47FE /* WSNMenuController.swift */,
+				95B567D52323739B007C47FE /* GeneralMenuController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -223,6 +242,7 @@
 				95E211C1230BDBA300ADF7B1 /* ChildExampleViewController.swift */,
 				95E211C3230BF4D700ADF7B1 /* EnvironmentChildView.swift */,
 				95E211CD231516D600ADF7B1 /* PestChildView.swift */,
+				95B567D723237642007C47FE /* DiseaseChildView.swift */,
 			);
 			path = "Home Child Controllers";
 			sourceTree = "<group>";
@@ -322,6 +342,11 @@
 				TargetAttributes = {
 					9590544822CB595200A859B9 = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.AccessWiFi = {
+								enabled = 1;
+							};
+						};
 					};
 					9590545F22CB595500A859B9 = {
 						CreatedOnToolsVersion = 10.1;
@@ -471,22 +496,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95E211D023166A0C00ADF7B1 /* CameraController.swift in Sources */,
 				95E211BE230BC04700ADF7B1 /* detailSubView.swift in Sources */,
 				9590544F22CB595200A859B9 /* LoginViewController.swift in Sources */,
+				95E211D5231F993700ADF7B1 /* menuController.swift in Sources */,
+				95B567D823237642007C47FE /* DiseaseChildView.swift in Sources */,
 				95E211CE231516D600ADF7B1 /* PestChildView.swift in Sources */,
 				95FA428B22F94E6D00FDDAAF /* FarmDetailViewController.swift in Sources */,
 				9590545522CB595200A859B9 /* pestMonitoring_v0_5.xcdatamodeld in Sources */,
+				95B567D42323732C007C47FE /* WSNMenuController.swift in Sources */,
 				95E211CB2313D0DA00ADF7B1 /* HomeController.swift in Sources */,
 				95FA428D22FA78EB00FDDAAF /* farmMenuBar.swift in Sources */,
 				9590544D22CB595200A859B9 /* AppDelegate.swift in Sources */,
 				95E211C0230BD66A00ADF7B1 /* PagerTabStrip.swift in Sources */,
+				95E211D22316764800ADF7B1 /* RegistrationController.swift in Sources */,
 				957C498522F1800100E304D8 /* Environment.swift in Sources */,
+				95B567D62323739B007C47FE /* GeneralMenuController.swift in Sources */,
 				95E211C92313B64100ADF7B1 /* Pest.swift in Sources */,
 				95E211C4230BF4D700ADF7B1 /* EnvironmentChildView.swift in Sources */,
 				95E211C2230BDBA300ADF7B1 /* ChildExampleViewController.swift in Sources */,
 				95DDD33A22F16A9F00716219 /* FarmSummaryCollectionViewCell.swift in Sources */,
-				95DDD33522EFE39D00716219 /* EnvironViewController.swift in Sources */,
 				9590547E22CDF5F900A859B9 /* HomeViewController.swift in Sources */,
+				95B567DA23237DFA007C47FE /* Disease.swift in Sources */,
 				95E211C6230FE48C00ADF7B1 /* BalloonMarker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -665,6 +696,7 @@
 			baseConfigurationReference = 23DACA17CD3A46890DAAA1E3 /* Pods-pestMonitoring_v0.5.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = pestMonitoring_v0.5/pestMonitoring_v0.5.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4XBTV4A7AV;
 				INFOPLIST_FILE = pestMonitoring_v0.5/Info.plist;
@@ -672,7 +704,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.NTU.BIME.pestMonitoring-v0-5";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ntu.bime.pest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -684,6 +716,7 @@
 			baseConfigurationReference = 0D458413690CE2DDDA9EC935 /* Pods-pestMonitoring_v0.5.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = pestMonitoring_v0.5/pestMonitoring_v0.5.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4XBTV4A7AV;
 				INFOPLIST_FILE = pestMonitoring_v0.5/Info.plist;
@@ -691,7 +724,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.NTU.BIME.pestMonitoring-v0-5";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ntu.bime.pest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";

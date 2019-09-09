@@ -8,37 +8,89 @@
 
 import UIKit
 
+class FarmCell: NSObject{
+    var currentEnv: [String]?
+    var farmlabel: String?
+    var species: [String]?
+    var pestCount: [Int]?
+    
+}
+class PestCell: NSObject{
+    
+    var labels = [UILabel]()
+}
+
 class FarmSummaryCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var farmName: UILabel!
-    @IBOutlet weak var tempLabel: UILabel!
-    @IBOutlet weak var humidLabel: UILabel!
-    @IBOutlet weak var lightLabel: UILabel!
-    @IBOutlet weak var pestLabel1: UILabel!
     
     var loaction: String!
-    var currenctEnv: [String]? {
-        didSet {
-            setEnv(data: currenctEnv!)
+    
+    var pestSpecies: Int!
+    var data: FarmCell? {
+        didSet{
+            for view in contentView.subviews{
+                view.removeFromSuperview()
+            }
+            setupCell()
+            if data?.currentEnv != nil{
+                setEnv(data: (data?.currentEnv)!)
+            }
+            
+            if data?.farmlabel != nil{
+                setFarmName(farmName: (data?.farmlabel)!)
+            }
+            if data?.pestCount != nil{
+                if data?.pestCount?.count != 0{
+                    setPestCount(counts: (data?.pestCount)!)
+                }
+                
+            }
+            if data?.species != nil{
+                if data?.species?.count != 0{
+                    setPestLabel(species: (data?.species)!)
+                }
+            }
         }
     }
-    var farmLabel: String? {
+    var pest: PestCell? {
         didSet {
-            setFarmName(farmName: farmLabel!)
+            
         }
     }
-    var species: [String]? {
-        didSet {
-            setPestLabel(species: species!)
-        }
-    }
-    var count: [Int]? {
-        didSet {
-            setPestCount(counts: count!)
-        }
-    }
+
+    let farmLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = NSTextAlignment.center
+        return label
+    }()
+    let tempLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = NSTextAlignment.center
+        label.textColor = UIColor.red
+        return label
+    }()
+    let humidLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = NSTextAlignment.center
+        label.textColor = UIColor.blue
+        return label
+    }()
+    let lightLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = NSTextAlignment.center
+        label.textColor = UIColor.orange
+        return label
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        for views in contentView.subviews{
+            views.removeFromSuperview()
+        }
         setupCell()
     }
     func setupCell(){
@@ -46,30 +98,27 @@ class FarmSummaryCollectionViewCell: UICollectionViewCell {
         setTempImage()
         setHumidImage()
         setLightImage()
+        
     }
     func setEnv(data: [String]){
-        //let tempLabel = UILabel()
-        //let humidLabel = UILabel()
-        //let lightLabel = UILabel()
-        let colorTabel = [UIColor.red, UIColor.blue, UIColor.orange]
+        let labelArray = [tempLabel, humidLabel, lightLabel]
+        //let colorTabel = [UIColor.red, UIColor.blue, UIColor.orange]
         let labelDis = (Int(contentView.frame.width) - 160)/2
-        for i in 0..<data.count{
-            let dataLabel = UILabel()
-            dataLabel.text = data[i]
-            dataLabel.textAlignment = NSTextAlignment.center
-            dataLabel.translatesAutoresizingMaskIntoConstraints = false
-            dataLabel.textColor = colorTabel[i]
-            contentView.addSubview(dataLabel)
+        for i in 0..<labelArray.count{
+            labelArray[i].text = data[i]
+            contentView.addSubview(labelArray[i])
             contentView.addConstraints([
-                NSLayoutConstraint(item: dataLabel, attribute: .centerX, relatedBy: .equal, toItem: contentView, attribute: .left, multiplier: 1, constant: CGFloat(80+labelDis*i)),
-                NSLayoutConstraint(item: dataLabel, attribute: .centerY, relatedBy: .equal, toItem: contentView, attribute: .centerY, multiplier: 1, constant: -50),
-                NSLayoutConstraint(item: dataLabel, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 100),
-                NSLayoutConstraint(item: dataLabel, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 50)
+                NSLayoutConstraint(item: labelArray[i], attribute: .centerX, relatedBy: .equal, toItem: contentView, attribute: .left, multiplier: 1, constant: CGFloat(80+labelDis*i)),
+                NSLayoutConstraint(item: labelArray[i], attribute: .centerY, relatedBy: .equal, toItem: contentView, attribute: .centerY, multiplier: 1, constant: -50),
+                NSLayoutConstraint(item: labelArray[i], attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 100),
+                NSLayoutConstraint(item: labelArray[i], attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 50)
             ])
         }
         
         
     }
+    
+
     func setPestCount(counts: [Int]){
         let countLabelDis = Int(contentView.frame.width)/counts.count
         for i in 0..<counts.count {
@@ -86,11 +135,14 @@ class FarmSummaryCollectionViewCell: UICollectionViewCell {
                 NSLayoutConstraint(item: countLabel, attribute: .centerY, relatedBy: .equal, toItem: contentView, attribute: .centerY, multiplier: 1, constant: 50),
                 NSLayoutConstraint(item: countLabel, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 80),
                 NSLayoutConstraint(item: countLabel, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 50)
-                ])
+            ])
         }
     }
     func setPestLabel(species: [String]){
+        
         let speciesLabelDis = Int(contentView.frame.width)/species.count
+        
+        
         for i in 0..<species.count {
             let speciesLabel = UILabel()
             
@@ -109,17 +161,14 @@ class FarmSummaryCollectionViewCell: UICollectionViewCell {
         }
     }
     func setFarmName(farmName: String){
-        let farmLabel = UILabel()
         farmLabel.text = farmName
-        farmLabel.textAlignment = NSTextAlignment.center
-        farmLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(farmLabel)
         contentView.addConstraints([
             NSLayoutConstraint(item: farmLabel, attribute: .centerX, relatedBy: .equal, toItem: contentView, attribute: .centerX, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: farmLabel, attribute: .centerY, relatedBy: .equal, toItem: contentView, attribute: .centerY, multiplier: 1, constant: -150),
             NSLayoutConstraint(item: farmLabel, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 200),
             NSLayoutConstraint(item: farmLabel, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 50)
-            ])
+        ])
         
     }
     func setTempImage(){

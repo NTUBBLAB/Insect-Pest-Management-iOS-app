@@ -20,7 +20,7 @@ class Pest: NSObject {
     }
     func getCurrentPest(counts: @escaping ([String], [Int]) -> Void){
         
-        self.getDbNumber(dbUrl: "http://140.112.94.123:20000/PEST_DETECT/_android/get_number_of_dbs.php?location" + farm!) { (result) in
+        self.getDbNumber(dbUrl: "http://140.112.94.123:20000/PEST_DETECT/_android/get_number_of_dbs.php?location=" + farm!) { (result) in
             let url = URL(string: "http://140.112.94.123:20000/PEST_DETECT/_app/data_insect_current.php?db=" + result + "&loc=" + self.farm!)
             URLSession.shared.dataTask(with: url!){ (data: Data?, response: URLResponse?, error: Error?) in
                 if error != nil{

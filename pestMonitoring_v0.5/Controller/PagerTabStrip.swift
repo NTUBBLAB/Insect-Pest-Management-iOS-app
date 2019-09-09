@@ -16,9 +16,14 @@ class PagerTabStrip: ButtonBarPagerTabStripViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        settings.style.buttonBarItemBackgroundColor = .blue
-        buttonBarView.selectedBar.backgroundColor = .white
-        buttonBarView.backgroundColor = UIColor(red: 0, green: 0, blue: 1, alpha: 1)
+        navigationItem.title = location
+        settings.style.buttonBarItemBackgroundColor = .white
+        settings.style.buttonBarItemTitleColor = .blue
+        settings.style.selectedBarBackgroundColor = .blue
+        
+        buttonBarView.selectedBar.backgroundColor = .blue
+        
+        buttonBarView.backgroundColor = UIColor.white
         
         //buttonBarView.tintColor = UIColor.blue
     }
@@ -30,14 +35,14 @@ class PagerTabStrip: ButtonBarPagerTabStripViewController {
         EnvironChildView.location = self.location
         let pestChildView = PestChildView(itemInfo: "Pest")
         pestChildView.location = self.location
-        let child_4 = ChildExampleViewController(itemInfo: "Weather")
-        let child_8 = ChildExampleViewController(itemInfo: "Disease")
+        let diseaseChildView = DiseaseChildView(itemInfo: "Disease")
+        diseaseChildView.location = self.location
         
         guard isReload else {
-            return [EnvironChildView, child_4, pestChildView, child_8]
+            return [pestChildView, EnvironChildView, diseaseChildView]
         }
         
-        var childViewControllers = [EnvironChildView, child_4, pestChildView, child_8]
+        var childViewControllers = [pestChildView, EnvironChildView, diseaseChildView]
         
         for index in childViewControllers.indices {
             let nElements = childViewControllers.count - index

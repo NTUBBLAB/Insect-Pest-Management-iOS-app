@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class login_ViewController: UIViewController {
     
@@ -23,6 +24,7 @@ class login_ViewController: UIViewController {
     @IBOutlet weak var account: UITextField!
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var banner: UIImageView!
+    
     @IBAction func buttonaction(_ sender: Any) {
         GV.autologin = 0
         let input = account.text!+password.text!
@@ -33,43 +35,59 @@ class login_ViewController: UIViewController {
         }
         else if numberOfWhitespaceCharacters == 0 {
             let defaults = UserDefaults.standard
-            if remember?.isOn == true {
-                GV.autologin = 0
-                defaults.set(account.text!,forKey: "accountkey")
-                defaults.set(password.text!,forKey: "passwordkey")
-                defaults.set("0",forKey:"autologin")
-                defaults.synchronize()
-            }
-            if remember?.isOn == false{
-                defaults.removeObject(forKey: "accountkey")
-                defaults.removeObject(forKey: "passwordkey")
-                
-                defaults.synchronize()
-            }
-            if(account.text!=="admin" && password.text!=="admin101"){
-                GV.location = "admin"
-                self.performSegue(withIdentifier:"login",sender:self)
-            }
-            let url : String = "http://140.112.94.123:20000/PEST_DETECT/_android/get_login.php?username="+account.text!+"&password="+password.text!
-            requesturl(url: url) { (result) in
-                GV.location = result
-                print(GV.location!)
-                if (self.account.text!=="admin"){ GV.location = "admin"}
-                DispatchQueue.main.sync {
-                    if(GV.location == "CHIAYI_GH"){
-                        self.toastView(messsage: "嘉義", view: self.view)
-                    }
-                    if(GV.location == "YUNLIN_GH"){
-                        self.toastView(messsage: "雲林", view: self.view)
-                    }
-                    if(GV.location == "none"){
-                        self.toastView(messsage: "帳號密碼錯誤", view: self.view)
-                    }
-                    if(GV.location != "none"){
-                        self.performSegue(withIdentifier:"login",sender:self)
-                    }
+//            if remember?.isOn == true {
+//                GV.autologin = 0
+//                defaults.set(account.text!,forKey: "accountkey")
+//                defaults.set(password.text!,forKey: "passwordkey")
+//                defaults.set("0",forKey:"autologin")
+//                defaults.synchronize()
+//            }
+//            if remember?.isOn == false{
+//                defaults.removeObject(forKey: "accountkey")
+//                defaults.removeObject(forKey: "passwordkey")
+//
+//                defaults.synchronize()
+//            }
+//            if(account.text!=="admin" && password.text!=="admin101"){
+//                GV.location = "admin"
+//                self.performSegue(withIdentifier:"login",sender:self)
+//            }
+            let postJson: [String: Any] = ["username": account.text!, "password": password.text!]
+            //print(postJson)
+            let jsonData = try? JSONSerialization.data(withJSONObject: postJson)
+            let loginURL = URL(string: "http://140.112.94.123:20000/PEST_DETECT/account/login.php")
+            var request = URLRequest(url: loginURL!)
+            request.httpMethod = "POST"
+            request.httpBody = jsonData
+            print("GET Location")
+            URLSession.shared.dataTask(with: request){ (data: Data?, response: URLResponse?, error: Error?) in
+                if error != nil{
+                    print(error!)
+                    return
                 }
-            }
+                do{
+                    
+                    let json = try JSON(data: data!)
+                    if json["status"] == 0{
+                        print("success")
+                        self.performSegue(withIdentifier: "login", sender: self)
+                    }
+                    else{
+                        return
+                    }
+                    
+                    print(json)
+                    let locations = json["locations"].arrayObject as! [String]
+                    defaults.set(locations, forKey: "locations")
+                    defaults.synchronize()
+                    
+                }
+                catch let jsonerror{
+                    print(jsonerror)
+                    
+                }
+                
+            }.resume()
         }
     }
     override func viewDidLoad() {
@@ -151,7 +169,7 @@ class login_ViewController: UIViewController {
     }
     
     @objc func dismisskeyboard(){
-        print("AAAAAAAAAAAAAAAAAAAAAAAa")
+        //print("AAAAAAAAAAAAAAAAAAAAAAAa")
         view.endEditing(true)
     }
     
@@ -197,14 +215,5 @@ class login_ViewController: UIViewController {
     }
     
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
 }

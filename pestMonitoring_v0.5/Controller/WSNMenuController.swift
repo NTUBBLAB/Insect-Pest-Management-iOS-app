@@ -1,19 +1,20 @@
 //
-//  detailSubView.swift
+//  WSNMenuController.swift
 //  pestMonitoring_v0.5
 //
-//  Created by Lab405 on 2019/8/20.
+//  Created by Lab405 on 2019/9/7.
 //  Copyright © 2019年 Lab405. All rights reserved.
 //
 
 import UIKit
 
-class detailSubView: UIViewController {
-    @IBOutlet weak var testLabel: UILabel!
-    var labelName: String = ""
+class WSNMenuController: UIViewController {
+
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        testLabel.text = "123"
+
         // Do any additional setup after loading the view.
     }
     
