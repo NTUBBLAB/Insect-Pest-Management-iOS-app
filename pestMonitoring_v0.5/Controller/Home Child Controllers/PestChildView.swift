@@ -48,18 +48,26 @@ class PestChildView: UIViewController, IndicatorInfoProvider {
         pest.getDailyPest(){ (dates, values, species) in
             DispatchQueue.main.async {
                 var date = [String]()
+                var valueInt = [Int]()
                 for day in dates{
                     let temp = day.components(separatedBy: ["-", " ", "'"])
                     date.append(temp[2] + "-" + temp[3])
                     print(temp[2] + "-" + temp[3])
                 }
+//                for spec in species{
+//                    for val in values[spec]{
+//
+//                    }
+//                }
+                
                 for i in 0..<species.count{
-                    self.drawPestCharts(dates: date, values: values[species[i]] as! [Int], num: i, scrollView: scrollView, species: species[i])
+                    
+                    self.drawPestCharts(dates: date, values: values[species[i]] as! [Double], num: i, scrollView: scrollView, species: species[i])
                 }
             }
         }
     }
-    func drawPestCharts(dates: [String], values: [Int], num: Int, scrollView: UIScrollView, species: String){
+    func drawPestCharts(dates: [String], values: [Double], num: Int, scrollView: UIScrollView, species: String){
         let barView = UIView(frame: CGRect(x: 10, y: 270*num+20, width: Int(scrollView.frame.width-20), height: 250))
         let barTitle = UILabel(frame: CGRect(x: 10, y:0, width: 100, height:50))
         let barInfo = UILabel(frame: CGRect(x: 250, y: 0, width: Int(scrollView.frame.width-270), height: 200))
@@ -127,7 +135,7 @@ class PestChildView: UIViewController, IndicatorInfoProvider {
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
         return itemInfo
     }
-    func setPestInfo(data: [Int], infoLabel: UILabel, species: String){
+    func setPestInfo(data: [Double], infoLabel: UILabel, species: String){
         let countLabel = UILabel(frame: CGRect(x: 5, y: 5, width: 30, height: 50))
         let image = UIImage(named: "insect_" + species)
         let pestImage = UIImageView(frame: CGRect(x: 35, y: 5, width: 50, height: 50))

@@ -1,0 +1,114 @@
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "2Wc-79-m5y"; */
+"2Wc-79-m5y.normalTitle" = "Button";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "8xn-1U-KFj"; */
+"8xn-1U-KFj.normalTitle" = "Button";
+
+/* Class = "UITextField"; placeholder = "Confirm your password"; ObjectID = "CRx-z5-zGI"; */
+"CRx-z5-zGI.placeholder" = "確認密碼";
+
+/* Class = "UITextField"; placeholder = "Create a password"; ObjectID = "DgP-j4-EFY"; */
+"DgP-j4-EFY.placeholder" = "建立密碼";
+
+/* Class = "UINavigationItem"; title = "NTU IPM"; ObjectID = "DrG-x0-ebq"; */
+"DrG-x0-ebq.title" = "NTU IPM";
+
+/* Class = "UILabel"; text = "Plant disease camera"; ObjectID = "EMV-kC-A4r"; */
+"EMV-kC-A4r.text" = "病害辨識";
+
+/* Class = "UILabel"; text = "Add location"; ObjectID = "HyA-Fr-yh0"; */
+"HyA-Fr-yh0.text" = "新增地點";
+
+/* Class = "UILabel"; text = "Library"; ObjectID = "OUV-yZ-jWx"; */
+"OUV-yZ-jWx.text" = "病蟲害圖鑑";
+
+/* Class = "UILabel"; text = "Create account"; ObjectID = "PH6-YZ-1wZ"; */
+"PH6-YZ-1wZ.text" = "新增帳號";
+
+/* Class = "UITabBarItem"; title = "Settings"; ObjectID = "QPd-a7-OZW"; */
+"QPd-a7-OZW.title" = "設定";
+
+/* Class = "UIButton"; normalTitle = "Create your account"; ObjectID = "Qbw-g2-hWa"; */
+"Qbw-g2-hWa.normalTitle" = "新增您的帳號";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "QcZ-ne-NEG"; */
+"QcZ-ne-NEG.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Weather"; ObjectID = "QvB-kc-yoO"; */
+"QvB-kc-yoO.text" = "天氣";
+
+/* Class = "UILabel"; text = "記住我"; ObjectID = "RdJ-lN-FQ4"; */
+"RdJ-lN-FQ4.text" = "記住我";
+
+/* Class = "UINavigationItem"; title = "NTU IPM"; ObjectID = "TDE-5y-e2A"; */
+"TDE-5y-e2A.title" = "NTU IPM";
+
+/* Class = "UINavigationItem"; title = "Pest Detect"; ObjectID = "TNa-mB-ZGR"; */
+"TNa-mB-ZGR.title" = "Pest Detect";
+
+/* Class = "UILabel"; text = "Forum"; ObjectID = "TrU-6Y-bCl"; */
+"TrU-6Y-bCl.text" = "討論區";
+
+/* Class = "UITextField"; placeholder = "E-mail"; ObjectID = "VBf-3B-WNq"; */
+"VBf-3B-WNq.placeholder" = "E-mail";
+
+/* Class = "UINavigationItem"; title = "NTU IPM"; ObjectID = "YpC-OQ-ejl"; */
+"YpC-OQ-ejl.title" = "NTU IPM";
+
+/* Class = "UILabel"; text = "Dashboard"; ObjectID = "Zfp-G0-3l3"; */
+"Zfp-G0-3l3.text" = "儀表板";
+
+/* Class = "UITabBarItem"; title = "WSN tools"; ObjectID = "Zi8-ez-i4a"; */
+"Zi8-ez-i4a.title" = "WSN 工具";
+
+/* Class = "UIBarButtonItem"; title = "logout"; ObjectID = "eLy-fX-Y5R"; */
+"eLy-fX-Y5R.title" = "登出";
+
+/* Class = "UILabel"; text = "Coming Soon"; ObjectID = "eNY-Yd-cP5"; */
+"eNY-Yd-cP5.text" = "Coming Soon";
+
+/* Class = "UIBarButtonItem"; title = "logout"; ObjectID = "ezq-cj-hbj"; */
+"ezq-cj-hbj.title" = "登出";
+
+/* Class = "UITextField"; placeholder = "Name"; ObjectID = "h74-X7-SIg"; */
+"h74-X7-SIg.placeholder" = "姓名";
+
+/* Class = "UIButton"; normalTitle = "註冊"; ObjectID = "kvL-jJ-f3o"; */
+"kvL-jJ-f3o.normalTitle" = "註冊";
+
+/* Class = "UITabBarItem"; title = "General tools"; ObjectID = "m2M-ap-a4x"; */
+"m2M-ap-a4x.title" = "一般工具";
+
+/* Class = "UITextField"; placeholder = "Contact number"; ObjectID = "mSE-yI-9dT"; */
+"mSE-yI-9dT.placeholder" = "聯絡電話";
+
+/* Class = "UIButton"; normalTitle = "登入"; ObjectID = "nID-qF-wRX"; */
+"nID-qF-wRX.normalTitle" = "登入";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "oBw-7L-sBT"; */
+"oBw-7L-sBT.normalTitle" = "Button";
+
+/* Class = "UINavigationItem"; title = "Home"; ObjectID = "qdz-Iz-qZs"; */
+"qdz-Iz-qZs.title" = "首頁";
+
+/* Class = "UITextField"; placeholder = "Username"; ObjectID = "rJA-b6-IUV"; */
+"rJA-b6-IUV.placeholder" = "使用者名稱";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "rTw-tS-PcO"; */
+"rTw-tS-PcO.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Sticky paper camera"; ObjectID = "vFF-xv-gne"; */
+"vFF-xv-gne.text" = "黏蟲紙辨識";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "vy1-xv-LB6"; */
+"vy1-xv-LB6.normalTitle" = "Button";
+
+/* Class = "UIButton"; normalTitle = "Sign in"; ObjectID = "xAC-bP-mnv"; */
+"xAC-bP-mnv.normalTitle" = "登入";
+
+/* Class = "UIButton"; normalTitle = "Camera"; ObjectID = "xsg-Mp-DxJ"; */
+"xsg-Mp-DxJ.normalTitle" = "Camera";
+
+/* Class = "UILabel"; text = "Already have an account?"; ObjectID = "ya2-nj-Mf3"; */
+"ya2-nj-Mf3.text" = "已經有帳號了嗎?";
