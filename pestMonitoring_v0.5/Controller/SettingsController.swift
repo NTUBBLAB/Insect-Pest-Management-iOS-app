@@ -9,10 +9,31 @@
 import UIKit
 
 class SettingsController: UITableViewController {
-
+    let defaults = UserDefaults.standard
+    @IBOutlet weak var autoLogin: UISwitch!
+    @IBAction func changed(_ sender: Any) {
+        if autoLogin.isOn{
+            
+            defaults.set("1", forKey: "autoLogin")
+            defaults.synchronize()
+        }
+        else{
+            defaults.set("0", forKey: "autoLogin")
+            defaults.synchronize()
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        if autoLogin.isOn{
+            
+            defaults.set("1", forKey: "autoLogin")
+            defaults.synchronize()
+        }
+        else{
+            defaults.set("0", forKey: "autoLogin")
+            defaults.synchronize()
+        }
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -24,14 +45,19 @@ class SettingsController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 3
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 3
+        return 2
     }
-    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(indexPath.row)
+        if indexPath.row == 1{
+            self.performSegue(withIdentifier: "logout", sender: self)
+        }
+    }
     
 //    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 //        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)

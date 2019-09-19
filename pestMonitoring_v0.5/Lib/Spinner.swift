@@ -1,0 +1,24 @@
+//
+//  Spinner.swift
+//  pestMonitoring_v0.5
+//
+//  Created by Lab405 on 2019/9/19.
+//  Copyright © 2019年 Lab405. All rights reserved.
+//
+
+import UIKit
+
+struct Spinner{
+    //var spinner: UIView
+    func setSpinnerView(view: UIView) -> UIView{
+        let spinnerView = UIView.init(frame: view.bounds)
+        spinnerView.backgroundColor = UIColor.init(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
+        let ai = UIActivityIndicatorView.init(style: .whiteLarge)
+        ai.startAnimating()
+        ai.center = spinnerView.center
+        spinnerView.addSubview(ai)
+        view.addSubview(spinnerView)
+        
+        return spinnerView
+    }
+}

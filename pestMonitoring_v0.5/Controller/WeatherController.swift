@@ -206,9 +206,8 @@ class WeatherController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
                 let json = try JSON(data: data!)
                 //print(json)
                 
-                //let time = json["output"]["data"][0]["obsTime"].stringValue.components(separatedBy: ["T"])
                 let humid = Int(json["output"]["data"][0]["humd"].doubleValue*100)
-                //print(json["output"]["data"][0]["humd"].String)
+                
                 DispatchQueue.main.async {
                     self.currentTemp.text = json["output"]["data"][0]["temp"].stringValue + " °C"
                     self.currentHumid.text = String(humid) + " %RH"
@@ -247,6 +246,8 @@ class WeatherController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     }
     func getForecasts(){
         let url = URL(string: "https://agriapi.tari.gov.tw/api/CWB_PreWeathers/predictions?postalCode=" + self.postCode + "&eleName=" + "T" + "&projectkey=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9qZWN0bmFtZSI6IlBlc3RfMDEiLCJuYW1lIjoiTlRVQkJMQUJfUGVzdCIsImlhdCI6MTU1NzEwNjQxMX0.u3udopC3XGpV0sRy_olvuFx-mTPnrUY5c4E0y1bgx0A")
+        let spinner = Spinner()
+        let spinnerView = spinner.setSpinnerView(view: view)
         URLSession.shared.dataTask(with: url!) { (data: Data?, response: URLResponse?, error: Error?) in
             if error != nil{
                 print(error!)
@@ -272,6 +273,7 @@ class WeatherController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
                 //print(dateArray)
                 dateArray = dateArray.sorted(by: {$0.0 < $1.0})
                 DispatchQueue.main.async {
+                    spinnerView.removeFromSuperview()
                     self.setForecasts(data: dateArray)
                 }
 
@@ -304,6 +306,7 @@ class WeatherController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
             let dayLabel = UILabel(frame: CGRect(x: views[i]!.frame.width-100, y: (views[i]!.frame.height - 20) / 2, width: 50, height: 20))
             let nightLabel = UILabel(frame: CGRect(x: views[i]!.frame.width-50, y: (views[i]!.frame.height - 20) / 2, width: 50, height: 20))
             let dateLabel = UILabel(frame: CGRect(x: 10, y: (views[i]!.frame.height - 20) / 2, width: 150, height: 20))
+            
             views[i]?.addSubview(dayLabel)
             views[i]?.addSubview(nightLabel)
             views[i]?.addSubview(dateLabel)
@@ -315,9 +318,7 @@ class WeatherController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
             dayLabel.textColor = .black
             nightLabel.textColor = .gray
             
-            
         }
     }
     
-
 }

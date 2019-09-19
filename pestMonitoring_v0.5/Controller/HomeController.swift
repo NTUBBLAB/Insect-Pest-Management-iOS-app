@@ -29,6 +29,8 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
             let env = Environment(location: loc)
             let cell = FarmCell()
             cell.farmlabel = loc
+            let spinner = Spinner()
+            let spinnerView = spinner.setSpinnerView(view: view)
             env.getDbNumber(dbUrl: "http://140.112.94.123:20000/PEST_DETECT/_android/get_number_of_dbs.php?location" + loc){ (result) in
                 let url = URL(string: "http://140.112.94.123:20000/PEST_DETECT/_app/data_envi_current.php?db=" + result + "&loc=" + loc)
                 // print(url)
@@ -39,10 +41,10 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
                     }
                     do{
                         //print("GETTING CURRENT ENVS")
+                        
                         let currentEnvJson = try JSON(data: data!)
                         
                         if currentEnvJson["status"] == 3{
-                            
                             let currentTemp = currentEnvJson["values"][0].stringValue
                             let currentHumid = currentEnvJson["values"][1].stringValue
                             let currentLight = currentEnvJson["values"][2].stringValue
@@ -56,6 +58,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
                         }
                         //self.farmCell.append(cell)
                         DispatchQueue.main.async {
+                            spinnerView.removeFromSuperview()
                             self.collectionView.reloadData()
                         }
                     }

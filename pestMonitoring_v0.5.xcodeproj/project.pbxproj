@@ -23,9 +23,9 @@
 		95B567D62323739B007C47FE /* GeneralMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B567D52323739B007C47FE /* GeneralMenuController.swift */; };
 		95B567D823237642007C47FE /* DiseaseChildView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B567D723237642007C47FE /* DiseaseChildView.swift */; };
 		95B567DA23237DFA007C47FE /* Disease.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B567D923237DFA007C47FE /* Disease.swift */; };
-		95B567DE232A437A007C47FE /* SettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B567DD232A437A007C47FE /* SettingController.swift */; };
 		95B567E0232F32F0007C47FE /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B567DF232F32F0007C47FE /* SettingsController.swift */; };
 		95B567E2232F74EF007C47FE /* WeatherController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B567E1232F74EF007C47FE /* WeatherController.swift */; };
+		95B567E423335902007C47FE /* Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B567E323335902007C47FE /* Spinner.swift */; };
 		95DDD33A22F16A9F00716219 /* FarmSummaryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DDD33922F16A9F00716219 /* FarmSummaryCollectionViewCell.swift */; };
 		95E211BE230BC04700ADF7B1 /* detailSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E211BD230BC04700ADF7B1 /* detailSubView.swift */; };
 		95E211C0230BD66A00ADF7B1 /* PagerTabStrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E211BF230BD66A00ADF7B1 /* PagerTabStrip.swift */; };
@@ -88,9 +88,9 @@
 		95B567D923237DFA007C47FE /* Disease.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Disease.swift; sourceTree = "<group>"; };
 		95B567DB2327375D007C47FE /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
 		95B567DC2327375E007C47FE /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
-		95B567DD232A437A007C47FE /* SettingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingController.swift; sourceTree = "<group>"; };
 		95B567DF232F32F0007C47FE /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		95B567E1232F74EF007C47FE /* WeatherController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherController.swift; sourceTree = "<group>"; };
+		95B567E323335902007C47FE /* Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
 		95DDD33922F16A9F00716219 /* FarmSummaryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmSummaryCollectionViewCell.swift; sourceTree = "<group>"; };
 		95E211BD230BC04700ADF7B1 /* detailSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = detailSubView.swift; sourceTree = "<group>"; };
 		95E211BF230BD66A00ADF7B1 /* PagerTabStrip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerTabStrip.swift; sourceTree = "<group>"; };
@@ -232,7 +232,6 @@
 				95E211D4231F993700ADF7B1 /* menuController.swift */,
 				95B567D32323732C007C47FE /* WSNMenuController.swift */,
 				95B567D52323739B007C47FE /* GeneralMenuController.swift */,
-				95B567DD232A437A007C47FE /* SettingController.swift */,
 				95B567DF232F32F0007C47FE /* SettingsController.swift */,
 				95B567E1232F74EF007C47FE /* WeatherController.swift */,
 			);
@@ -243,6 +242,7 @@
 			isa = PBXGroup;
 			children = (
 				95E211C5230FE48C00ADF7B1 /* BalloonMarker.swift */,
+				95B567E323335902007C47FE /* Spinner.swift */,
 			);
 			path = Lib;
 			sourceTree = "<group>";
@@ -521,10 +521,10 @@
 				95E211CB2313D0DA00ADF7B1 /* HomeController.swift in Sources */,
 				95FA428D22FA78EB00FDDAAF /* farmMenuBar.swift in Sources */,
 				9590544D22CB595200A859B9 /* AppDelegate.swift in Sources */,
-				95B567DE232A437A007C47FE /* SettingController.swift in Sources */,
 				95E211C0230BD66A00ADF7B1 /* PagerTabStrip.swift in Sources */,
 				95E211D22316764800ADF7B1 /* RegistrationController.swift in Sources */,
 				957C498522F1800100E304D8 /* Environment.swift in Sources */,
+				95B567E423335902007C47FE /* Spinner.swift in Sources */,
 				95B567D62323739B007C47FE /* GeneralMenuController.swift in Sources */,
 				95E211C92313B64100ADF7B1 /* Pest.swift in Sources */,
 				95E211C4230BF4D700ADF7B1 /* EnvironmentChildView.swift in Sources */,

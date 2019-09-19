@@ -9,7 +9,7 @@
 import Foundation
 import XLPagerTabStrip
 import Charts
-
+import SwiftyJSON
 class DiseaseChildView: UIViewController, IndicatorInfoProvider {
     
     var itemInfo: IndicatorInfo = "View"
@@ -18,7 +18,10 @@ class DiseaseChildView: UIViewController, IndicatorInfoProvider {
     var values = [Double]()
     var dates = [String]()
     var crops = [String]()
-    var disease_name = ""
+    var disease_name = "Tomato"
+    
+    var currentIR = ""
+    var currentAlarm = 1.0
     
     init(itemInfo: IndicatorInfo) {
         self.itemInfo = itemInfo
@@ -75,17 +78,18 @@ class DiseaseChildView: UIViewController, IndicatorInfoProvider {
                 self.dates = dates
                 self.crops = result[3] as! [String]
                 self.disease_name = result[0] as! String
-                
+                //print(self.disease_name)
+                self.currentIR = String(self.values[self.values.count - 1])
                 self.drawCharts(scrollView: scrollView)
             }
         }
         
     }
     func drawCharts(scrollView: UIScrollView){
-        let view1 = UIView(frame: CGRect(x: 10, y: 20, width: self.view.frame.width-20, height: 500))
-        let title = UILabel(frame: CGRect(x: 10, y: 0, width: 200, height: 50))
-        let infoLabel = UILabel(frame: CGRect(x: 250, y: 50, width: self.view.frame.width-270, height: 500))
-        //setText(infoView: infoLabel, data: Temp, type: "T")
+        let view1 = UIView(frame: CGRect(x: 10, y: 20, width: self.view.frame.width - 20, height: 500))
+        let title = UILabel(frame: CGRect(x: 0, y: 0, width: view1.frame.width, height: 30))
+        let infoLabel = UILabel(frame: CGRect(x: 260, y: 50, width: self.view.frame.width - 270, height: 200))
+        setText(infoLabel: infoLabel)
         
         let lineChart = LineChartView()
         lineChart.translatesAutoresizingMaskIntoConstraints = false
@@ -98,8 +102,9 @@ class DiseaseChildView: UIViewController, IndicatorInfoProvider {
             lineChartEntry.append(value)
         }
         let line1 = LineChartDataSet(entries: lineChartEntry, label: "temperature")
-        line1.colors = [NSUIColor.red]
-        line1.drawCirclesEnabled = false
+        line1.colors = [NSUIColor.blue]
+        line1.drawCirclesEnabled = true
+        line1.circleRadius = 2
         line1.drawValuesEnabled = false
         //let tempDataset = ChartDataSet(entries: lineChartEntry, label: "temperature")
         //let tempData = ChartData(dataSet: tempDataset)
@@ -108,7 +113,7 @@ class DiseaseChildView: UIViewController, IndicatorInfoProvider {
         //axis
         lineChart.xAxis.drawGridLinesEnabled = false
         lineChart.leftAxis.drawGridLinesEnabled = false
-        
+        //lineChart.leftAxis.valueFormatter =
         lineChart.rightAxis.enabled = false
         //lineChart.xAxis.drawLabelsEnabled = false
         lineChart.xAxis.labelPosition = XAxis.LabelPosition.bottom
@@ -137,24 +142,35 @@ class DiseaseChildView: UIViewController, IndicatorInfoProvider {
         scrollView.addConstraint(NSLayoutConstraint(item: view1, attribute: .centerX, relatedBy: .equal, toItem: scrollView, attribute: .centerX, multiplier: 1, constant: 0))
         
         drawShadow(view: view1)
+        let IRLabel = UILabel(frame: CGRect(x: 5, y: 30, width: 200, height: 20))
+        IRLabel.text = "累積三日罹病指數"
+        let DSVLabel = UILabel(frame: CGRect(x: 5, y: 270, width: 200, height: 20))
+        DSVLabel.text = "警戒指數"
+        //IRLabel.transform = CGAffineTransform(rotationAngle: .pi / 2)
+        view1.addSubview(IRLabel)
+        view1.addSubview(DSVLabel)
         
         view1.addSubview(lineChart)
         view1.backgroundColor = .white
-        view1.addConstraints([NSLayoutConstraint(item: lineChart, attribute: .left, relatedBy: .equal, toItem: view1, attribute: .left, multiplier: 1, constant: 0),
+        view1.addConstraints([NSLayoutConstraint(item: lineChart, attribute: .left, relatedBy: .equal, toItem: view1, attribute: .left, multiplier: 1, constant: 5),
                               NSLayoutConstraint(item: lineChart, attribute: .top, relatedBy: .equal, toItem: view1, attribute: .top, multiplier: 1, constant: 50),
                               NSLayoutConstraint(item: lineChart, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 250),
                               NSLayoutConstraint(item: lineChart, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 200)])
         view1.addSubview(barChart)
-        view1.addConstraints([NSLayoutConstraint(item: barChart, attribute: .left, relatedBy: .equal, toItem: view1, attribute: .left, multiplier: 1, constant: 0),
-                              NSLayoutConstraint(item: barChart, attribute: .top, relatedBy: .equal, toItem: view1, attribute: .top, multiplier: 1, constant: 300),
+        view1.addConstraints([NSLayoutConstraint(item: barChart, attribute: .left, relatedBy: .equal, toItem: view1, attribute: .left, multiplier: 1, constant: 5),
+                              NSLayoutConstraint(item: barChart, attribute: .top, relatedBy: .equal, toItem: view1, attribute: .top, multiplier: 1, constant: 290),
                               NSLayoutConstraint(item: barChart, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 250),
                               NSLayoutConstraint(item: barChart, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 200)])
         view1.addSubview(title)
         title.text = self.disease_name
         title.textColor = .red
+        title.textAlignment = .center
         title.backgroundColor = .white
         
+        
         view1.addSubview(infoLabel)
+        //infoLabel.text = alarms[Int(setLevels(data: self.values[self.values.count - 1]) - 1)]
+        //infoLabel.textColor = setColors(data: setLevels(data: self.values[self.values.count - 1]))
     }
     // MARK: - IndicatorInfoProvider
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
@@ -178,15 +194,19 @@ class DiseaseChildView: UIViewController, IndicatorInfoProvider {
         barChart.noDataText = "No data available"
         
         var pestDataEntry = [BarChartDataEntry]()
-        
+        var levels = [Double]()
         for i in 0..<self.values.count{
-            let dataEntry = BarChartDataEntry(x: Double(i), y: Double(values[i]), data: self.dates[i])
+            let level = setLevels(data: Double(values[i]))
+            
+            let dataEntry = BarChartDataEntry(x: Double(i), y: level, data: self.dates[i])
             pestDataEntry.append(dataEntry)
+            levels.append(level)
         }
+        self.currentAlarm = levels[levels.count-1]
         let bar = BarChartDataSet(entries: pestDataEntry, label: "count")
         var colors = [UIColor]()
-        for i in 0..<self.values.count{
-            colors.append(setColors(data: self.values[i]))
+        for i in 0..<levels.count{
+            colors.append(setColors(data: levels[i]))
         }
         bar.colors = colors
         //bar.colors = [UIColor(red: 0, green: 0.4588, blue: 0.1059, alpha: 1.0)] //dark green
@@ -196,7 +216,9 @@ class DiseaseChildView: UIViewController, IndicatorInfoProvider {
         
         barChart.xAxis.drawGridLinesEnabled = false
         barChart.leftAxis.drawGridLinesEnabled = false
-        
+        barChart.leftAxis.axisMaximum = 5
+        barChart.leftAxis.axisMinimum = 0
+        barChart.leftAxis.granularity = 1
         barChart.rightAxis.enabled = false
         //lineChart.xAxis.drawLabelsEnabled = false
         barChart.xAxis.labelPosition = XAxis.LabelPosition.bottom
@@ -213,6 +235,28 @@ class DiseaseChildView: UIViewController, IndicatorInfoProvider {
         barChart.data = barData
         barChart.animate(xAxisDuration: 0.5)
         return barChart
+    }
+    func setLevels(data: Double) -> Double{
+       
+        if data <= 2.88{
+            return 1
+        }
+        else if data <= 5.76 && data > 2.88{
+            
+            return 2
+        }
+        else if data <= 8.64 && data > 5.76{
+            
+            return 3
+        }
+        else if data <= 11.52 && data > 8.64{
+            
+            return 4
+        }
+        else{
+            return 5
+        }
+        
     }
     
     func setColors(data: Double) -> UIColor{
@@ -236,6 +280,22 @@ class DiseaseChildView: UIViewController, IndicatorInfoProvider {
             return UIColor.red
         }
         
+    }
+    func setText(infoLabel: UILabel){
+        infoLabel.numberOfLines = 0
+        let alarms = ["低", "警戒", "較高", "高", "嚴重"]
+        
+        let line1 = "罹病指數"
+        let line2 = self.currentIR
+        let line3 = "警戒指數"
+        let line4 = alarms[Int(self.currentAlarm) - 1]
+        
+        let attributeString = NSMutableAttributedString(string: line1 + "\n" + line2 + "\n" + "\n" + line3 + "\n" + line4)
+        attributeString.addAttributes([NSAttributedString.Key.foregroundColor: setColors(data: Double(self.currentAlarm)), NSAttributedString.Key.font: UIFont.systemFont(ofSize: 30)], range: NSRange(location: line1.count+line2.count+line3.count + 4, length: line4.count))
+        attributeString.addAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: 30)], range: NSRange(location: line1.count + 1, length: line2.count))
+        
+        infoLabel.textAlignment = NSTextAlignment.center
+        infoLabel.attributedText = attributeString
     }
     
 }

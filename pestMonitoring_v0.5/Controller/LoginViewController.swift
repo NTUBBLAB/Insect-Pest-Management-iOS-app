@@ -60,7 +60,10 @@ class login_ViewController: UIViewController {
             request.httpMethod = "POST"
             request.httpBody = jsonData
             print("GET Location")
+            
+            let spinnerView = setSpinner()
             URLSession.shared.dataTask(with: request){ (data: Data?, response: URLResponse?, error: Error?) in
+                
                 if error != nil{
                     print(error!)
                     return
@@ -68,18 +71,25 @@ class login_ViewController: UIViewController {
                 do{
                     
                     let json = try JSON(data: data!)
-                    if json["status"] == 0{
-                        print("success")
-                        self.performSegue(withIdentifier: "login", sender: self)
-                    }
-                    else{
-                        return
+                    DispatchQueue.main.async {
+                        spinnerView.removeFromSuperview()
+                        if json["status"] == 0{
+                            print("success")
+                            let locations = json["locations"].arrayObject as! [String]
+                            defaults.set(locations, forKey: "locations")
+                            defaults.set(self.account.text!,forKey: "accountKey")
+                            defaults.set(self.password.text!,forKey: "passwordKey")
+                            defaults.synchronize()
+                            self.performSegue(withIdentifier: "login", sender: self)
+                        }
+                        else{
+                            return
+                        }
+                        
+                        print(json)
+                        
                     }
                     
-                    print(json)
-                    let locations = json["locations"].arrayObject as! [String]
-                    defaults.set(locations, forKey: "locations")
-                    defaults.synchronize()
                     
                 }
                 catch let jsonerror{
@@ -102,7 +112,7 @@ class login_ViewController: UIViewController {
         self.view.backgroundColor = UIColor(red:1.00, green:0.99, blue:0.98, alpha:1.0)
         banner?.frame = CGRect(x: 0, y: 0, width: fullscreensize.width, height: fullscreensize.width*0.172)
         banner?.center = CGPoint(x: fullscreensize.width*0.5, y: fullscreensize.width*0.086+UIApplication.shared.statusBarFrame.height)
-        self.view.addSubview(banner)
+        //self.view.addSubview(banner)
         
         account?.placeholder = "帳號"
         account?.borderStyle = .roundedRect
@@ -127,31 +137,21 @@ class login_ViewController: UIViewController {
         buttonstyle?.center = CGPoint(x: fullscreensize.width*0.5, y: fullscreensize.height*0.625)
         
         defaults = UserDefaults.standard
-        if defaults.string(forKey: "accountkey") != nil {
-            remember?.setOn(true, animated: true)
-            account?.text = defaults.string(forKey: "accountkey")
-            password?.text = defaults.string(forKey: "passwordkey")
-            print("autologin_status")
-            print(GV.autologin)
-            if(GV.autologin==0){
-                buttonstyle.sendActions(for: .touchUpInside)
-                print("sendaction")
-            }
-            defaults.synchronize()
-        }
-        print("initial")
-        print(defaults.string(forKey: "accountkey"));
-        if defaults.string(forKey: "accountkey") == nil {
-            remember?.setOn(false, animated: true)
-            print("NOTHINGGGGGGGGGG")
-        }
+        print(defaults.string(forKey: "autoLogin"))
         
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismisskeyboard")
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
+        if defaults.string(forKey: "autoLogin") == "1"{
+            print("set")
+            account.text = defaults.string(forKey: "accountKey")
+            password.text = defaults.string(forKey: "passwordKey")
+        }
+        else{
+            account.text = ""
+            password.text = ""
+        }
         
         // Do any additional setup after loading the view.
     }
+    
     
     func toastView(messsage : String, view: UIView ){
         let toastLabel = UILabel(frame: CGRect(x: view.frame.size.width/2 - 150, y: view.frame.size.height-100, width: 300,  height : 50))
@@ -208,7 +208,17 @@ class login_ViewController: UIViewController {
         }
         requestTask.resume()
     }
-    
+    func setSpinner() -> UIView{
+        let spinnerView = UIView.init(frame: view.bounds)
+        spinnerView.backgroundColor = UIColor.init(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
+        let ai = UIActivityIndicatorView.init(style: .whiteLarge)
+        ai.startAnimating()
+        ai.center = spinnerView.center
+        spinnerView.addSubview(ai)
+        view.addSubview(spinnerView)
+        
+        return spinnerView
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
