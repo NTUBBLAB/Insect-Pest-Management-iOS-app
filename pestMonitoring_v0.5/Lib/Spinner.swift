@@ -22,3 +22,18 @@ struct Spinner{
         return spinnerView
     }
 }
+
+//extension UIView{
+//    func drawShadow(){
+//
+//        self.layer.masksToBounds = false
+//        self.layer.shadowColor = UIColor.black.cgColor
+//        self.layer.shadowOpacity = 0.8
+//        self.layer.shadowOffset = CGSize.zero
+//        self.layer.shadowRadius = 2
+//
+//        self.layer.shadowPath = UIBezierPath(rect: self.bounds).cgPath
+//        self.layer.shouldRasterize = true
+//        self.layer.rasterizationScale = UIScreen.main.scale
+//    }
+//}

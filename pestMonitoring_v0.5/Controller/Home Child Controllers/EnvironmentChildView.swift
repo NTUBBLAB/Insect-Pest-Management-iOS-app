@@ -35,7 +35,7 @@ class EnvironmentChildView: UIViewController,  IndicatorInfoProvider {
             let v = UIScrollView()
             v.translatesAutoresizingMaskIntoConstraints = false
             v.backgroundColor = UIColor.gray
-            v.contentSize = CGSize(width: view.frame.width, height: 1000)
+            v.contentSize = CGSize(width: view.frame.width, height: 1300)
             v.isScrollEnabled = true
             return v
         }()
@@ -155,7 +155,7 @@ class EnvironmentChildView: UIViewController,  IndicatorInfoProvider {
                               NSLayoutConstraint(item: lineChart, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 250),
                               NSLayoutConstraint(item: lineChart, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 200)])
         view1.addSubview(title)
-        title.text = "Temperature"
+        title.text = "溫度"
         title.textColor = .red
         title.backgroundColor = .white
         
@@ -226,7 +226,7 @@ class EnvironmentChildView: UIViewController,  IndicatorInfoProvider {
                               NSLayoutConstraint(item: lineChart, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 250),
                               NSLayoutConstraint(item: lineChart, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 200)])
         humidView.addSubview(humidTitle)
-        humidTitle.text = "Humidity"
+        humidTitle.text = "濕度"
         humidTitle.textColor = .blue
         humidTitle.backgroundColor = .white
         
@@ -297,7 +297,7 @@ class EnvironmentChildView: UIViewController,  IndicatorInfoProvider {
                                   NSLayoutConstraint(item: lineChart, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 250),
                                   NSLayoutConstraint(item: lineChart, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 200)])
         lightView.addSubview(lightTitle)
-        lightTitle.text = "Light intensity"
+        lightTitle.text = "照度"
         lightTitle.textColor = .orange
         lightTitle.backgroundColor = .white
         

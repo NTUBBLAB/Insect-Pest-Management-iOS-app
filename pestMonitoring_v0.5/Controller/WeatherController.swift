@@ -11,8 +11,8 @@ import SwiftyJSON
 
 class WeatherController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
-    @IBOutlet weak var textField2: UITextField!
-    @IBOutlet weak var townText: UITextField!
+    var textField2 = UITextField()
+    var townText = UITextField()
     
     
     
@@ -20,24 +20,27 @@ class WeatherController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     var textField = UITextField(frame: CGRect(x: 5, y: 40, width: 100, height: 100))
     
     var city = "嘉義縣"
-    var town = "朴子市"
-    var postCode = "613"
+    var town = "六腳鄉"
+    var postCode = "615"
     //var date: String?
     
-    @IBOutlet weak var ImageView: UIImageView!
-    @IBOutlet weak var currentTemp: UILabel!
-    @IBOutlet weak var currentHumid: UILabel!
-    @IBOutlet weak var currentRain: UILabel!
-    @IBOutlet weak var currentWind: UILabel!
+    //let mainView =  UIView()
+    let currentTemp = UILabel()
+    var currentHumid = UILabel()
+    var currentRain = UILabel()
+    var currentWind = UILabel()
     //@IBOutlet weak var dateLabel: UILabel!
     
-    @IBOutlet weak var todayView: UIView!
-    @IBOutlet weak var firstDay: UIView!
-    @IBOutlet weak var secondDay: UIView!
-    @IBOutlet weak var thirdDay: UIView!
-    @IBOutlet weak var fourthDay: UIView!
-    @IBOutlet weak var fifthDay: UIView!
+    var todayView = UIView()
+    var firstDay = UIView()
+    var secondDay = UIView()
+    var thirdDay = UIView()
+    var fourthDay = UIView()
+    var fifthDay = UIView()
     
+    let humdImg = UIImageView()
+    let rainImg = UIImageView()
+    let windImg = UIImageView()
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 2
@@ -122,9 +125,29 @@ class WeatherController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        let scrollView: UIScrollView = {
+            let v = UIScrollView()
+            v.translatesAutoresizingMaskIntoConstraints = false
+            v.backgroundColor = UIColor.white
+            v.contentSize = CGSize(width: view.frame.width, height: 1000)
+            v.isScrollEnabled = true
+            return v
+        }()
+        view.addSubview(scrollView)
+        
+        view.backgroundColor = .white
+        
+        view.addConstraints(
+            [NSLayoutConstraint(item: scrollView, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0),
+             NSLayoutConstraint(item: scrollView, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: 0),
+             NSLayoutConstraint(item: scrollView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: view.frame.width),
+             NSLayoutConstraint(item: scrollView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: view.frame.height)]
+        )
+        
+        setViews(scrollView: scrollView)
         getPostalCode()
-        setViews()
+        
         let picker = UIPickerView()
         picker.backgroundColor = .white
 
@@ -167,9 +190,9 @@ class WeatherController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOpacity = 0.8
         view.layer.shadowOffset = CGSize.zero
-        view.layer.shadowRadius = 2.5
+        view.layer.shadowRadius = 1
         
-        view.layer.shadowPath = UIBezierPath(rect: view.bounds).cgPath
+        view.layer.shadowPath = UIBezierPath(rect: view.frame).cgPath
         view.layer.shouldRasterize = true
         view.layer.rasterizationScale = UIScreen.main.scale
     }
@@ -285,31 +308,133 @@ class WeatherController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
             
             }.resume()
     }
-    func setViews(){
-        let views = [self.todayView, self.firstDay, self.secondDay, self.thirdDay, self.fourthDay, self.fifthDay]
-        for view in views{
-            drawShadow(view: view!)
-            view!.layer.cornerRadius = 2
-            //view?.backgroundColor = .cyan
+    func setViews(scrollView: UIScrollView){
+        //let mainView = UIView(frame: CGRect(x: 10, y: 10, width: view.frame.width-20, height: 350))
+        let mainView = UIView()
+        mainView.translatesAutoresizingMaskIntoConstraints = false
+        mainView.backgroundColor = .white
+        mainView.layer.borderWidth = 1
+        mainView.layer.cornerRadius = 2
+        scrollView.addSubview(mainView)
+        scrollView.addConstraints([NSLayoutConstraint(item: mainView, attribute: .centerX, relatedBy: .equal, toItem: scrollView, attribute: .centerX, multiplier: 1, constant: 0),
+                             NSLayoutConstraint(item: mainView, attribute: .top, relatedBy: .equal, toItem: scrollView, attribute: .top, multiplier: 1, constant: 20),
+                             NSLayoutConstraint(item: mainView, attribute: .width, relatedBy: .equal, toItem: scrollView, attribute: .width, multiplier: 1, constant: (scrollView.frame.width-20)),
+                             NSLayoutConstraint(item: mainView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 300)
+                             ])
+        
+        self.currentTemp.translatesAutoresizingMaskIntoConstraints = false
+        self.currentTemp.backgroundColor = .white
+        self.currentTemp.textAlignment = .center
+        self.currentTemp.textColor = .red
+        self.currentTemp.font = self.currentTemp.font.withSize(30)
+        mainView.addSubview(self.currentTemp)
+        mainView.addConstraints([NSLayoutConstraint(item: self.currentTemp, attribute: .right, relatedBy: .equal, toItem: mainView, attribute: .right, multiplier: 1, constant: -10),
+                                 NSLayoutConstraint(item: self.currentTemp, attribute: .top, relatedBy: .equal, toItem: mainView, attribute: .top, multiplier: 1, constant: 10),
+                                 NSLayoutConstraint(item: self.currentTemp, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 150),
+                                 NSLayoutConstraint(item: self.currentTemp, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 200)])
+        
+        self.textField2.translatesAutoresizingMaskIntoConstraints = false
+        self.textField2.textAlignment = .center
+        self.textField2.borderStyle = UITextField.BorderStyle.roundedRect
+        mainView.addSubview(self.textField2)
+        mainView.addConstraints([NSLayoutConstraint(item: self.textField2, attribute: .left, relatedBy: .equal, toItem: mainView, attribute: .left, multiplier: 1, constant: 10),
+                                 NSLayoutConstraint(item: self.textField2, attribute: .top, relatedBy: .equal, toItem: mainView, attribute: .top, multiplier: 10, constant: 10),
+                                 NSLayoutConstraint(item: self.textField2, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 40),
+                                 NSLayoutConstraint(item: self.textField2, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 100)])
+        self.townText.translatesAutoresizingMaskIntoConstraints = false
+        self.townText.textAlignment = .center
+        self.townText.borderStyle = UITextField.BorderStyle.roundedRect
+        mainView.addSubview(self.townText)
+        mainView.addConstraints([NSLayoutConstraint(item: self.townText, attribute: .left, relatedBy: .equal, toItem: mainView, attribute: .left, multiplier: 1, constant: 10),
+                                 NSLayoutConstraint(item: self.townText, attribute: .top, relatedBy: .equal, toItem: mainView, attribute: .top, multiplier: 1, constant: 100),
+                                 NSLayoutConstraint(item: self.townText, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 40),
+                                 NSLayoutConstraint(item: self.townText, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 100)])
+        self.currentHumid.translatesAutoresizingMaskIntoConstraints = false
+        self.currentHumid.textAlignment = .center
+        mainView.addSubview(self.currentHumid)
+        mainView.addConstraints([NSLayoutConstraint(item: self.currentHumid, attribute: .left, relatedBy: .equal, toItem: mainView, attribute: .left, multiplier: 1, constant: 10),
+                                 NSLayoutConstraint(item: self.currentHumid, attribute: .bottom, relatedBy: .equal, toItem: mainView, attribute: .bottom, multiplier: 1, constant: -10),
+                                 NSLayoutConstraint(item: self.currentHumid, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 30),
+                                 NSLayoutConstraint(item: self.currentHumid, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 100)])
+        self.currentRain.translatesAutoresizingMaskIntoConstraints = false
+        self.currentRain.textAlignment = .center
+        mainView.addSubview(self.currentRain)
+        mainView.addConstraints([NSLayoutConstraint(item: self.currentRain, attribute: .centerX, relatedBy: .equal, toItem: mainView, attribute: .centerX, multiplier: 1, constant: 0),
+                                 NSLayoutConstraint(item: self.currentRain, attribute: .bottom, relatedBy: .equal, toItem: mainView, attribute: .bottom, multiplier: 1, constant: -10),
+                                 NSLayoutConstraint(item: self.currentRain, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 30),
+                                 NSLayoutConstraint(item: self.currentRain, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 100)])
+        self.currentWind.translatesAutoresizingMaskIntoConstraints = false
+        self.currentWind.textAlignment = .center
+        mainView.addSubview(self.currentWind)
+        mainView.addConstraints([NSLayoutConstraint(item: self.currentWind, attribute: .right, relatedBy: .equal, toItem: mainView, attribute: .right, multiplier: 1, constant: -10),
+                                 NSLayoutConstraint(item: self.currentWind, attribute: .bottom, relatedBy: .equal, toItem: mainView, attribute: .bottom, multiplier: 1, constant: -10),
+                                 NSLayoutConstraint(item: self.currentWind, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 30),
+                                 NSLayoutConstraint(item: self.currentWind, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 100)])
+        
+        self.humdImg.translatesAutoresizingMaskIntoConstraints = false
+        self.humdImg.contentMode = .scaleAspectFill
+        self.humdImg.image = UIImage(named: "HomeIcon_Humid")
+        self.humdImg.clipsToBounds = true
+        mainView.addSubview(self.humdImg)
+        mainView.addConstraints([NSLayoutConstraint(item: self.humdImg, attribute: .left, relatedBy: .equal, toItem: mainView, attribute: .left, multiplier: 1, constant: 35),
+                                 NSLayoutConstraint(item: self.humdImg, attribute: .bottom, relatedBy: .equal, toItem: mainView, attribute: .bottom, multiplier: 1, constant: -60),
+                                 NSLayoutConstraint(item: self.humdImg, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 50),
+                                 NSLayoutConstraint(item: self.humdImg, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 50)])
+        self.rainImg.translatesAutoresizingMaskIntoConstraints = false
+        self.rainImg.image = UIImage(named: "rain")
+        self.rainImg.contentMode = .scaleAspectFill
+        self.rainImg.clipsToBounds = true
+        mainView.addSubview(self.rainImg)
+        mainView.addConstraints([NSLayoutConstraint(item: self.rainImg, attribute: .centerX, relatedBy: .equal, toItem: mainView, attribute: .centerX, multiplier: 1, constant: 0),
+                                 NSLayoutConstraint(item: self.rainImg, attribute: .bottom, relatedBy: .equal, toItem: mainView, attribute: .bottom, multiplier: 1, constant: -60),
+                                 NSLayoutConstraint(item: self.rainImg, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 50),
+                                 NSLayoutConstraint(item: self.rainImg, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 50)])
+        self.windImg.translatesAutoresizingMaskIntoConstraints = false
+        self.windImg.image = UIImage(named: "windspeed")
+        self.windImg.contentMode = .scaleAspectFill
+        self.windImg.clipsToBounds = true
+        mainView.addSubview(self.windImg)
+        mainView.addConstraints([NSLayoutConstraint(item: self.windImg, attribute: .right, relatedBy: .equal, toItem: mainView, attribute: .right, multiplier: 1, constant: -35),
+                                 NSLayoutConstraint(item: self.windImg, attribute: .bottom, relatedBy: .equal, toItem: mainView, attribute: .bottom, multiplier: 1, constant: -60),
+                                 NSLayoutConstraint(item: self.windImg, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 50),
+                                 NSLayoutConstraint(item: self.windImg, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 50)])
+        
+        let views = [self.firstDay, self.secondDay, self.thirdDay, self.fourthDay, self.fifthDay]
+
+        for i in 0..<views.count{
+            //drawShadow(view: view)
+            views[i].translatesAutoresizingMaskIntoConstraints = false
+            views[i].layer.borderWidth = 1
+            views[i].layer.cornerRadius = 2
+            //views[i].backgroundColor = .gray
+            
+            scrollView.addSubview(views[i])
+            scrollView.addConstraint(NSLayoutConstraint(item: views[i], attribute: .centerX, relatedBy: .equal, toItem: scrollView, attribute: .centerX, multiplier: 1, constant: 0))
+            scrollView.addConstraint(NSLayoutConstraint(item: views[i], attribute: .top, relatedBy: .equal, toItem: scrollView, attribute: .top, multiplier: 1, constant: CGFloat(330+60*i)))
+            scrollView.addConstraint(NSLayoutConstraint(item: views[i], attribute: .width, relatedBy: .equal, toItem: scrollView, attribute: .width, multiplier: 1, constant: (scrollView.frame.width-20)))
+            scrollView.addConstraint(NSLayoutConstraint(item: views[i], attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 50))
+            
+            //view.backgroundColor = .cyan
         }
     }
     func setForecasts(data: [(String, String)]){
         let views = [self.firstDay, self.secondDay, self.thirdDay, self.fourthDay, self.fifthDay]
-        //print(data)
+        
         for i in 0..<5{
+            
             let formatter = DateFormatter()
             formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
             let date = formatter.date(from: data[2*i].0)
             formatter.dateFormat = "yyyy-MM-dd"
             let resultDate = formatter.string(from: date!)
             
-            let dayLabel = UILabel(frame: CGRect(x: views[i]!.frame.width-100, y: (views[i]!.frame.height - 20) / 2, width: 50, height: 20))
-            let nightLabel = UILabel(frame: CGRect(x: views[i]!.frame.width-50, y: (views[i]!.frame.height - 20) / 2, width: 50, height: 20))
-            let dateLabel = UILabel(frame: CGRect(x: 10, y: (views[i]!.frame.height - 20) / 2, width: 150, height: 20))
+            let dayLabel = UILabel(frame: CGRect(x: views[i].frame.width-100, y: (views[i].frame.height - 20) / 2, width: 50, height: 20))
+            let nightLabel = UILabel(frame: CGRect(x: views[i].frame.width-50, y: (views[i].frame.height - 20) / 2, width: 50, height: 20))
+            let dateLabel = UILabel(frame: CGRect(x: 10, y: (views[i].frame.height - 20) / 2, width: 150, height: 20))
             
-            views[i]?.addSubview(dayLabel)
-            views[i]?.addSubview(nightLabel)
-            views[i]?.addSubview(dateLabel)
+            views[i].addSubview(dayLabel)
+            views[i].addSubview(nightLabel)
+            views[i].addSubview(dateLabel)
             
             dateLabel.text = resultDate
             dayLabel.text = data[i*2+1].1

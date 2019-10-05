@@ -1,22 +1,30 @@
 //
-//  detailSubView.swift
+//  LibraryController.swift
 //  pestMonitoring_v0.5
 //
-//  Created by Lab405 on 2019/8/20.
+//  Created by Lab405 on 2019/9/19.
 //  Copyright © 2019年 Lab405. All rights reserved.
 //
 
 import UIKit
+import WebKit
 
-class detailSubView: UIViewController {
-    @IBOutlet weak var testLabel: UILabel!
-    var labelName: String = ""
+class LibraryController: UIViewController{
+
+    @IBOutlet weak var webView1: WKWebView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        testLabel.text = "123"
-        // Do any additional setup after loading the view.
+        //self.webView1.uiDelegate = self
+        //let spin = Spinner()
+        //let spinnerView = spin.setSpinnerView(view: view)
+        
+        let request = URLRequest(url: URL(string: "http://m.tndais.gov.tw/diagnosis/index.asp")!)
+        webView1?.load(request)
+        
+        
     }
-    
+
 
     /*
     // MARK: - Navigation

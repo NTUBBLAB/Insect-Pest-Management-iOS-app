@@ -11,6 +11,7 @@ import UIKit
 class SettingsController: UITableViewController {
     let defaults = UserDefaults.standard
     @IBOutlet weak var autoLogin: UISwitch!
+    
     @IBAction func changed(_ sender: Any) {
         if autoLogin.isOn{
             
@@ -55,6 +56,8 @@ class SettingsController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(indexPath.row)
         if indexPath.row == 1{
+            defaults.set("2", forKey: "autoLogin")
+            defaults.synchronize()
             self.performSegue(withIdentifier: "logout", sender: self)
         }
     }

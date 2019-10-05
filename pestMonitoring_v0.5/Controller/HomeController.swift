@@ -21,14 +21,20 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     var farmCell = [FarmCell]()
     var pestCell = [PestCell]()
-    
+    let chineseDict = ["CHIAYI_GH": "嘉義育家", "JINGPIN_GH": "京品洋桔梗溫室", "YUNLIN_GH": "雲林福成", "TAINANDARES_GH": "台南農改場洋桔梗溫室", "TAINANMO_FF": "台南農改場芒果園", "TAICHUNGSB_GH": "草屯光之莓草莓園", "QINGYUAN_GH": "擎園蝴蝶蘭溫室", "TEST_GH": "測試溫室"]
     func fetchData(){
         //cell.farmLabel = locations[indexPath.row]
         
         for loc in self.locations{
+            print(loc)
             let env = Environment(location: loc)
             let cell = FarmCell()
-            cell.farmlabel = loc
+            if chineseDict[loc] != nil{
+                cell.farmlabel = chineseDict[loc]
+            }
+            else{
+                cell.farmlabel = loc
+            }
             let spinner = Spinner()
             let spinnerView = spinner.setSpinnerView(view: view)
             env.getDbNumber(dbUrl: "http://140.112.94.123:20000/PEST_DETECT/_android/get_number_of_dbs.php?location" + loc){ (result) in
@@ -58,7 +64,6 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
                         }
                         //self.farmCell.append(cell)
                         DispatchQueue.main.async {
-                            spinnerView.removeFromSuperview()
                             self.collectionView.reloadData()
                         }
                     }
@@ -78,17 +83,30 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
                         let pestJson = try JSON(data: data!)
                         
                         //print(pestJson["status"])
-                        var species_array = [String]()
-                        var count_array = [Int]()
-                        for insect in pestJson["species"].arrayObject as! [String]{
-                            species_array.append(insect)
+                        if pestJson["status"] == 3{
+                            print(pestJson["alarms"])
+                            print(pestJson)
+                            var species_array = [String]()
+                            var count_array = [Int]()
+                            var alarm = Dictionary<String, [Int]>()
+                            var i = 0
+                            for insect in pestJson["species_cn"].arrayObject as! [String]{
+                                species_array.append(insect)
+                                alarm[insect] = (pestJson["alarms"][i].arrayObject as! [Int])
+                                i += 1
+                            }
+                            for count in pestJson["counts"].arrayObject as! [Int]{
+                                count_array.append(count)
+                            }
+                            cell.species = species_array
+                            cell.pestCount = count_array
+                            cell.alarm = alarm
                         }
-                        for count in pestJson["counts"].arrayObject as! [Int]{
-                            count_array.append(count)
+                        else{
+                            cell.pestCheck = 0
                         }
-                        cell.species = species_array
-                        cell.pestCount = count_array
                         
+                        //print(cell.alarm)
                         DispatchQueue.main.async {
                             self.collectionView.reloadData()
                         }
@@ -98,29 +116,14 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
                         print(jsonError)
                     }
                 }.resume()
-                self.farmCell.append(cell)
+                DispatchQueue.main.async {
+                    spinnerView.removeFromSuperview()
+                    self.farmCell.append(cell)
+                    self.collectionView.reloadData()
+                }
+                
             }
             
-            
-//            let currentPest = Pest(location: loc)
-//            currentPest.getCurrentPest(){ (result1, result2) in
-//
-//                    cell.species = result1
-//                    cell.pestCount = result2
-//
-//            }
-//            let currentEnv = Environment(location: loc)
-//
-//            currentEnv.getCurrentEnv(location: loc) { (result) in
-//
-//                    cell.farmlabel = loc
-//                    cell.currentEnv = [result[0] + " °C", result[1] + " %", result[2] + " lux"]
-//
-//            }
-//            DispatchQueue.main.async {
-//                self.farmCell.append(cell)
-//                self.collectionView.reloadData()
-//            }
             
         }
        
@@ -131,8 +134,8 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         let defaults = UserDefaults.standard
         locations = defaults.array(forKey: "locations") as! [String]
         fetchData()
-        
-        navigationItem.title = "Home"
+        //print(self.farmCell)
+        navigationItem.title = "儀表板"
         navigationItem.titleView?.backgroundColor = UIColor.blue
         
         collectionView.backgroundColor = UIColor.white
@@ -149,27 +152,21 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         //let farmDetail = storyboard?.instantiateViewController(withIdentifier: "FarmDetailViewController") as? FarmDetailViewController
         let pager = storyboard?.instantiateViewController(withIdentifier: "PagerMenu") as? PagerTabStrip
         //farmDetail?.name = locations[indexPath.row]
-        pager?.location = locations[indexPath.row]
+        pager?.location = locations[indexPath.item]
+        //print(locations[indexPath.item])
         self.navigationController?.pushViewController(pager!, animated: true)
     }
+    
     override func collectionView(_ collcetionView: UICollectionView, cellForItemAt
         indexPath: IndexPath) -> UICollectionViewCell{
         
         
         let cell = collcetionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! FarmSummaryCollectionViewCell
 
-        //cell.farmName?.text = locations[indexPath.row]
-        print(pestCell.count)
-        cell.data = farmCell[indexPath.row]
-        //cell.pest = pestCell[indexPath.item]
-        //print(farmCell[indexPath.item].pestCount?.count)
-        //print(cell.data?.species!.count)
-//        //let pestNum = self.farmCell[indexPath.row].pestCount?.count
-       
-//        //cell.loaction = "123"
-        //cell.test = "test"
-        //print("location")
-        //cell.backgroundColor = UIColor.white
+      
+        //print(pestCell.count)
+        print(self.farmCell[indexPath.item].farmlabel)
+        cell.data = self.farmCell[indexPath.item]
         
         cell.contentView.layer.cornerRadius = 4.0
         cell.contentView.layer.borderWidth = 1.0

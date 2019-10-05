@@ -9,7 +9,7 @@
 import UIKit
 import SwiftyJSON
 
-class login_ViewController: UIViewController {
+class login_ViewController: UIViewController, UITextFieldDelegate {
     
     struct GV {
         static var location: String? = ""
@@ -35,23 +35,6 @@ class login_ViewController: UIViewController {
         }
         else if numberOfWhitespaceCharacters == 0 {
             let defaults = UserDefaults.standard
-//            if remember?.isOn == true {
-//                GV.autologin = 0
-//                defaults.set(account.text!,forKey: "accountkey")
-//                defaults.set(password.text!,forKey: "passwordkey")
-//                defaults.set("0",forKey:"autologin")
-//                defaults.synchronize()
-//            }
-//            if remember?.isOn == false{
-//                defaults.removeObject(forKey: "accountkey")
-//                defaults.removeObject(forKey: "passwordkey")
-//
-//                defaults.synchronize()
-//            }
-//            if(account.text!=="admin" && password.text!=="admin101"){
-//                GV.location = "admin"
-//                self.performSegue(withIdentifier:"login",sender:self)
-//            }
             let postJson: [String: Any] = ["username": account.text!, "password": password.text!]
             //print(postJson)
             let jsonData = try? JSONSerialization.data(withJSONObject: postJson)
@@ -83,6 +66,15 @@ class login_ViewController: UIViewController {
                             self.performSegue(withIdentifier: "login", sender: self)
                         }
                         else{
+                            let alert = UIAlertController(title: "Error!", message: "帳號或密碼錯誤", preferredStyle: .alert)
+                            
+                            alert.addAction(UIAlertAction(title: "確定", style: .default, handler: {action in
+                                print("123")
+                            
+                                
+                            }
+                            ))
+                            self.present(alert, animated: true)
                             return
                         }
                         
@@ -102,6 +94,7 @@ class login_ViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
         let fullscreensize = UIScreen.main.bounds.size
         
         buttonstyle?.backgroundColor = UIColor(red:0.13, green:0.46, blue:0.84, alpha:1.0)
@@ -137,10 +130,15 @@ class login_ViewController: UIViewController {
         buttonstyle?.center = CGPoint(x: fullscreensize.width*0.5, y: fullscreensize.height*0.625)
         
         defaults = UserDefaults.standard
-        print(defaults.string(forKey: "autoLogin"))
+        //print(defaults.string(forKey: "autoLogin"))
         
         if defaults.string(forKey: "autoLogin") == "1"{
             print("set")
+            account.text = defaults.string(forKey: "accountKey")
+            password.text = defaults.string(forKey: "passwordKey")
+            buttonaction(self)
+        }
+        else if defaults.string(forKey: "autoLogin") == "2"{
             account.text = defaults.string(forKey: "accountKey")
             password.text = defaults.string(forKey: "passwordKey")
         }
@@ -149,6 +147,8 @@ class login_ViewController: UIViewController {
             password.text = ""
         }
         
+        self.account.delegate = self
+        self.password.delegate = self
         // Do any additional setup after loading the view.
     }
     
@@ -223,7 +223,23 @@ class login_ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }
     
     
     
+}
+
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
 }

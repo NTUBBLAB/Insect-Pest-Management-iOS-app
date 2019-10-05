@@ -55,7 +55,7 @@ class RegistrationController: UIViewController {
                             self.present(alert, animated: true)
                             
                         }
-                        //self.performSegue(withIdentifier: <#T##String#>, sender: <#T##Any?#>)
+                        
                     }
                 }
                 catch let jsonerror{
@@ -70,7 +70,7 @@ class RegistrationController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.hideKeyboardWhenTappedAround()
         password.isSecureTextEntry = true
         confirmpwd.isSecureTextEntry = true
         // Do any additional setup after loading the view.

@@ -18,7 +18,7 @@ class Pest: NSObject {
         super.init()
         self.farm = location
     }
-    func getCurrentPest(counts: @escaping ([String], [Int]) -> Void){
+    func getCurrentPest(counts: @escaping ([String], [Int], Dictionary<String, [Int]>) -> Void){
         
         self.getDbNumber(dbUrl: "http://140.112.94.123:20000/PEST_DETECT/_android/get_number_of_dbs.php?location=" + farm!) { (result) in
             let url = URL(string: "http://140.112.94.123:20000/PEST_DETECT/_app/data_insect_current.php?db=" + result + "&loc=" + self.farm!)
@@ -33,13 +33,19 @@ class Pest: NSObject {
                     //print(pestJson["status"])
                     var species_array = [String]()
                     var count_array = [Int]()
-                    for insect in pestJson["species"].arrayObject as! [String]{
+                    var alarm = Dictionary<String, [Int]>()
+                    var i = 0
+                    for insect in pestJson["species_cn"].arrayObject as! [String]{
                         species_array.append(insect)
+                        alarm[insect] = (pestJson["alarm"][i].arrayObject as! [Int])
+                        i += 1
                     }
+                        
                     for count in pestJson["counts"].arrayObject as! [Int]{
                         count_array.append(count)
                     }
-                    counts(species_array, count_array)
+                    
+                    counts(species_array, count_array, alarm)
                 }
                 catch let jsonError{
                     print(jsonError)

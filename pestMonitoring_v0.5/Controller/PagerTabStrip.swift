@@ -31,18 +31,20 @@ class PagerTabStrip: ButtonBarPagerTabStripViewController {
     // MARK: - PagerTabStripDataSource
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
         
-        let EnvironChildView = EnvironmentChildView(itemInfo: "Environment")
+        let EnvironChildView = EnvironmentChildView(itemInfo: "環境資訊")
         EnvironChildView.location = self.location
-        let pestChildView = PestChildView(itemInfo: "Pest")
+        let pestChildView = PestChildView(itemInfo: "蟲害資訊")
         pestChildView.location = self.location
-        let diseaseChildView = DiseaseChildView(itemInfo: "Disease")
+        let diseaseChildView = DiseaseChildView(itemInfo: "病害資訊")
         diseaseChildView.location = self.location
+        let nodeView = NodeChildView(itemInfo: "裝置資訊")
+        nodeView.location = self.location
         
         guard isReload else {
-            return [pestChildView, EnvironChildView, diseaseChildView]
+            return [nodeView, pestChildView, EnvironChildView, diseaseChildView]
         }
         
-        var childViewControllers = [pestChildView, EnvironChildView, diseaseChildView]
+        var childViewControllers = [nodeView, pestChildView, EnvironChildView, diseaseChildView]
         
         for index in childViewControllers.indices {
             let nElements = childViewControllers.count - index

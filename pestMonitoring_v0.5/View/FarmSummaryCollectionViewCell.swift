@@ -13,6 +13,8 @@ class FarmCell: NSObject{
     var farmlabel: String?
     var species: [String]?
     var pestCount: [Int]?
+    var alarm: Dictionary<String, [Int]>?
+    var pestCheck = 1
     
 }
 class PestCell: NSObject{
@@ -39,16 +41,28 @@ class FarmSummaryCollectionViewCell: UICollectionViewCell {
             if data?.farmlabel != nil{
                 setFarmName(farmName: (data?.farmlabel)!)
             }
-            if data?.pestCount != nil{
-                if data?.pestCount?.count != 0{
-                    setPestCount(counts: (data?.pestCount)!)
+            if data?.pestCheck == 1{
+                if data?.pestCount != nil{
+                    if data?.pestCount?.count != 0{
+                        setPestCount(counts: (data?.pestCount)!)
+                    }
+                    
                 }
-                
+                if data?.species != nil{
+                    if data?.species?.count != 0{
+                        setPestLabel(species: (data?.species)!)
+                    }
+                }
+                if data?.species != nil{
+                    if data?.alarm != nil{
+                        if data?.pestCount != nil{
+                            setPestAlarm(alarm: (data?.alarm)!, count: (data?.pestCount)!, spec: (data?.species)!)
+                        }
+                    }
+                }
             }
-            if data?.species != nil{
-                if data?.species?.count != 0{
-                    setPestLabel(species: (data?.species)!)
-                }
+            else{
+                setPestException()
             }
         }
     }
@@ -120,7 +134,7 @@ class FarmSummaryCollectionViewCell: UICollectionViewCell {
     
 
     func setPestCount(counts: [Int]){
-        let countLabelDis = Int(contentView.frame.width)/counts.count
+        //let countLabelDis = Int(contentView.frame.width)/counts.count
         for i in 0..<counts.count {
             let countLabel = UILabel()
             
@@ -131,8 +145,8 @@ class FarmSummaryCollectionViewCell: UICollectionViewCell {
             
             contentView.addSubview(countLabel)
             contentView.addConstraints([
-                NSLayoutConstraint(item: countLabel, attribute: .left, relatedBy: .equal, toItem: contentView, attribute: .left, multiplier: 1, constant: CGFloat(countLabelDis*i)),
-                NSLayoutConstraint(item: countLabel, attribute: .centerY, relatedBy: .equal, toItem: contentView, attribute: .centerY, multiplier: 1, constant: 50),
+                NSLayoutConstraint(item: countLabel, attribute: .centerX, relatedBy: .equal, toItem: contentView, attribute: .centerX, multiplier: 1, constant: 0),
+                NSLayoutConstraint(item: countLabel, attribute: .centerY, relatedBy: .equal, toItem: contentView, attribute: .centerY, multiplier: 1, constant: CGFloat(50*i)),
                 NSLayoutConstraint(item: countLabel, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 80),
                 NSLayoutConstraint(item: countLabel, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 50)
             ])
@@ -140,7 +154,7 @@ class FarmSummaryCollectionViewCell: UICollectionViewCell {
     }
     func setPestLabel(species: [String]){
         
-        let speciesLabelDis = Int(contentView.frame.width)/species.count
+        // let speciesLabelDis = Int(contentView.frame.height)/species.count
         
         
         for i in 0..<species.count {
@@ -149,16 +163,68 @@ class FarmSummaryCollectionViewCell: UICollectionViewCell {
             speciesLabel.text = species[i]
             speciesLabel.textColor = UIColor.black
             speciesLabel.translatesAutoresizingMaskIntoConstraints = false
-            speciesLabel.textAlignment = NSTextAlignment.center
+            speciesLabel.textAlignment = NSTextAlignment.left
             
             contentView.addSubview(speciesLabel)
             contentView.addConstraints([
-                NSLayoutConstraint(item: speciesLabel, attribute: .left, relatedBy: .equal, toItem: contentView, attribute: .left, multiplier: 1, constant: CGFloat(speciesLabelDis*i)),
-                NSLayoutConstraint(item: speciesLabel, attribute: .centerY, relatedBy: .equal, toItem: contentView, attribute: .centerY, multiplier: 1, constant: 0),
+                NSLayoutConstraint(item: speciesLabel, attribute: .left, relatedBy: .equal, toItem: contentView, attribute: .left, multiplier: 1, constant: 20),
+                NSLayoutConstraint(item: speciesLabel, attribute: .centerY, relatedBy: .equal, toItem: contentView, attribute: .centerY, multiplier: 1, constant: CGFloat(50*i)),
                 NSLayoutConstraint(item: speciesLabel, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 80),
                 NSLayoutConstraint(item: speciesLabel, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 50)
             ])
         }
+    }
+    func setPestAlarm(alarm: Dictionary<String, [Int]>, count: [Int], spec: [String]){
+        for i in 0..<alarm.count {
+            let alarmLabel = UILabel()
+            
+            let level = alarm[spec[i]]
+            alarmLabel.textColor = UIColor.black
+            if count[i] <= level![1]{
+                alarmLabel.text = "低"
+                alarmLabel.backgroundColor = .green
+                
+            }
+            else if (count[i] > level![1]) && (count[i] < level![2]){
+                alarmLabel.text = "警戒"
+                alarmLabel.backgroundColor = .blue
+                alarmLabel.textColor = UIColor.white
+            }
+            else if (count[i] > level![2]) && (count[i] < level![3]){
+                alarmLabel.text = "較高"
+                alarmLabel.backgroundColor = .yellow
+            }
+            else{
+                alarmLabel.text = "嚴重"
+                alarmLabel.backgroundColor = .red
+            }
+            //speciesLabel.text = species[i]
+            
+            alarmLabel.translatesAutoresizingMaskIntoConstraints = false
+            alarmLabel.textAlignment = NSTextAlignment.center
+            
+            contentView.addSubview(alarmLabel)
+            contentView.addConstraints([
+                NSLayoutConstraint(item: alarmLabel, attribute: .left, relatedBy: .equal, toItem: contentView, attribute: .left, multiplier: 1, constant: contentView.frame.width - 70),
+                NSLayoutConstraint(item: alarmLabel, attribute: .centerY, relatedBy: .equal, toItem: contentView, attribute: .centerY, multiplier: 1, constant: CGFloat(50*i)),
+                NSLayoutConstraint(item: alarmLabel, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 50),
+                NSLayoutConstraint(item: alarmLabel, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 50)
+                ])
+        }
+    }
+    func setPestException(){
+        let exceptionLabel = UILabel()
+        exceptionLabel.text = "目前沒有可顯示的害蟲資料"
+        exceptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        exceptionLabel.textAlignment = .center
+        contentView.addSubview(exceptionLabel)
+        contentView.addConstraints([
+            NSLayoutConstraint(item: exceptionLabel, attribute: .centerX, relatedBy: .equal, toItem: contentView, attribute: .centerX, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: exceptionLabel, attribute: .centerY, relatedBy: .equal, toItem: contentView, attribute: .centerY, multiplier: 1, constant: 50),
+            NSLayoutConstraint(item: exceptionLabel, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 300),
+            NSLayoutConstraint(item: exceptionLabel, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 50)
+        ])
+        
     }
     func setFarmName(farmName: String){
         farmLabel.text = farmName

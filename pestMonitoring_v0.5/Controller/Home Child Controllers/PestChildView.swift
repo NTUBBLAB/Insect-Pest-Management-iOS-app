@@ -30,7 +30,7 @@ class PestChildView: UIViewController, IndicatorInfoProvider {
             let v = UIScrollView()
             v.translatesAutoresizingMaskIntoConstraints = false
             v.backgroundColor = UIColor.white
-            v.contentSize = CGSize(width: view.frame.width, height: 1200)
+            v.contentSize = CGSize(width: view.frame.width, height: 1500)
             v.isScrollEnabled = true
             return v
         }()
@@ -54,15 +54,11 @@ class PestChildView: UIViewController, IndicatorInfoProvider {
                     date.append(temp[2] + "-" + temp[3])
                     print(temp[2] + "-" + temp[3])
                 }
-//                for spec in species{
-//                    for val in values[spec]{
-//
-//                    }
-//                }
+                let dict = ["fly": "蒼蠅", "gnat": "蚋", "thrips": "薊馬", "whitefly": "粉蝨"]
                 
                 for i in 0..<species.count{
                     
-                    self.drawPestCharts(dates: date, values: values[species[i]] as! [Double], num: i, scrollView: scrollView, species: species[i])
+                    self.drawPestCharts(dates: date, values: values[species[i]] as! [Double], num: i, scrollView: scrollView, species: dict[species[i]]!)
                 }
             }
         }
@@ -136,9 +132,9 @@ class PestChildView: UIViewController, IndicatorInfoProvider {
         return itemInfo
     }
     func setPestInfo(data: [Double], infoLabel: UILabel, species: String){
-        let countLabel = UILabel(frame: CGRect(x: 5, y: 5, width: 30, height: 50))
+        let countLabel = UILabel(frame: CGRect(x: 5, y: 5, width: 50, height: 50))
         let image = UIImage(named: "insect_" + species)
-        let pestImage = UIImageView(frame: CGRect(x: 35, y: 5, width: 50, height: 50))
+        let pestImage = UIImageView(frame: CGRect(x: 55, y: 5, width: 50, height: 50))
         pestImage.image = image
         countLabel.text = String(data[data.count-1])
         infoLabel.addSubview(countLabel)

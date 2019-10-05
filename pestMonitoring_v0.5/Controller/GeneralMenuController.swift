@@ -16,8 +16,7 @@ class GeneralMenuController: UIViewController {
     }
     
     @IBAction func libButtonClicked(_ sender: Any) {
-        let url = URL(string: "http://m.tndais.gov.tw/diagnosis/index.asp")
-        UIApplication.shared.open(url!)
+        
     }
     override func viewDidLoad() {
         super.viewDidLoad()
