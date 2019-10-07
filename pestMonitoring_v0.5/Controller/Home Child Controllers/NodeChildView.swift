@@ -78,6 +78,7 @@ class NodeChildView: UIViewController, IndicatorInfoProvider {
                         self.temp = json["envi"]["T"].arrayObject as? [Int]
                         self.humd = json["envi"]["H"].arrayObject as? [Int]
                         self.light = json["envi"]["L"].arrayObject as? [Int]
+                        
                         self.times = json["dates"].arrayObject as? [String]
                         do{
                             try self.counts = json["counts"].dictionaryObject as? Dictionary<String, [Int]>
@@ -91,7 +92,7 @@ class NodeChildView: UIViewController, IndicatorInfoProvider {
                         for i in 0..<self.numOfNodes!{
                             self.drawNodeCell(cells: i, scroll: self.scrollView)
                         }
-                        
+                        //print(self.times)
                     }
                     else{
                         return
@@ -124,7 +125,12 @@ class NodeChildView: UIViewController, IndicatorInfoProvider {
                                  NSLayoutConstraint(item: titleLabel, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 20)])
         let timeLabel = UILabel()
         timeLabel.translatesAutoresizingMaskIntoConstraints = false
-        timeLabel.text = "上次更新時間： " + self.times![cells]
+        if self.times?[cells] != nil{
+            timeLabel.text = "上次更新時間： " + self.times![cells]
+        }
+        else{
+            timeLabel.text = "上次更新時間： 無"
+        }
         timeLabel.font = UIFont.systemFont(ofSize: 12)
         if self.nodeStat![cells] == -1{
             timeLabel.textColor = .red

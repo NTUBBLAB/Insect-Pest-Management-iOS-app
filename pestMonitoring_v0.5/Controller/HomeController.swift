@@ -19,9 +19,9 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     var locations = [String]()
     
-    var farmCell = [FarmCell]()
+    var farmCell = Dictionary<String, FarmCell>()
     var pestCell = [PestCell]()
-    let chineseDict = ["CHIAYI_GH": "嘉義育家", "JINGPIN_GH": "京品洋桔梗溫室", "YUNLIN_GH": "雲林福成", "TAINANDARES_GH": "台南農改場洋桔梗溫室", "TAINANMO_FF": "台南農改場芒果園", "TAICHUNGSB_GH": "草屯光之莓草莓園", "QINGYUAN_GH": "擎園蝴蝶蘭溫室", "TEST_GH": "測試溫室"]
+    let chineseDict = ["CHIAYI_GH": "嘉義育家", "JINGPIN_GH": "京品", "YUNLIN_GH": "雲林福成", "TAINANDARES_GH": "台南農改場洋桔梗溫室", "TAINANMO_FF": "台南農改場芒果園", "TAICHUNGSB_GH": "草屯光之莓草莓園", "QINGYUAN_GH": "擎園蝴蝶蘭溫室", "TEST_GH": "測試溫室"]
     func fetchData(){
         //cell.farmLabel = locations[indexPath.row]
         
@@ -118,7 +118,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
                 }.resume()
                 DispatchQueue.main.async {
                     spinnerView.removeFromSuperview()
-                    self.farmCell.append(cell)
+                    self.farmCell[loc] = cell
                     self.collectionView.reloadData()
                 }
                 
@@ -163,10 +163,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         let cell = collcetionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! FarmSummaryCollectionViewCell
 
-      
-        //print(pestCell.count)
-        print(self.farmCell[indexPath.item].farmlabel)
-        cell.data = self.farmCell[indexPath.item]
+        cell.data = self.farmCell[locations[indexPath.item]]
         
         cell.contentView.layer.cornerRadius = 4.0
         cell.contentView.layer.borderWidth = 1.0
@@ -187,6 +184,9 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         return CGSize(width: view.frame.width - 30, height: 360)
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return CGFloat(10)
     }
     
     

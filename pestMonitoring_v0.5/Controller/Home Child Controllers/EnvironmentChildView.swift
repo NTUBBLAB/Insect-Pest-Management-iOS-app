@@ -130,12 +130,12 @@ class EnvironmentChildView: UIViewController,  IndicatorInfoProvider {
         lineChart.point
         lineChart.legend.enabled = false
         //title
-        lineChart.chartDescription?.text = "Daily temperature"
+        //lineChart.chartDescription?.text = "Daily temperature"
         
         //data
         lineChart.data = linedata
         lineChart.animate(xAxisDuration: 0.5)
-        //lineChart.
+        //lineChart
         //lineChart.layer.borderWidth = CGFloat(2)
         //lineChart.layer.borderColor = UIColor.red.cgColor
         scrollView.addSubview(view1)
