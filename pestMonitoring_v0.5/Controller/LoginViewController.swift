@@ -59,9 +59,11 @@ class login_ViewController: UIViewController, UITextFieldDelegate {
                         if json["status"] == 0{
                             print("success")
                             let locations = json["locations"].arrayObject as! [String]
+                            let city = json["cities"].arrayObject as! [String]
                             defaults.set(locations, forKey: "locations")
                             defaults.set(self.account.text!,forKey: "accountKey")
                             defaults.set(self.password.text!,forKey: "passwordKey")
+                            defaults.set(city, forKey: "city")
                             defaults.synchronize()
                             self.performSegue(withIdentifier: "login", sender: self)
                         }

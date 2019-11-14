@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		3721CBD60FFF87BA27AA92B8 /* Pods_pestMonitoring_v0_5UITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8074B99ECF4C2E0BD978811 /* Pods_pestMonitoring_v0_5UITests.framework */; };
 		7BC7FEDBB94A3EC9A6946CA5 /* Pods_pestMonitoring_v0_5.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20AE48909A87969955636B38 /* Pods_pestMonitoring_v0_5.framework */; };
+		956AB2C1236C3A1400CF4790 /* FarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 956AB2C0236C3A1400CF4790 /* FarmViewController.swift */; };
+		956AB2C3236C3AFF00CF4790 /* TableChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 956AB2C2236C3AFF00CF4790 /* TableChildViewController.swift */; };
+		956AB2C5237BE09700CF4790 /* WeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 956AB2C4237BE09700CF4790 /* WeatherView.swift */; };
+		956AB2C7237D1DCF00CF4790 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 956AB2C6237D1DCF00CF4790 /* CalendarView.swift */; };
 		957C498522F1800100E304D8 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957C498422F1800100E304D8 /* Environment.swift */; };
 		9590544D22CB595200A859B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9590544C22CB595200A859B9 /* AppDelegate.swift */; };
 		9590544F22CB595200A859B9 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9590544E22CB595200A859B9 /* LoginViewController.swift */; };
@@ -29,6 +33,8 @@
 		95B567E623337EA3007C47FE /* LibraryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B567E523337EA3007C47FE /* LibraryController.swift */; };
 		95B9C5B823348480009E816B /* AddLocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9C5B723348480009E816B /* AddLocationController.swift */; };
 		95B9C5BC23445188009E816B /* NodeChildView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9C5BB23445188009E816B /* NodeChildView.swift */; };
+		95B9C5BE2362E87E009E816B /* SummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9C5BD2362E87E009E816B /* SummaryViewController.swift */; };
+		95B9C5C023669FE3009E816B /* HomePagingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9C5BF23669FE3009E816B /* HomePagingController.swift */; };
 		95DDD33A22F16A9F00716219 /* FarmSummaryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DDD33922F16A9F00716219 /* FarmSummaryCollectionViewCell.swift */; };
 		95E211C0230BD66A00ADF7B1 /* PagerTabStrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E211BF230BD66A00ADF7B1 /* PagerTabStrip.swift */; };
 		95E211C2230BDBA300ADF7B1 /* ChildExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E211C1230BDBA300ADF7B1 /* ChildExampleViewController.swift */; };
@@ -66,6 +72,10 @@
 		20AE48909A87969955636B38 /* Pods_pestMonitoring_v0_5.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pestMonitoring_v0_5.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		23DACA17CD3A46890DAAA1E3 /* Pods-pestMonitoring_v0.5.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pestMonitoring_v0.5.debug.xcconfig"; path = "Target Support Files/Pods-pestMonitoring_v0.5/Pods-pestMonitoring_v0.5.debug.xcconfig"; sourceTree = "<group>"; };
 		55498AEAC747BF47BD3D9A10 /* Pods-pestMonitoring_v0.5UITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pestMonitoring_v0.5UITests.debug.xcconfig"; path = "Target Support Files/Pods-pestMonitoring_v0.5UITests/Pods-pestMonitoring_v0.5UITests.debug.xcconfig"; sourceTree = "<group>"; };
+		956AB2C0236C3A1400CF4790 /* FarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmViewController.swift; sourceTree = "<group>"; };
+		956AB2C2236C3AFF00CF4790 /* TableChildViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableChildViewController.swift; sourceTree = "<group>"; };
+		956AB2C4237BE09700CF4790 /* WeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherView.swift; sourceTree = "<group>"; };
+		956AB2C6237D1DCF00CF4790 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		957C498422F1800100E304D8 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		9590544922CB595200A859B9 /* pestMonitoring_v0.5.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pestMonitoring_v0.5.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9590544C22CB595200A859B9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -94,6 +104,8 @@
 		95B9C5B92334C487009E816B /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
 		95B9C5BA2334C488009E816B /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		95B9C5BB23445188009E816B /* NodeChildView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeChildView.swift; sourceTree = "<group>"; };
+		95B9C5BD2362E87E009E816B /* SummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewController.swift; sourceTree = "<group>"; };
+		95B9C5BF23669FE3009E816B /* HomePagingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePagingController.swift; sourceTree = "<group>"; };
 		95DDD33922F16A9F00716219 /* FarmSummaryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmSummaryCollectionViewCell.swift; sourceTree = "<group>"; };
 		95E211BF230BD66A00ADF7B1 /* PagerTabStrip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerTabStrip.swift; sourceTree = "<group>"; };
 		95E211C1230BDBA300ADF7B1 /* ChildExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildExampleViewController.swift; sourceTree = "<group>"; };
@@ -213,6 +225,8 @@
 			isa = PBXGroup;
 			children = (
 				95DDD33922F16A9F00716219 /* FarmSummaryCollectionViewCell.swift */,
+				956AB2C4237BE09700CF4790 /* WeatherView.swift */,
+				956AB2C6237D1DCF00CF4790 /* CalendarView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -233,6 +247,8 @@
 				95B567E1232F74EF007C47FE /* WeatherController.swift */,
 				95B567E523337EA3007C47FE /* LibraryController.swift */,
 				95B9C5B723348480009E816B /* AddLocationController.swift */,
+				95B9C5BF23669FE3009E816B /* HomePagingController.swift */,
+				956AB2C0236C3A1400CF4790 /* FarmViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -252,8 +268,10 @@
 				95E211C1230BDBA300ADF7B1 /* ChildExampleViewController.swift */,
 				95E211C3230BF4D700ADF7B1 /* EnvironmentChildView.swift */,
 				95E211CD231516D600ADF7B1 /* PestChildView.swift */,
+				95B9C5BD2362E87E009E816B /* SummaryViewController.swift */,
 				95B567D723237642007C47FE /* DiseaseChildView.swift */,
 				95B9C5BB23445188009E816B /* NodeChildView.swift */,
+				956AB2C2236C3AFF00CF4790 /* TableChildViewController.swift */,
 			);
 			path = "Home Child Controllers";
 			sourceTree = "<group>";
@@ -510,7 +528,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				956AB2C3236C3AFF00CF4790 /* TableChildViewController.swift in Sources */,
 				95E211D023166A0C00ADF7B1 /* CameraController.swift in Sources */,
+				956AB2C7237D1DCF00CF4790 /* CalendarView.swift in Sources */,
 				9590544F22CB595200A859B9 /* LoginViewController.swift in Sources */,
 				95E211D5231F993700ADF7B1 /* menuController.swift in Sources */,
 				95B9C5BC23445188009E816B /* NodeChildView.swift in Sources */,
@@ -518,6 +538,7 @@
 				95E211CE231516D600ADF7B1 /* PestChildView.swift in Sources */,
 				95B567E2232F74EF007C47FE /* WeatherController.swift in Sources */,
 				95B567E623337EA3007C47FE /* LibraryController.swift in Sources */,
+				95B9C5C023669FE3009E816B /* HomePagingController.swift in Sources */,
 				95B9C5B823348480009E816B /* AddLocationController.swift in Sources */,
 				95B567E0232F32F0007C47FE /* SettingsController.swift in Sources */,
 				9590545522CB595200A859B9 /* pestMonitoring_v0_5.xcdatamodeld in Sources */,
@@ -527,15 +548,18 @@
 				95E211C0230BD66A00ADF7B1 /* PagerTabStrip.swift in Sources */,
 				95E211D22316764800ADF7B1 /* RegistrationController.swift in Sources */,
 				957C498522F1800100E304D8 /* Environment.swift in Sources */,
+				956AB2C1236C3A1400CF4790 /* FarmViewController.swift in Sources */,
 				95B567E423335902007C47FE /* Spinner.swift in Sources */,
 				95B567D62323739B007C47FE /* GeneralMenuController.swift in Sources */,
 				95E211C92313B64100ADF7B1 /* Pest.swift in Sources */,
 				95E211C4230BF4D700ADF7B1 /* EnvironmentChildView.swift in Sources */,
 				95E211C2230BDBA300ADF7B1 /* ChildExampleViewController.swift in Sources */,
+				956AB2C5237BE09700CF4790 /* WeatherView.swift in Sources */,
 				95DDD33A22F16A9F00716219 /* FarmSummaryCollectionViewCell.swift in Sources */,
 				9590547E22CDF5F900A859B9 /* HomeViewController.swift in Sources */,
 				95B567DA23237DFA007C47FE /* Disease.swift in Sources */,
 				95E211C6230FE48C00ADF7B1 /* BalloonMarker.swift in Sources */,
+				95B9C5BE2362E87E009E816B /* SummaryViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

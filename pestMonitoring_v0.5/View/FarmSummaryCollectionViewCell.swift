@@ -12,6 +12,7 @@ class FarmCell: NSObject{
     var currentEnv: [String]?
     var farmlabel: String?
     var species: [String]?
+    var species_cn: [String]?
     var pestCount: [Int]?
     var alarm: Dictionary<String, [Int]>?
     var pestCheck = 1
@@ -53,10 +54,10 @@ class FarmSummaryCollectionViewCell: UICollectionViewCell {
                         setPestLabel(species: (data?.species)!)
                     }
                 }
-                if data?.species != nil{
+                if data?.species_cn != nil{
                     if data?.alarm != nil{
                         if data?.pestCount != nil{
-                            setPestAlarm(alarm: (data?.alarm)!, count: (data?.pestCount)!, spec: (data?.species)!)
+                            setPestAlarm(alarm: (data?.alarm)!, count: (data?.pestCount)!, spec: (data?.species_cn)!)
                         }
                     }
                 }
@@ -181,21 +182,21 @@ class FarmSummaryCollectionViewCell: UICollectionViewCell {
             let level = alarm[spec[i]]
             alarmLabel.textColor = UIColor.black
             if count[i] <= level![1]{
-                alarmLabel.text = "低"
+                alarmLabel.text = "low"
                 alarmLabel.backgroundColor = .green
                 
             }
             else if (count[i] > level![1]) && (count[i] < level![2]){
-                alarmLabel.text = "警戒"
+                alarmLabel.text = "guarded"
                 alarmLabel.backgroundColor = .blue
                 alarmLabel.textColor = UIColor.white
             }
             else if (count[i] > level![2]) && (count[i] < level![3]){
-                alarmLabel.text = "較高"
+                alarmLabel.text = "high"
                 alarmLabel.backgroundColor = .yellow
             }
             else{
-                alarmLabel.text = "嚴重"
+                alarmLabel.text = "severe"
                 alarmLabel.backgroundColor = .red
             }
             //speciesLabel.text = species[i]
@@ -205,10 +206,10 @@ class FarmSummaryCollectionViewCell: UICollectionViewCell {
             
             contentView.addSubview(alarmLabel)
             contentView.addConstraints([
-                NSLayoutConstraint(item: alarmLabel, attribute: .left, relatedBy: .equal, toItem: contentView, attribute: .left, multiplier: 1, constant: contentView.frame.width - 70),
+                NSLayoutConstraint(item: alarmLabel, attribute: .left, relatedBy: .equal, toItem: contentView, attribute: .left, multiplier: 1, constant: contentView.frame.width - 120),
                 NSLayoutConstraint(item: alarmLabel, attribute: .centerY, relatedBy: .equal, toItem: contentView, attribute: .centerY, multiplier: 1, constant: CGFloat(50*i)),
-                NSLayoutConstraint(item: alarmLabel, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 50),
-                NSLayoutConstraint(item: alarmLabel, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 50)
+                NSLayoutConstraint(item: alarmLabel, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 100),
+                NSLayoutConstraint(item: alarmLabel, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 45)
                 ])
         }
     }

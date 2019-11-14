@@ -58,12 +58,12 @@ class PestChildView: UIViewController, IndicatorInfoProvider {
                 
                 for i in 0..<species.count{
                     
-                    self.drawPestCharts(dates: date, values: values[species[i]] as! [Double], num: i, scrollView: scrollView, species: dict[species[i]]!)
+                    self.drawPestCharts(dates: date, values: values[species[i]] as! [Double], num: i, scrollView: scrollView, species_cn: dict[species[i]]!, species: species[i])
                 }
             }
         }
     }
-    func drawPestCharts(dates: [String], values: [Double], num: Int, scrollView: UIScrollView, species: String){
+    func drawPestCharts(dates: [String], values: [Double], num: Int, scrollView: UIScrollView, species_cn: String, species: String){
         let barView = UIView(frame: CGRect(x: 10, y: 270*num+20, width: Int(scrollView.frame.width-20), height: 250))
         let barTitle = UILabel(frame: CGRect(x: 10, y:0, width: 100, height:50))
         let barInfo = UILabel(frame: CGRect(x: 250, y: 0, width: Int(scrollView.frame.width-270), height: 200))
@@ -99,8 +99,7 @@ class PestChildView: UIViewController, IndicatorInfoProvider {
         barChart.marker = marker
         barChart.legend.enabled = false
         //title
-        //barChart.chartDescription?.text = "count"
-        //lineChart.chartDescription?.positio
+
         //data
         barChart.data = barData
         barChart.animate(xAxisDuration: 0.5)
@@ -122,7 +121,7 @@ class PestChildView: UIViewController, IndicatorInfoProvider {
         barView.addSubview(barTitle)
         barView.addConstraints([NSLayoutConstraint(item: barTitle, attribute: .top, relatedBy: .equal, toItem: barView, attribute: .top, multiplier: 1, constant: 0),
                                 NSLayoutConstraint(item: barTitle, attribute: .left, relatedBy: .equal, toItem: barView, attribute: .left, multiplier: 1, constant: 0)])
-        barTitle.text = species
+        barTitle.text = species_cn
         //set info
         barView.addSubview(barInfo)
         
@@ -131,12 +130,14 @@ class PestChildView: UIViewController, IndicatorInfoProvider {
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
         return itemInfo
     }
+    
     func setPestInfo(data: [Double], infoLabel: UILabel, species: String){
-        let countLabel = UILabel(frame: CGRect(x: 5, y: 5, width: 50, height: 50))
+        let countLabel = UILabel(frame: CGRect(x: 5, y: 20, width: 50, height: 50))
         let image = UIImage(named: "insect_" + species)
-        let pestImage = UIImageView(frame: CGRect(x: 55, y: 5, width: 50, height: 50))
+        let pestImage = UIImageView(frame: CGRect(x: 55, y: 20, width: 50, height: 50))
         pestImage.image = image
-        countLabel.text = String(data[data.count-1])
+        countLabel.text = String(Int(data[data.count-1]))
+        countLabel.font = countLabel.font.withSize(20)
         infoLabel.addSubview(countLabel)
         infoLabel.addSubview(pestImage)
         
@@ -144,19 +145,18 @@ class PestChildView: UIViewController, IndicatorInfoProvider {
         let diff = data[data.count-1] - data[data.count-2]
         info.numberOfLines = 0
         if diff > 0{
-            info.text = String(diff) + " more than yesterday"
+            info.text = String(Int(diff)) + " more than yesterday"
         }
         else if diff < 0{
-            info.text = String(abs(diff)) + " less than yesterday"
+            info.text = String(abs(Int(diff))) + " less than yesterday"
             
         }
         else{
             info.text = "Same as yesterday"
         }
-        
         infoLabel.addSubview(info)
-        
     }
+    
     func drawShadow(view: UIView){
         view.layer.masksToBounds = false
         view.layer.shadowColor = UIColor.black.cgColor

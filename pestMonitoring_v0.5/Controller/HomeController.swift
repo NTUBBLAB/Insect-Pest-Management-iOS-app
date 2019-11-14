@@ -86,18 +86,23 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
                         if pestJson["status"] == 3{
                             print(pestJson["alarms"])
                             print(pestJson)
+                            var species_array_cn = [String]()
                             var species_array = [String]()
                             var count_array = [Int]()
                             var alarm = Dictionary<String, [Int]>()
                             var i = 0
                             for insect in pestJson["species_cn"].arrayObject as! [String]{
-                                species_array.append(insect)
+                                species_array_cn.append(insect)
                                 alarm[insect] = (pestJson["alarms"][i].arrayObject as! [Int])
                                 i += 1
                             }
                             for count in pestJson["counts"].arrayObject as! [Int]{
                                 count_array.append(count)
                             }
+                            for sp in pestJson["species"].arrayObject as! [String]{
+                                species_array.append(sp)
+                            }
+                            cell.species_cn = species_array_cn
                             cell.species = species_array
                             cell.pestCount = count_array
                             cell.alarm = alarm

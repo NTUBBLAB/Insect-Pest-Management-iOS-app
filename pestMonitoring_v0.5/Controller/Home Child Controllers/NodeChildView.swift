@@ -1,7 +1,4 @@
 
-//  ChildExampleViewController.swift
-//  XLPagerTabStrip ( https://github.com/xmartlabs/XLPagerTabStrip )
-//
 
 import Foundation
 import XLPagerTabStrip

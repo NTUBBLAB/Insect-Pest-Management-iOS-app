@@ -14,6 +14,9 @@ target 'pestMonitoring_v0.5' do
   
   pod 'XLPagerTabStrip', '~> 9.0'
   
+  pod 'JTAppleCalendar', '~> 7.1'
+  
+  
   target 'pestMonitoring_v0.5Tests' do
     inherit! :search_paths
     # Pods for testing
