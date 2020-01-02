@@ -80,7 +80,7 @@ class login_ViewController: UIViewController, UITextFieldDelegate {
                             return
                         }
                         
-                        print(json)
+                        //print(json)
                         
                     }
                     

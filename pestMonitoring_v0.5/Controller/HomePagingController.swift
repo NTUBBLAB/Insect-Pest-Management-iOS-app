@@ -2,7 +2,7 @@ import Foundation
 import XLPagerTabStrip
 import SwiftyJSON
 import UserNotifications
-
+import JTAppleCalendar
 
 struct FarmButton{
     var farmName = ""
@@ -10,13 +10,13 @@ struct FarmButton{
     var farmCity = ""
 }
 
-class HomePagingController: UIViewController {
+class HomePagingController: UIViewController, UNUserNotificationCenterDelegate {
     let scrollView = UIScrollView()
     let buttonScrollView = UIScrollView()
     var farmButtons = [FarmButton]()
     let farmLabel = UILabel()
     
-    
+    var refreshControl = UIRefreshControl()
     var locations = [String]()
     var city = [String]()
     var currentCity: String?
@@ -26,6 +26,8 @@ class HomePagingController: UIViewController {
     var pestNameLabels = [UILabel]()
     var envLabels = [UILabel]()
     var alarmLabels = [UILabel]()
+    var buttonLabels = [UILabel]()
+    
     
     var currentTemp: String!
     var currentHumd: String!
@@ -35,36 +37,27 @@ class HomePagingController: UIViewController {
     let weatherView = WeatherView()
     let chineseDict = ["CHIAYI_GH": "嘉義育家", "JINGPIN_GH": "京品", "YUNLIN_GH": "雲林福成", "TAINANDARES_GH": "台南農改場洋桔梗溫室", "TAINANMO_FF": "台南農改場芒果園", "TAICHUNGSB_GH": "草屯光之莓草莓園", "QINGYUAN_GH": "擎園蝴蝶蘭溫室", "TEST_GH": "測試溫室"]
     
+    var testCalendar = Calendar.current
+    var sprayDays = [String]()
+    var pesticides = [String]()
+    let center = UNUserNotificationCenter.current()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let center = UNUserNotificationCenter.current()
+        
+        self.navigationItem.title = "Home"
+        
+        center.delegate = self
         center.requestAuthorization(options: [.alert, .sound]){ (granted, error) in
             
         }
-        
-        let notification = UNMutableNotificationContent()
-        notification.title = "Hi"
-        notification.body = "123"
-        
-        let date = Date().addingTimeInterval(10)
-        
-        let dateComponet = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
-        
-        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponet, repeats: true)
-        let uuid = UUID().uuidString
-        let request = UNNotificationRequest(identifier: uuid, content: notification, trigger: trigger)
-        
-        center.add(request){ (error) in
-            
-        }
-        
+        center.removeAllPendingNotificationRequests()
         let defaults = UserDefaults.standard
         locations = defaults.array(forKey: "locations") as! [String]
         city = defaults.array(forKey: "city") as! [String]
-        print(locations)
-        print(city)
+        //print(locations)
+        //print(city)
         scrollView.contentSize = CGSize(width: view.frame.width, height: 1500)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.backgroundColor = UIColor.white
@@ -78,7 +71,11 @@ class HomePagingController: UIViewController {
              NSLayoutConstraint(item: scrollView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: view.frame.height)]
         )
         
-        buttonScrollView.contentSize = CGSize(width: self.locations.count*70, height: 100)
+        //refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: UIControl.Event.valueChanged)
+        scrollView.addSubview(refreshControl)
+        
+        buttonScrollView.contentSize = CGSize(width: self.locations.count*80+20, height: 100)
         buttonScrollView.translatesAutoresizingMaskIntoConstraints = false
         buttonScrollView.backgroundColor = UIColor.white
         buttonScrollView.isScrollEnabled = true
@@ -94,7 +91,7 @@ class HomePagingController: UIViewController {
         self.currentLoc = locations[0]
         self.currentCity = city[0]
         for i in 0..<self.locations.count{
-            setFarmButtons(loc: self.locations[i], x:CGFloat(20+70*i), y:20, w: 50, h:50)
+            setFarmButtons(loc: self.locations[i], x:CGFloat(20+80*i), y:20, w: 60, h:50)
             
         }
         
@@ -113,21 +110,9 @@ class HomePagingController: UIViewController {
                                    NSLayoutConstraint(item: weatherView, attribute: .left, relatedBy: .equal, toItem: scrollView, attribute: .left, multiplier: 1, constant: 20),
                                    NSLayoutConstraint(item: weatherView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 300),
                                    NSLayoutConstraint(item: weatherView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: (view.frame.width-40))])
-        
-        let calendarView = CalendarView()
-        calendarView.translatesAutoresizingMaskIntoConstraints = false
-        calendarView.backgroundColor = .gray
-        calendarView.register(DateCell.self, forCellWithReuseIdentifier: "dateCell")
-        calendarView.ibCalendarDelegate = self
-        calendarView.ibCalendarDataSource = self
+        fetchCalendarData()
         
         
-        
-        scrollView.addSubview(calendarView)
-        scrollView.addConstraints([NSLayoutConstraint(item: calendarView, attribute: .top, relatedBy: .equal, toItem: scrollView, attribute: .top, multiplier: 1, constant: 850),
-                                   NSLayoutConstraint(item: calendarView, attribute: .left, relatedBy: .equal, toItem: scrollView, attribute: .left, multiplier: 1, constant: 20),
-                                   NSLayoutConstraint(item: calendarView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 400),
-                                   NSLayoutConstraint(item: calendarView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: (view.frame.width-40))])
         
     }
     func setFarmButtons(loc: String, x: CGFloat, y: CGFloat, w: CGFloat, h: CGFloat){
@@ -137,18 +122,16 @@ class HomePagingController: UIViewController {
         button.farmName = loc
         button.farmCity = self.currentCity!
         
-        farmButton.backgroundColor = .white
+        //farmButton.backgroundColor = .gray
         farmButton.translatesAutoresizingMaskIntoConstraints = false
         
         farmButton.setTitle(loc, for: .normal)
-        farmButton.setTitleColor(.white, for: .normal)
-        farmButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-//        farmButton.titleLabel?.textColor = .black
-//        farmButton.titleLabel?.backgroundColor = .blue
+        farmButton.setTitleColor(.black, for: .normal)
+
         farmButton.imageView?.contentMode = .scaleAspectFit
         farmButton.setImage( UIImage(named: "ghouse"), for: UIControl.State.normal)
         farmButton.setImage( UIImage(named: "ghouse_selected"), for: UIControl.State.selected)
-        farmButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        //farmButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 1, right: 0)
         farmButton.addTarget(self, action: #selector(buttonClicked), for: UIControl.Event.touchUpInside)
         //print(farmButton.titleLabel)
         buttonScrollView.addSubview(farmButton)
@@ -156,9 +139,25 @@ class HomePagingController: UIViewController {
                              NSLayoutConstraint(item: farmButton, attribute: .left, relatedBy: .equal, toItem: buttonScrollView, attribute: .left, multiplier: 1, constant: x),
                              NSLayoutConstraint(item: farmButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: w),
                              NSLayoutConstraint(item: farmButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: h)])
+        let farmLabel = UILabel()
+        
+        farmLabel.adjustsFontSizeToFitWidth = true
+        farmLabel.translatesAutoresizingMaskIntoConstraints = false
+        farmLabel.text = loc
+        farmLabel.minimumScaleFactor = 0.5
+        
+        farmLabel.textColor = hexStringToUIColor(hex: "#4B8521")
+        buttonScrollView.addSubview(farmLabel)
+        buttonScrollView.addConstraints([NSLayoutConstraint(item: farmLabel, attribute:.top, relatedBy: .equal, toItem: buttonScrollView, attribute: .top, multiplier: 1, constant: 70),
+                                         NSLayoutConstraint(item: farmLabel, attribute: .centerX, relatedBy: .equal, toItem: buttonScrollView, attribute: .left, multiplier: 1, constant: x+25),
+                                         NSLayoutConstraint(item: farmLabel, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 20),
+                                         NSLayoutConstraint(item: farmLabel, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 70)])
+        
         if button.farmName == currentLoc{
             button.button.isSelected = true
+            farmLabel.textColor = hexStringToUIColor(hex: "#9C694E")
         }
+        buttonLabels.append(farmLabel)
         farmButtons.append(button)
     }
     func setSummaryCell(){
@@ -239,9 +238,9 @@ class HomePagingController: UIViewController {
                         self.currentLight = currentEnvJson["values"][2].stringValue
                         
                         
-                        self.setEnvValue(view: self.summaryCell, value: self.currentTemp, x: 50, y: 150, w: 50, h: 30)
-                        self.setEnvValue(view: self.summaryCell, value: self.currentHumd, x: (self.view.frame.width/2-45), y: 150, w: 50, h: 30)
-                        self.setEnvValue(view: self.summaryCell, value: self.currentLight, x: self.view.frame.width-140, y: 150, w: 50, h: 30)
+                        self.setEnvValue(type: "T", view: self.summaryCell, value: self.currentTemp, x: 50, y: 150, w: 50, h: 30)
+                        self.setEnvValue(type: "H", view: self.summaryCell, value: self.currentHumd, x: (self.view.frame.width/2-45), y: 150, w: 50, h: 30)
+                        self.setEnvValue(type: "L", view: self.summaryCell, value: self.currentLight, x: self.view.frame.width-140, y: 150, w: 80, h: 30)
                         //cell.currentEnv = [currentTemp + " °C", currentHumid + " %", currentLight + " lux"]
                     }
                     else{
@@ -343,14 +342,18 @@ class HomePagingController: UIViewController {
                 alarmLabel.text = "guarded"
                 alarmLabel.backgroundColor = .blue
                 alarmLabel.textColor = UIColor.white
+                
+                sendNotification(type: "high", pest: spec[i])
             }
             else if (count[i] > level![2]) && (count[i] < level![3]){
                 alarmLabel.text = "high"
                 alarmLabel.backgroundColor = .yellow
+                sendNotification(type: "high", pest: spec[i])
             }
             else{
                 alarmLabel.text = "severe"
                 alarmLabel.backgroundColor = .red
+                sendNotification(type: "severe", pest: spec[i])
             }
             //speciesLabel.text = species[i]
             
@@ -402,10 +405,19 @@ class HomePagingController: UIViewController {
         self.pestLabels.append(pestCountLabel)
         
     }
-    func setEnvValue(view: UIView, value: String, x: CGFloat, y: CGFloat, w: CGFloat, h: CGFloat){
+    func setEnvValue(type: String, view: UIView, value: String, x: CGFloat, y: CGFloat, w: CGFloat, h: CGFloat){
         let valueLabel = UILabel()
         valueLabel.translatesAutoresizingMaskIntoConstraints = false
-        valueLabel.text = value
+        if type == "T"{
+            valueLabel.text = value + "°C"
+        }
+        else if type == "H"{
+            valueLabel.text = value + "%"
+        }
+        else{
+            valueLabel.text = value + " lux"
+        }
+        //valueLabel.text = value
         valueLabel.textAlignment = .center
         view.addSubview(valueLabel)
         view.addConstraints([
@@ -417,7 +429,66 @@ class HomePagingController: UIViewController {
         self.envLabels.append(valueLabel)
         
     }
-    
+    func fetchCalendarData(){
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY-MM-dd"
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC+8")
+        
+        
+        let url = URL(string: "http://140.112.94.123:20000/PEST_DETECT/_app/data_pesticide_calendar.php?loc=" + self.currentLoc!)
+        URLSession.shared.dataTask(with: url!) { (data: Data?, response: URLResponse?, error: Error?) in
+            if error != nil{
+                print(error!)
+                return
+            }
+            do {
+                let json = try JSON(data: data!)
+                //print(json)
+                DispatchQueue.main.async {
+                    let dates = json["dates"].arrayObject as! [String]
+                    let pesticide = json["pesticide"].arrayObject as! [String]
+                    self.sprayDays = dates
+                    self.pesticides = pesticide
+                    //print(self.sprayDays)
+                    self.setCalendarView()
+                }
+                
+            }
+            catch let jsonError{
+                print(jsonError)
+            }
+            
+        }.resume()
+    }
+    func setCalendarView(){
+        
+        let calendarView = CalendarView()
+        calendarView.translatesAutoresizingMaskIntoConstraints = false
+        calendarView.backgroundColor = .white
+        calendarView.layer.borderWidth = 1
+        
+        calendarView.register(DateCell.self, forCellWithReuseIdentifier: "dateCell")
+        calendarView.register(WhiteSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "WhiteSectionHeaderView")
+        //calendarView.register(PinkSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "PinkSectionHeaderView")
+        calendarView.ibCalendarDelegate = self
+        calendarView.ibCalendarDataSource = self
+        
+        
+        calendarView.scrollDirection = .horizontal
+        calendarView.scrollingMode = .stopAtEachCalendarFrame
+        calendarView.showsHorizontalScrollIndicator = false
+        
+        
+        calendarView.scrollToDate(Date())
+        //calendarView.dropDelegate.
+        
+        
+        scrollView.addSubview(calendarView)
+        scrollView.addConstraints([NSLayoutConstraint(item: calendarView, attribute: .top, relatedBy: .equal, toItem: scrollView, attribute: .top, multiplier: 1, constant: 850),
+                                   NSLayoutConstraint(item: calendarView, attribute: .left, relatedBy: .equal, toItem: scrollView, attribute: .left, multiplier: 1, constant: 20),
+                                   NSLayoutConstraint(item: calendarView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 400),
+                                   NSLayoutConstraint(item: calendarView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: (view.frame.width-40))])
+    }
     @objc func buttonClicked(sender: UIButton)
     {
         
@@ -425,8 +496,17 @@ class HomePagingController: UIViewController {
         if (!sender.isSelected){
             sender.isSelected = !sender.isSelected;
             self.currentLoc = sender.titleLabel?.text
+            for label in buttonLabels{
+                if self.currentLoc == label.text{
+                    label.textColor = hexStringToUIColor(hex: "#9C694E")
+                }
+                else{
+                    label.textColor = hexStringToUIColor(hex: "#4B8521")
+                }
+            }
             getEnvData()
             getPestData()
+            fetchCalendarData()
             farmLabel.text = self.chineseDict[self.currentLoc!]
         }
         for button in farmButtons{
@@ -439,12 +519,76 @@ class HomePagingController: UIViewController {
         
        
     }
+    
     @objc func moreSelected(sender: UIButton){
         let pager = storyboard?.instantiateViewController(withIdentifier: "PagerMenu") as? PagerTabStrip
         //farmDetail?.name = locations[indexPath.row]
         pager?.location = self.currentLoc!
         //print(locations[indexPath.item])
         self.navigationController?.pushViewController(pager!, animated: true)
+    }
+    @objc func refresh(sender: AnyObject){
+        setSummaryCell()
+        getEnvData()
+        getPestData()
+        weatherView.getCurrentWeather(view: view)
+        fetchCalendarData()
+        refreshControl.endRefreshing()
+    }
+    func hexStringToUIColor (hex:String) -> UIColor {
+        var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+        
+        if (cString.hasPrefix("#")) {
+            cString.remove(at: cString.startIndex)
+        }
+        
+        if ((cString.count) != 6) {
+            return UIColor.gray
+        }
+        
+        var rgbValue:UInt64 = 0
+        Scanner(string: cString).scanHexInt64(&rgbValue)
+        
+        return UIColor(
+            red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+            green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+            blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
+            alpha: CGFloat(1.0)
+        )
+    }
+    func sendNotification(type: String, pest: String){
+        let notification = UNMutableNotificationContent()
+        
+        if type == "high"{
+            notification.title = "警告!"
+            notification.body = pest + "數量異常，請注意！"
+        }
+        else{
+            notification.title = "嚴重!"
+            notification.body = pest + "數量嚴重異常，請多加注意！"
+        }
+        print("sent")
+        var dateComponent = DateComponents()
+        dateComponent.calendar = Calendar.current
+        dateComponent.second = 30
+//        dateComponent.minute = 00
+//        dateComponent.hour = 19
+        //
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponent, repeats: true)
+        let uuid = UUID().uuidString
+        
+        let request = UNNotificationRequest(identifier: uuid, content: notification, trigger: trigger)
+        
+        center.add(request) { (error) in
+            if let error = error {
+                print("Error \(error.localizedDescription)")
+            }
+            else { print("success!!!") }
+            
+        }
+        center.getDeliveredNotifications(){ (notifications) in
+            print(notification)
+        }
     }
 }
 
