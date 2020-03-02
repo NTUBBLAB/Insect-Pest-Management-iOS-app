@@ -1,18 +1,21 @@
 
+/* Class = "UILabel"; text = "Sign out"; ObjectID = "0cO-f3-dMz"; */
+"0cO-f3-dMz.text" = "登出";
+
 /* Class = "UITextField"; placeholder = "Number of nodes"; ObjectID = "200-8S-a2U"; */
 "200-8S-a2U.placeholder" = "裝置數量";
 
 /* Class = "UIButton"; normalTitle = "Button"; ObjectID = "2Wc-79-m5y"; */
 "2Wc-79-m5y.normalTitle" = "Button";
 
-/* Class = "UILabel"; text = "Sign out"; ObjectID = "5nr-vE-Umw"; */
-"5nr-vE-Umw.text" = "登出";
-
 /* Class = "UITextField"; placeholder = "Location name"; ObjectID = "60B-1F-8eE"; */
-"60B-1F-8eE.placeholder" = "地點名稱";
+"60B-1F-8eE.placeholder" = "溫室名稱";
 
 /* Class = "UIButton"; normalTitle = "Button"; ObjectID = "8xn-1U-KFj"; */
 "8xn-1U-KFj.normalTitle" = "Button";
+
+/* Class = "UITabBarItem"; title = "Camera"; ObjectID = "91m-UO-kQN"; */
+"91m-UO-kQN.title" = "害蟲辨識";
 
 /* Class = "UINavigationController"; title = "Settings"; ObjectID = "CJH-kH-bPV"; */
 "CJH-kH-bPV.title" = "設定";
@@ -20,17 +23,20 @@
 /* Class = "UITextField"; placeholder = "Confirm your password"; ObjectID = "CRx-z5-zGI"; */
 "CRx-z5-zGI.placeholder" = "確認密碼";
 
+/* Class = "UILabel"; text = "Forum"; ObjectID = "DGa-iW-Pg9"; */
+"DGa-iW-Pg9.text" = "討論區";
+
 /* Class = "UITextField"; placeholder = "Create a password"; ObjectID = "DgP-j4-EFY"; */
 "DgP-j4-EFY.placeholder" = "建立密碼";
 
 /* Class = "UINavigationItem"; title = "NTU IPM"; ObjectID = "DrG-x0-ebq"; */
 "DrG-x0-ebq.title" = "NTU IPM";
 
-/* Class = "UILabel"; text = "Plant disease camera"; ObjectID = "EMV-kC-A4r"; */
-"EMV-kC-A4r.text" = "植物病害相機";
-
 /* Class = "UITableViewSection"; headerTitle = "Account settings"; ObjectID = "Ebw-J0-qi7"; */
 "Ebw-J0-qi7.headerTitle" = "帳號設定";
+
+/* Class = "UILabel"; text = "Library"; ObjectID = "FMp-zc-IIL"; */
+"FMp-zc-IIL.text" = "病蟲害圖鑑";
 
 /* Class = "UIButton"; normalTitle = "Save"; ObjectID = "GZu-tg-aq9"; */
 "GZu-tg-aq9.normalTitle" = "儲存";
@@ -39,88 +45,85 @@
 "HyA-Fr-yh0.text" = "新增地點";
 
 /* Class = "UITextField"; placeholder = "Crops, e.g. tomato,apple"; ObjectID = "I4s-cB-L3m"; */
-"I4s-cB-L3m.placeholder" = "農作物, 例如: 番茄,蘋果";
+"I4s-cB-L3m.placeholder" = "作物名稱";
+
+/* Class = "UIButton"; normalTitle = "Close"; ObjectID = "IwY-4s-pVx"; */
+"IwY-4s-pVx.normalTitle" = "關閉";
 
 /* Class = "UITextField"; placeholder = "Farm area size (m²)"; ObjectID = "Jo7-Ex-gs6"; */
-"Jo7-Ex-gs6.placeholder" = "農場面積大小 (m²)";
-
-/* Class = "UILabel"; text = "Label"; ObjectID = "KfS-pW-xVd"; */
-"KfS-pW-xVd.text" = "Label";
+"Jo7-Ex-gs6.placeholder" = "溫室大小 (m²)";
 
 /* Class = "UIViewController"; title = "Weather"; ObjectID = "LTk-3C-FEM"; */
 "LTk-3C-FEM.title" = "天氣";
 
-/* Class = "UITextField"; placeholder = "請輸入縣市"; ObjectID = "Lad-p5-gxJ"; */
-"Lad-p5-gxJ.placeholder" = "請輸入縣市";
-
 /* Class = "UILabel"; text = "Library"; ObjectID = "OUV-yZ-jWx"; */
 "OUV-yZ-jWx.text" = "病蟲害圖鑑";
 
+/* Class = "UILabel"; text = "Results"; ObjectID = "OyG-BH-go8"; */
+"OyG-BH-go8.text" = "辨識結果";
+
 /* Class = "UILabel"; text = "Create account"; ObjectID = "PH6-YZ-1wZ"; */
-"PH6-YZ-1wZ.text" = "新增帳號";
+"PH6-YZ-1wZ.text" = "建立帳號";
+
+/* Class = "UITabBarItem"; title = "Home"; ObjectID = "PyY-zl-yQW"; */
+"PyY-zl-yQW.title" = "首頁";
 
 /* Class = "UITabBarItem"; title = "Settings"; ObjectID = "QPd-a7-OZW"; */
 "QPd-a7-OZW.title" = "設定";
 
 /* Class = "UIButton"; normalTitle = "Create your account"; ObjectID = "Qbw-g2-hWa"; */
-"Qbw-g2-hWa.normalTitle" = "新增帳號";
+"Qbw-g2-hWa.normalTitle" = "建立您的帳號";
 
 /* Class = "UIButton"; normalTitle = "Button"; ObjectID = "QcZ-ne-NEG"; */
 "QcZ-ne-NEG.normalTitle" = "Button";
 
-/* Class = "UILabel"; text = "Weather"; ObjectID = "QvB-kc-yoO"; */
-"QvB-kc-yoO.text" = "天氣資訊";
-
 /* Class = "UILabel"; text = "Comments"; ObjectID = "Rv3-FE-A4C"; */
-"Rv3-FE-A4C.text" = "備註";
-
-/* Class = "UITextField"; placeholder = "請輸入鄉鎮市區"; ObjectID = "SpX-Cf-eGA"; */
-"SpX-Cf-eGA.placeholder" = "請輸入鄉鎮市區";
+"Rv3-FE-A4C.text" = "建議";
 
 /* Class = "UINavigationItem"; title = "WSN Tools"; ObjectID = "TDE-5y-e2A"; */
-"TDE-5y-e2A.title" = "自動監測工具";
+"TDE-5y-e2A.title" = "一般工具";
 
 /* Class = "UINavigationItem"; title = "Pest Detect"; ObjectID = "TNa-mB-ZGR"; */
-"TNa-mB-ZGR.title" = "害蟲偵測";
-
-/* Class = "UILabel"; text = "Forum"; ObjectID = "TrU-6Y-bCl"; */
-"TrU-6Y-bCl.text" = "討論區";
+"TNa-mB-ZGR.title" = "害蟲辨識";
 
 /* Class = "UITextField"; placeholder = "E-mail"; ObjectID = "VBf-3B-WNq"; */
 "VBf-3B-WNq.placeholder" = "E-mail";
 
 /* Class = "UITextField"; placeholder = "Indoor/Outdoor"; ObjectID = "XVa-BT-0UN"; */
-"XVa-BT-0UN.placeholder" = "溫室/戶外";
+"XVa-BT-0UN.placeholder" = "室內/戶外";
 
 /* Class = "UINavigationItem"; title = "General Tools"; ObjectID = "YpC-OQ-ejl"; */
 "YpC-OQ-ejl.title" = "一般工具";
 
 /* Class = "UILabel"; text = "Dashboard"; ObjectID = "Zfp-G0-3l3"; */
-"Zfp-G0-3l3.text" = "儀表板";
+"Zfp-G0-3l3.text" = "控制台";
 
 /* Class = "UITabBarItem"; title = "WSN tools"; ObjectID = "Zi8-ez-i4a"; */
-"Zi8-ez-i4a.title" = "自動監測工具";
+"Zi8-ez-i4a.title" = "WSN工具";
 
 /* Class = "UITextField"; placeholder = "Location code name"; ObjectID = "aZ4-mD-C7c"; */
-"aZ4-mD-C7c.placeholder" = "地點代號";
-
-/* Class = "UILabel"; text = "Label"; ObjectID = "bRX-Cu-LXC"; */
-"bRX-Cu-LXC.text" = "Label";
+"aZ4-mD-C7c.placeholder" = "位置代號";
 
 /* Class = "UILabel"; text = "Coming Soon"; ObjectID = "eNY-Yd-cP5"; */
 "eNY-Yd-cP5.text" = "Coming Soon";
 
 /* Class = "UITextField"; placeholder = "City/Country"; ObjectID = "fc2-ti-lRR"; */
-"fc2-ti-lRR.placeholder" = "城市";
+"fc2-ti-lRR.placeholder" = "縣/市";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "feh-ns-Mqg"; */
+"feh-ns-Mqg.normalTitle" = "Button";
 
 /* Class = "UIViewController"; title = "WSN tools"; ObjectID = "g43-p3-Y67"; */
-"g43-p3-Y67.title" = "自動監測工具";
+"g43-p3-Y67.title" = "WSN tools";
 
 /* Class = "UITextField"; placeholder = "Name"; ObjectID = "h74-X7-SIg"; */
 "h74-X7-SIg.placeholder" = "姓名";
 
 /* Class = "UINavigationController"; title = "General tools"; ObjectID = "hDm-Sj-IgC"; */
 "hDm-Sj-IgC.title" = "一般工具";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "jqe-u4-5uh"; */
+"jqe-u4-5uh.text" = "Label";
 
 /* Class = "UIButton"; normalTitle = "註冊"; ObjectID = "kvL-jJ-f3o"; */
 "kvL-jJ-f3o.normalTitle" = "註冊";
@@ -137,9 +140,6 @@
 /* Class = "UIButton"; normalTitle = "登入"; ObjectID = "nID-qF-wRX"; */
 "nID-qF-wRX.normalTitle" = "登入";
 
-/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "oBw-7L-sBT"; */
-"oBw-7L-sBT.normalTitle" = "Button";
-
 /* Class = "UILabel"; text = "Auto Login"; ObjectID = "oII-QL-WZi"; */
 "oII-QL-WZi.text" = "自動登入";
 
@@ -152,23 +152,14 @@
 /* Class = "UITextField"; placeholder = "Username"; ObjectID = "rJA-b6-IUV"; */
 "rJA-b6-IUV.placeholder" = "使用者名稱";
 
-/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "rTw-tS-PcO"; */
-"rTw-tS-PcO.normalTitle" = "Button";
-
-/* Class = "UILabel"; text = "Label"; ObjectID = "rcl-mS-cws"; */
-"rcl-mS-cws.text" = "Label";
-
-/* Class = "UILabel"; text = "Sticky paper camera"; ObjectID = "vFF-xv-gne"; */
-"vFF-xv-gne.text" = "黏蟲紙相機";
-
-/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "vy1-xv-LB6"; */
-"vy1-xv-LB6.normalTitle" = "Button";
+/* Class = "UITabBarItem"; title = "Inbox"; ObjectID = "u0r-Nr-mbr"; */
+"u0r-Nr-mbr.title" = "警告通知";
 
 /* Class = "UIButton"; normalTitle = "Sign in"; ObjectID = "xAC-bP-mnv"; */
 "xAC-bP-mnv.normalTitle" = "登入";
 
 /* Class = "UIButton"; normalTitle = "Camera"; ObjectID = "xsg-Mp-DxJ"; */
-"xsg-Mp-DxJ.normalTitle" = "相機";
+"xsg-Mp-DxJ.normalTitle" = "蟲害辨識";
 
 /* Class = "UILabel"; text = "Already have an account?"; ObjectID = "ya2-nj-Mf3"; */
 "ya2-nj-Mf3.text" = "已經有帳號了嗎?";

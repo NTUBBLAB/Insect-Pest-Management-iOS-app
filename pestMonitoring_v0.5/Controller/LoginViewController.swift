@@ -58,6 +58,7 @@ class login_ViewController: UIViewController, UITextFieldDelegate {
                         spinnerView.removeFromSuperview()
                         if json["status"] == 0{
                             print("success")
+                            print(json)
                             let locations = json["locations"].arrayObject as! [String]
                             let city = json["cities"].arrayObject as! [String]
                             defaults.set(locations, forKey: "locations")

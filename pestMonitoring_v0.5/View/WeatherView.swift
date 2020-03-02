@@ -164,7 +164,7 @@ class WeatherView: UIView{
                     let dates = json["DATES"].arrayObject as! [String]
                     let temp = json["TPREDS"].arrayObject as! [String]
                     var newDates = [String]()
-                    self.titleLabel.text = self.city
+                    self.titleLabel.text = NSLocalizedString( self.city!, comment: "city")
                     self.tempLabel.text = json["T"].stringValue + " °C"
                     self.humdLabel.text = json["H"].stringValue + " %RH"
                     self.rainLabel.text = json["RPOP"].stringValue + "%"

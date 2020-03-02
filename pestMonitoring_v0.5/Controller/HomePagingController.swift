@@ -28,7 +28,6 @@ class HomePagingController: UIViewController, UNUserNotificationCenterDelegate {
     var alarmLabels = [UILabel]()
     var buttonLabels = [UILabel]()
     
-    
     var currentTemp: String!
     var currentHumd: String!
     var currentLight: String!
@@ -42,11 +41,13 @@ class HomePagingController: UIViewController, UNUserNotificationCenterDelegate {
     var pesticides = [String]()
     let center = UNUserNotificationCenter.current()
     
+    var sendNotificationTime = 19
+    let defaults = UserDefaults.standard
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        self.navigationItem.title = "Home"
+        self.navigationItem.title = NSLocalizedString("Home", comment: "")
         
         center.delegate = self
         center.requestAuthorization(options: [.alert, .sound]){ (granted, error) in
@@ -112,7 +113,11 @@ class HomePagingController: UIViewController, UNUserNotificationCenterDelegate {
                                    NSLayoutConstraint(item: weatherView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: (view.frame.width-40))])
         fetchCalendarData()
         
+        defaults.set(19, forKey: "hour")
+        defaults.set(00, forKey: "minute")
+        defaults.synchronize()
         
+       // sendNotification(type: "high", pest: "Thrips")
         
     }
     func setFarmButtons(loc: String, x: CGFloat, y: CGFloat, w: CGFloat, h: CGFloat){
@@ -176,7 +181,8 @@ class HomePagingController: UIViewController, UNUserNotificationCenterDelegate {
         
         farmLabel.translatesAutoresizingMaskIntoConstraints = false
         farmLabel.textAlignment = .center
-        farmLabel.text = chineseDict[self.currentLoc!]
+        //farmLabel.text = chineseDict[self.currentLoc!]
+        farmLabel.text = NSLocalizedString(self.currentLoc!, comment: "YUNLIN Greenhouse")
         farmLabel.font = UIFont.systemFont(ofSize: 18)
         
         summaryCell.addSubview(farmLabel)
@@ -187,15 +193,15 @@ class HomePagingController: UIViewController, UNUserNotificationCenterDelegate {
         
         let moreButton = UIButton(frame: CGRect(x: 0, y: 350, width: (view.frame.width-40), height: 50))
         moreButton.setTitleColor(.black, for: UIControl.State.normal)
-        moreButton.setTitle("MORE", for: UIControl.State.normal)
+        moreButton.setTitle(NSLocalizedString("More", comment: "more button"), for: UIControl.State.normal)
         
         //moreButton.layer.borderWidth = 1
         moreButton.addTarget(self, action: #selector(moreSelected), for: UIControl.Event.touchUpInside)
         summaryCell.addSubview(moreButton)
         
-        setEnvIcon(view: summaryCell, imageName: "HomeIcon_Temp", x: 50, y: 80, w: 50, h: 50)
-        setEnvIcon(view: summaryCell, imageName: "HomeIcon_Humid", x: (self.view.frame.width/2-45), y: 80, w: 50, h: 50)
-        setEnvIcon(view: summaryCell, imageName: "HomeIcon_Light", x: self.view.frame.width-140, y: 80, w: 50, h: 50)
+        setEnvIcon(view: summaryCell, imageName: "HomeIcon_Temp", x: self.summaryCell.frame.width/4, y: 80, w: 50, h: 50)
+        setEnvIcon(view: summaryCell, imageName: "HomeIcon_Humid", x: self.summaryCell.frame.width/4*2, y: 80, w: 50, h: 50)
+        setEnvIcon(view: summaryCell, imageName: "HomeIcon_Light", x: self.summaryCell.frame.width/4*3, y: 80, w: 50, h: 50)
         
     }
     func setEnvIcon(view: UIView, imageName: String, x: CGFloat, y: CGFloat, w: CGFloat, h: CGFloat){
@@ -204,9 +210,10 @@ class HomePagingController: UIViewController, UNUserNotificationCenterDelegate {
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
+    
         view.addSubview(imageView)
         view.addConstraints([
-            NSLayoutConstraint(item: imageView, attribute: .left, relatedBy: .equal, toItem: view, attribute: .left, multiplier: 1, constant: x),
+            NSLayoutConstraint(item: imageView, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .left, multiplier: 1, constant: x),
             NSLayoutConstraint(item: imageView, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: y),
             NSLayoutConstraint(item: imageView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: w),
             NSLayoutConstraint(item: imageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: h)
@@ -334,24 +341,24 @@ class HomePagingController: UIViewController, UNUserNotificationCenterDelegate {
             let level = alarm[spec[i]]
             alarmLabel.textColor = UIColor.black
             if count[i] <= level![1]{
-                alarmLabel.text = "low"
+                alarmLabel.text = NSLocalizedString("low", comment: "low")
                 alarmLabel.backgroundColor = .green
                 
             }
             else if (count[i] > level![1]) && (count[i] < level![2]){
-                alarmLabel.text = "guarded"
+                alarmLabel.text = NSLocalizedString("guarded", comment: "low")
                 alarmLabel.backgroundColor = .blue
                 alarmLabel.textColor = UIColor.white
                 
                 sendNotification(type: "high", pest: spec[i])
             }
             else if (count[i] > level![2]) && (count[i] < level![3]){
-                alarmLabel.text = "high"
+                alarmLabel.text = NSLocalizedString("high", comment: "low")
                 alarmLabel.backgroundColor = .yellow
                 sendNotification(type: "high", pest: spec[i])
             }
             else{
-                alarmLabel.text = "severe"
+                alarmLabel.text = NSLocalizedString("severe", comment: "low")
                 alarmLabel.backgroundColor = .red
                 sendNotification(type: "severe", pest: spec[i])
             }
@@ -375,7 +382,7 @@ class HomePagingController: UIViewController, UNUserNotificationCenterDelegate {
         let pestCountLabel = UILabel()
         //let pestAlarmLabel = UILabel()
         pestNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        pestNameLabel.text = pestName
+        pestNameLabel.text = NSLocalizedString(pestName, comment: "")
         pestNameLabel.textAlignment = .left
         
         view.addSubview(pestNameLabel)
@@ -567,13 +574,17 @@ class HomePagingController: UIViewController, UNUserNotificationCenterDelegate {
             notification.title = "嚴重!"
             notification.body = pest + "數量嚴重異常，請多加注意！"
         }
-        print("sent")
+        // print("sent")
         var dateComponent = DateComponents()
+        dateComponent.timeZone = TimeZone(abbreviation: "UTC+8")
         dateComponent.calendar = Calendar.current
-        dateComponent.second = 30
-//        dateComponent.minute = 00
-//        dateComponent.hour = 19
-        //
+        // dateComponent.second = 30
+        //dateComponent.day = 1
+        dateComponent.minute = defaults.integer(forKey: "minute")
+        dateComponent.hour = defaults.integer(forKey: "hour")
+        dateComponent.second = 00
+        
+        
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponent, repeats: true)
         let uuid = UUID().uuidString
         
@@ -583,12 +594,12 @@ class HomePagingController: UIViewController, UNUserNotificationCenterDelegate {
             if let error = error {
                 print("Error \(error.localizedDescription)")
             }
-            else { print("success!!!") }
+            //else { print("success!!!") }
             
         }
-        center.getDeliveredNotifications(){ (notifications) in
-            print(notification)
-        }
+//        center.getDeliveredNotifications(){ (notifications) in
+//            print(notification)
+//        }
     }
 }
 

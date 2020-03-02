@@ -14,6 +14,8 @@
 		956AB2C3236C3AFF00CF4790 /* TableChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 956AB2C2236C3AFF00CF4790 /* TableChildViewController.swift */; };
 		956AB2C5237BE09700CF4790 /* WeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 956AB2C4237BE09700CF4790 /* WeatherView.swift */; };
 		956AB2C7237D1DCF00CF4790 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 956AB2C6237D1DCF00CF4790 /* CalendarView.swift */; };
+		9571B0812407990C00505732 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9571B0832407990C00505732 /* Localizable.strings */; };
+		95763FA923F2A4540025436B /* DetectionResultController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95763FA823F2A4540025436B /* DetectionResultController.swift */; };
 		957C498522F1800100E304D8 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957C498422F1800100E304D8 /* Environment.swift */; };
 		9590544D22CB595200A859B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9590544C22CB595200A859B9 /* AppDelegate.swift */; };
 		9590544F22CB595200A859B9 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9590544E22CB595200A859B9 /* LoginViewController.swift */; };
@@ -78,6 +80,10 @@
 		956AB2C2236C3AFF00CF4790 /* TableChildViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableChildViewController.swift; sourceTree = "<group>"; };
 		956AB2C4237BE09700CF4790 /* WeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherView.swift; sourceTree = "<group>"; };
 		956AB2C6237D1DCF00CF4790 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		9571B0822407990C00505732 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		9571B0842407991500505732 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		9571B0862407A13D00505732 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
+		95763FA823F2A4540025436B /* DetectionResultController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectionResultController.swift; sourceTree = "<group>"; };
 		957C498422F1800100E304D8 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		9590544922CB595200A859B9 /* pestMonitoring_v0.5.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pestMonitoring_v0.5.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9590544C22CB595200A859B9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -103,7 +109,6 @@
 		95B567E323335902007C47FE /* Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
 		95B567E523337EA3007C47FE /* LibraryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryController.swift; sourceTree = "<group>"; };
 		95B9C5B723348480009E816B /* AddLocationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocationController.swift; sourceTree = "<group>"; };
-		95B9C5B92334C487009E816B /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
 		95B9C5BA2334C488009E816B /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		95B9C5BB23445188009E816B /* NodeChildView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeChildView.swift; sourceTree = "<group>"; };
 		95B9C5BD2362E87E009E816B /* SummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewController.swift; sourceTree = "<group>"; };
@@ -191,6 +196,7 @@
 				9590545822CB595500A859B9 /* LaunchScreen.storyboard */,
 				9590545B22CB595500A859B9 /* Info.plist */,
 				9590545322CB595200A859B9 /* pestMonitoring_v0_5.xcdatamodeld */,
+				9571B0832407990C00505732 /* Localizable.strings */,
 			);
 			path = pestMonitoring_v0.5;
 			sourceTree = "<group>";
@@ -252,6 +258,7 @@
 				95B9C5BF23669FE3009E816B /* HomePagingController.swift */,
 				956AB2C0236C3A1400CF4790 /* FarmViewController.swift */,
 				9501E59B23BDE504009C09D5 /* InboxTableViewController.swift */,
+				95763FA823F2A4540025436B /* DetectionResultController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -400,6 +407,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hant",
 			);
 			mainGroup = 9590544022CB595200A859B9;
 			productRefGroup = 9590544A22CB595200A859B9 /* Products */;
@@ -419,6 +427,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9590545A22CB595500A859B9 /* LaunchScreen.storyboard in Resources */,
+				9571B0812407990C00505732 /* Localizable.strings in Resources */,
 				9590545722CB595500A859B9 /* Assets.xcassets in Resources */,
 				9590545222CB595200A859B9 /* Main.storyboard in Resources */,
 			);
@@ -539,6 +548,7 @@
 				95B9C5BC23445188009E816B /* NodeChildView.swift in Sources */,
 				95B567D823237642007C47FE /* DiseaseChildView.swift in Sources */,
 				95E211CE231516D600ADF7B1 /* PestChildView.swift in Sources */,
+				95763FA923F2A4540025436B /* DetectionResultController.swift in Sources */,
 				95B567E2232F74EF007C47FE /* WeatherController.swift in Sources */,
 				95B567E623337EA3007C47FE /* LibraryController.swift in Sources */,
 				95B9C5C023669FE3009E816B /* HomePagingController.swift in Sources */,
@@ -599,11 +609,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		9571B0832407990C00505732 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9571B0822407990C00505732 /* zh-Hant */,
+				9571B0842407991500505732 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		9590545022CB595200A859B9 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				9590545122CB595200A859B9 /* Base */,
-				95B9C5B92334C487009E816B /* zh-Hant */,
+				9571B0862407A13D00505732 /* zh-Hant */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -746,17 +765,21 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = pestMonitoring_v0.5/pestMonitoring_v0.5.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4XBTV4A7AV;
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				INFOPLIST_FILE = pestMonitoring_v0.5/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ntu.bime.pest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -766,17 +789,21 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = pestMonitoring_v0.5/pestMonitoring_v0.5.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4XBTV4A7AV;
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				INFOPLIST_FILE = pestMonitoring_v0.5/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ntu.bime.pest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

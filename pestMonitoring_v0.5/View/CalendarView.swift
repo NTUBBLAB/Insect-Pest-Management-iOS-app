@@ -91,14 +91,7 @@ class CalendarView: JTAppleCalendarView{
         self.minimumLineSpacing = 0
         self.minimumInteritemSpacing = 0
         self.allowsMultipleSelection = true
-        //register(DateCell.self, forCellWithReuseIdentifier: "dateCell")
-        //self.addSubview(testLabel)
-        //testLabel.text = "123"
-        //self.delegate = self
-        //self.isScrollEnabled = false
         self.isPagingEnabled = true
-        
-        
     }
     
     
@@ -134,11 +127,7 @@ extension HomePagingController: JTAppleCalendarViewDelegate{
         //print(self.sprayDays.count)
         for i in 0..<self.sprayDays.count{
             if( dateFormatter.string(from: cellState.date) == self.sprayDays[i]){
-//                //print(dateFormatter.string(from: date))
-//                cell.selectedView.backgroundColor = UIColor(red: 0, green: 0, blue: 1, alpha: 0.7)
-//                cell.selectedView.isHidden = false
-//                cell.selectedView.layer.cornerRadius = 5
-//                print(cell.dateLabel)
+
                 if(self.pesticides[i] == "2"){
                     cell.selectedView.backgroundColor = UIColor(red: 0, green: 1, blue: 0, alpha: 0.5)
                     cell.selectedView.isHidden = false

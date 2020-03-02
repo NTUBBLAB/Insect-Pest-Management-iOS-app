@@ -1,0 +1,18 @@
+/* 
+  Localizable.strings
+  pestMonitoring_v0.5
+
+  Created by Lab405 on 2020/2/24.
+  Copyright © 2020年 Lab405. All rights reserved.
+*/
+"KEY" = "CONTENT";
+"YUNLIN_GH" = "YUNLIN_GH";
+"CHIAYI_GH" = "CHIAYI_GH";
+"JINGPIN_GH" = "JINGPIN_GH";
+"YUNLIN_GH" = "YUNLIN_GH";
+"TAINANDARES_GH" = "TAINANDARES_GH";
+"TAINANMO_FF" = "TAINANMO_FF";
+"TAICHUNGSB_GH" = "TAICHUNGSB_GH";
+"QINGYUAN_GH" = "QINGYUAN_GH";
+"TEST_GH" = "TEST_GH";
+

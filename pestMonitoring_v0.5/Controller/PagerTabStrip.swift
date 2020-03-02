@@ -16,7 +16,7 @@ class PagerTabStrip: ButtonBarPagerTabStripViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = location
+        navigationItem.title = NSLocalizedString(location, comment: "")
         settings.style.buttonBarItemBackgroundColor = .white
         settings.style.buttonBarItemTitleColor = .blue
         settings.style.selectedBarBackgroundColor = .blue
@@ -31,13 +31,14 @@ class PagerTabStrip: ButtonBarPagerTabStripViewController {
     // MARK: - PagerTabStripDataSource
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
         
-        let EnvironChildView = EnvironmentChildView(itemInfo: "環境資訊")
+        
+        let EnvironChildView = EnvironmentChildView(itemInfo: IndicatorInfo(title: NSLocalizedString("Environment", comment: "")))
         EnvironChildView.location = self.location
-        let pestChildView = PestChildView(itemInfo: "蟲害資訊")
+        let pestChildView = PestChildView(itemInfo: IndicatorInfo(title: NSLocalizedString("Pest", comment: "")))
         pestChildView.location = self.location
-        let diseaseChildView = DiseaseChildView(itemInfo: "病害資訊")
+        let diseaseChildView = DiseaseChildView(itemInfo: IndicatorInfo(title: NSLocalizedString("Disease", comment: "")))
         diseaseChildView.location = self.location
-        let nodeView = NodeChildView(itemInfo: "裝置資訊")
+        let nodeView = NodeChildView(itemInfo: IndicatorInfo(title: NSLocalizedString("Nodal", comment: "")))
         nodeView.location = self.location
         
         guard isReload else {

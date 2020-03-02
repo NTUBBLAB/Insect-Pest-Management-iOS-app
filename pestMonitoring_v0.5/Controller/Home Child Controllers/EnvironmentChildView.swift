@@ -155,7 +155,7 @@ class EnvironmentChildView: UIViewController,  IndicatorInfoProvider {
                               NSLayoutConstraint(item: lineChart, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 250),
                               NSLayoutConstraint(item: lineChart, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 200)])
         view1.addSubview(title)
-        title.text = "溫度"
+        title.text = NSLocalizedString("Temperature", comment: "")
         title.textColor = .red
         title.backgroundColor = .white
         
@@ -226,7 +226,7 @@ class EnvironmentChildView: UIViewController,  IndicatorInfoProvider {
                               NSLayoutConstraint(item: lineChart, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 250),
                               NSLayoutConstraint(item: lineChart, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 200)])
         humidView.addSubview(humidTitle)
-        humidTitle.text = "濕度"
+        humidTitle.text = NSLocalizedString("Humidity", comment: "")
         humidTitle.textColor = .blue
         humidTitle.backgroundColor = .white
         
@@ -276,8 +276,6 @@ class EnvironmentChildView: UIViewController,  IndicatorInfoProvider {
         lineChart.legend.enabled = false
         //title
         lineChart.chartDescription?.enabled = false
-        //lineChart.chartDescription?.text = "Daily light intensity"
-        //lineChart.chartDescription?.positio
         //data
         lineChart.data = linedata
         lineChart.animate(xAxisDuration: 0.5)
@@ -297,7 +295,7 @@ class EnvironmentChildView: UIViewController,  IndicatorInfoProvider {
                                   NSLayoutConstraint(item: lineChart, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 250),
                                   NSLayoutConstraint(item: lineChart, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 200)])
         lightView.addSubview(lightTitle)
-        lightTitle.text = "照度"
+        lightTitle.text = NSLocalizedString("Light intensity", comment: "")
         lightTitle.textColor = .orange
         lightTitle.backgroundColor = .white
         
@@ -330,7 +328,7 @@ class EnvironmentChildView: UIViewController,  IndicatorInfoProvider {
         let diff = Int(data[data.count-1] - data[data.count-2])
         
         if diff > 0{
-            line2 = String(diff) + unit + " higher than yesterday"
+            line2 = String(diff) + unit + "higher than yesterday"
         }
         else if diff < 0{
             line2 = String(abs(diff)) + unit + " lower than yesterday"

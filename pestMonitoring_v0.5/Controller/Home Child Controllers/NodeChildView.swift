@@ -85,7 +85,8 @@ class NodeChildView: UIViewController, IndicatorInfoProvider {
                         }
                         self.images = json["images"].arrayObject as? [String]
                         
-                        self.scrollView.contentSize = CGSize(width: Int(self.view.frame.width), height: self.numOfNodes!*300)
+                        self.scrollView.contentSize = CGSize(width: Int(self.view.frame.width), height:
+                            self.numOfNodes!*300)
                         for i in 0..<self.numOfNodes!{
                             self.drawNodeCell(cells: i, scroll: self.scrollView)
                         }
@@ -114,7 +115,7 @@ class NodeChildView: UIViewController, IndicatorInfoProvider {
         
         let titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.text = "裝置 " + String(cells+1)
+        titleLabel.text = NSLocalizedString("Node", comment: "") + String(cells+1)
         cellView.addSubview(titleLabel)
         cellView.addConstraints([NSLayoutConstraint(item: titleLabel, attribute: .top, relatedBy: .equal, toItem: cellView, attribute: .top, multiplier: 1, constant: 5),
                                  NSLayoutConstraint(item: titleLabel, attribute: .left, relatedBy: .equal, toItem: cellView, attribute: .left, multiplier: 1, constant: 10),
@@ -123,10 +124,10 @@ class NodeChildView: UIViewController, IndicatorInfoProvider {
         let timeLabel = UILabel()
         timeLabel.translatesAutoresizingMaskIntoConstraints = false
         if self.times?[cells] != nil{
-            timeLabel.text = "上次更新時間： " + self.times![cells]
+            timeLabel.text = NSLocalizedString("Last updated: ", comment: "") + self.times![cells]
         }
         else{
-            timeLabel.text = "上次更新時間： 無"
+            timeLabel.text = NSLocalizedString("Last updated: None", comment: "")
         }
         timeLabel.font = UIFont.systemFont(ofSize: 12)
         if self.nodeStat![cells] == -1{
@@ -229,7 +230,7 @@ class NodeChildView: UIViewController, IndicatorInfoProvider {
         for i in 0..<species.count{
             let pestLabel = UILabel()
             pestLabel.translatesAutoresizingMaskIntoConstraints = false
-            pestLabel.text = species_cn![i]
+            pestLabel.text = NSLocalizedString(species[i], comment: "")
             pestLabel.textAlignment = .left
             cellView.addSubview(pestLabel)
             cellView.addConstraints([NSLayoutConstraint(item: pestLabel, attribute: .top, relatedBy: .equal, toItem: cellView, attribute: .top, multiplier: 1, constant: CGFloat(100+30*i)),
@@ -246,18 +247,16 @@ class NodeChildView: UIViewController, IndicatorInfoProvider {
                                      NSLayoutConstraint(item: pestCount, attribute: .left, relatedBy: .equal, toItem: cellView, attribute: .left, multiplier: 1, constant: 100),
                                      NSLayoutConstraint(item: pestCount, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 50),
                                      NSLayoutConstraint(item: pestCount, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 20)])
-            }
+        }
         let stickyPaper = UIImageView()
-//        if let filePath = Bundle.main.path(forResource: self.images![node], ofType: "jpg"), let image = UIImage(contentsOfFile: filePath) {
-//            print(self.images![node])
-//            stickyPaper.contentMode = .scaleAspectFit
-//            stickyPaper.image = image
-//        }
+
         setImage(urlString: self.images![node], image: stickyPaper)
         stickyPaper.contentMode = .scaleAspectFill
         stickyPaper.clipsToBounds = true
         stickyPaper.translatesAutoresizingMaskIntoConstraints = false
-        
+        stickyPaper.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+        stickyPaper.addGestureRecognizer(tap)
         //stickyPaper.layer.borderWidth = 1
         //stickyPaper.backgroundColor = .green
         cellView.addSubview(stickyPaper)
@@ -269,6 +268,7 @@ class NodeChildView: UIViewController, IndicatorInfoProvider {
             //i = i + 1
         
     }
+    
     func setImage(urlString: String, image: UIImageView){
         //let urlString = "http://www.foo.com/myImage.jpg"
         //print(urlString)
@@ -310,5 +310,26 @@ class NodeChildView: UIViewController, IndicatorInfoProvider {
     }
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
         return itemInfo
+    }
+}
+extension UIViewController{
+    @objc func handleTap(_ sender: UITapGestureRecognizer? = nil) {
+        // handling code
+        let imageView = sender!.view as! UIImageView
+        let newImageView = UIImageView(image: imageView.image)
+        newImageView.frame = UIScreen.main.bounds
+        newImageView.backgroundColor = .black
+        newImageView.contentMode = .scaleAspectFit
+        newImageView.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.dismissFullscreenImage(sender:)))
+        newImageView.addGestureRecognizer(tap)
+        self.view.addSubview(newImageView)
+        self.navigationController?.isNavigationBarHidden = true
+        self.tabBarController?.tabBar.isHidden = true
+    }
+    @objc func dismissFullscreenImage(sender: UITapGestureRecognizer) {
+        self.navigationController?.isNavigationBarHidden = false
+        self.tabBarController?.tabBar.isHidden = false
+        sender.view?.removeFromSuperview()
     }
 }

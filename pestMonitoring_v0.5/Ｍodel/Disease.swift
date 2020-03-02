@@ -27,14 +27,17 @@ class Disease: NSObject {
             }
             do {
                 let json = try JSON(data: data!)
-                
-                let disease_name = json["diseases"][0]["disease_names_cn"][0].stringValue
-                let values = json["diseases"][0]["values"][0].arrayObject as! [Double]
-                let dates = json["diseases"][0]["dates"][0].arrayObject as! [String]
-                let crops = json["crops"].arrayObject as! [String]
-                
-                handler([disease_name, values, dates, crops])
-                
+                if json["status"] != 0{
+                    let disease_name = json["diseases"][0]["disease_names_cn"][0].stringValue
+                    let values = json["diseases"][0]["values"][0].arrayObject as! [Double]
+                    let dates = json["diseases"][0]["dates"][0].arrayObject as! [String]
+                    let crops = json["crops"].arrayObject as! [String]
+                    
+                    handler([disease_name, values, dates, crops])
+                }
+                else{
+                    
+                }
             }
             catch let jsonError{
                 print(jsonError)

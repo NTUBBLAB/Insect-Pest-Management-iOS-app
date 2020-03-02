@@ -21,17 +21,22 @@ class InboxTableViewCell: UITableViewCell{
         receivedTimeLabel.translatesAutoresizingMaskIntoConstraints = false
         notificationLabel.translatesAutoresizingMaskIntoConstraints = false
         
+        receivedTimeLabel.font = UIFont(name: receivedTimeLabel.font.fontName, size: 14)
+        receivedTimeLabel.textAlignment = .right
+        
         self.addSubview(receivedTimeLabel)
         self.addSubview(notificationLabel)
         
         self.addConstraints([NSLayoutConstraint(item: notificationLabel, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: 10),
-                             NSLayoutConstraint(item: notificationLabel, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 5),
-                             NSLayoutConstraint(item: notificationLabel, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 100),
+                             NSLayoutConstraint(item: notificationLabel, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0),
+                             NSLayoutConstraint(item: notificationLabel, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 200),
                              NSLayoutConstraint(item: notificationLabel, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 20)])
         self.addConstraints([NSLayoutConstraint(item: receivedTimeLabel, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant: -10),
-                             NSLayoutConstraint(item: receivedTimeLabel, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 5),
-                             NSLayoutConstraint(item: receivedTimeLabel, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 200),
+                             NSLayoutConstraint(item: receivedTimeLabel, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0),
+                             NSLayoutConstraint(item: receivedTimeLabel, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 180),
                              NSLayoutConstraint(item: receivedTimeLabel, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 20)])
+        
+        
         
     }
     
@@ -45,6 +50,7 @@ class InboxTableViewController: UITableViewController {
 
     let center = UNUserNotificationCenter.current()
     var notificationTime = [String]()
+    var notificationContent = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,11 +60,8 @@ class InboxTableViewController: UITableViewController {
         self.refreshControl?.addTarget(self, action: #selector(refresh(sender:)), for: UIControl.Event.valueChanged)
         
         self.tableView.register(InboxTableViewCell.self, forCellReuseIdentifier: "NotificationCell")
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        self.navigationItem.title = NSLocalizedString("Inbox", comment: "")
     }
     @objc func refresh(sender: AnyObject){
         //print("123")
@@ -67,21 +70,33 @@ class InboxTableViewController: UITableViewController {
         self.refreshControl?.endRefreshing()
     }
     func getNotificaitons(){
+        self.notificationTime.removeAll()
+        self.notificationContent.removeAll()
+        
         let formatter = DateFormatter()
         // initially set the format based on your datepicker date / server String
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        
+        formatter.timeZone = TimeZone(abbreviation: "UTC+8")
         //let myString = formatter.string(from: Date()) // string purpose I add here
         
         center.getDeliveredNotifications() { (nots) in
-            
-            print("notificaiton counts: ", nots.count)
-            for not in nots{
-                let dateSent = not.date
-                let date = formatter.string(from: dateSent)
-                self.notificationTime.append(date)
+            DispatchQueue.main.async {
+                print("notificaiton counts: ", nots.count)
+                for not in nots{
+                    let dateSent = not.date
+                    let content = not.request.content.body
+                    let date = formatter.string(from: dateSent)
+                    self.notificationTime.append(date)
+                    self.notificationContent.append(content)
+                }
+                self.tableView.reloadData()
             }
-            print(self.notificationTime)
+            
+            //print(self.notificationTime)
+        }
+        center.getPendingNotificationRequests(){ (nots) in
+            print(nots)
+            
         }
         
     }
@@ -94,14 +109,14 @@ class InboxTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return self.notificationTime.count
+        return self.notificationContent.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NotificationCell", for: indexPath) as! InboxTableViewCell
         cell.receivedTimeLabel.text = self.notificationTime[indexPath.row]
-        cell.notificationLabel.text = "123"
+        cell.notificationLabel.text = self.notificationContent[indexPath.row]
 
         return cell
     }

@@ -121,7 +121,7 @@ class PestChildView: UIViewController, IndicatorInfoProvider {
         barView.addSubview(barTitle)
         barView.addConstraints([NSLayoutConstraint(item: barTitle, attribute: .top, relatedBy: .equal, toItem: barView, attribute: .top, multiplier: 1, constant: 0),
                                 NSLayoutConstraint(item: barTitle, attribute: .left, relatedBy: .equal, toItem: barView, attribute: .left, multiplier: 1, constant: 0)])
-        barTitle.text = species_cn
+        barTitle.text = NSLocalizedString(species, comment: "") 
         //set info
         barView.addSubview(barInfo)
         
