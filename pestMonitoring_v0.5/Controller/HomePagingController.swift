@@ -233,7 +233,7 @@ class HomePagingController: UIViewController, UNUserNotificationCenterDelegate {
                 
                 let currentEnvJson = try JSON(data: data!)
                 DispatchQueue.main.async {
-                    if currentEnvJson["status"] == 3{
+                    if currentEnvJson["status"] != -1{
                         if self.envLabels.count != 0{
                             for label in self.envLabels{
                                 label.removeFromSuperview()
@@ -514,7 +514,7 @@ class HomePagingController: UIViewController, UNUserNotificationCenterDelegate {
             getEnvData()
             getPestData()
             fetchCalendarData()
-            farmLabel.text = self.chineseDict[self.currentLoc!]
+            farmLabel.text = NSLocalizedString(self.currentLoc!, comment: "")
         }
         for button in farmButtons{
             if button.button.isSelected == true && button.farmName != currentLoc{

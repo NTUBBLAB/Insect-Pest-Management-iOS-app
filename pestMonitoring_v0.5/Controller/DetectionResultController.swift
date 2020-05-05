@@ -13,24 +13,28 @@ import Charts
 class DetectionResultController: UIViewController {
 
     @IBAction func dismissPage(_ sender: Any) {
-        
-        self.dismiss(animated: true, completion: nil)
-        
+        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+        //self.dismiss(animated: true, completion: nil)
+        //self.dismiss(animated: true, completion: nil)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        let sessionConfig = URLSessionConfiguration.default
+        sessionConfig.timeoutIntervalForRequest = 60.0
+        sessionConfig.timeoutIntervalForResource = 60.0
         // Do any additional setup after loading the view.
     }
     
     func postImage(image: UIImage){
+        var rotatedImg = UIImage()
+        rotatedImg = self.imageRotatedByDegrees(oldImage: image, deg: 0)
         
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyyMMdd_HHmmss"
         let stringOfDateTimeStamp = formatter.string(from: Date())
         let myUrl = URL(string: "http://140.112.94.123:20000/PEST_DETECT/PEST_PAPER_IMAGES/PAPER_COUNTER/RX_IMG.php?username=bblabx")
         //        print("Date time stamp String: \(stringOfDateTimeStamp)")
-        let remoteName = "IMG_\(stringOfDateTimeStamp)"+".png"
+        let remoteName = "IMG_\(stringOfDateTimeStamp)"+".jpg"
         let request = NSMutableURLRequest(url: myUrl!)
         request.httpMethod = "POST"
         let boundary = generateBoundaryString()
@@ -41,7 +45,7 @@ class DetectionResultController: UIViewController {
         let fname = remoteName
         let mimetype = "image/jpg"
         
-        let imageData = image.jpegData(compressionQuality: 1)
+        let imageData = rotatedImg.jpegData(compressionQuality: 1)
         body.append("--\(boundary)\r\n".data(
             using: String.Encoding.utf8,
             allowLossyConversion: false)!)
@@ -192,7 +196,26 @@ class DetectionResultController: UIViewController {
             
         }
     }
-    
+    func imageRotatedByDegrees(oldImage: UIImage, deg degrees: CGFloat) -> UIImage {
+           //Calculate the size of the rotated view's containing box for our drawing space
+           let rotatedViewBox: UIView = UIView(frame: CGRect(x: 0, y: 0, width: oldImage.size.height, height: oldImage.size.width))
+           let t: CGAffineTransform = CGAffineTransform(rotationAngle: degrees * CGFloat(M_PI / 180))
+           rotatedViewBox.transform = t
+           let rotatedSize: CGSize = rotatedViewBox.frame.size
+           //Create the bitmap context
+           UIGraphicsBeginImageContext(rotatedSize)
+           let bitmap: CGContext = UIGraphicsGetCurrentContext()!
+           //Move the origin to the middle of the image so we will rotate and scale around the center.
+           bitmap.translateBy(x: rotatedSize.width / 2, y: rotatedSize.height / 2)
+           //Rotate the image context
+           bitmap.rotate(by: (degrees * CGFloat(M_PI / 180)))
+           //Now, draw the rotated/scaled image into the context
+           bitmap.scaleBy(x: 1.0, y: -1.0)
+           bitmap.draw(oldImage.cgImage!, in: CGRect(x: -rotatedSize.width / 2, y: -rotatedSize.height / 2, width: rotatedSize.width, height: rotatedSize.height))
+           let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+           UIGraphicsEndImageContext()
+           return newImage
+       }
     /*
     // MARK: - Navigation
 

@@ -26,6 +26,7 @@
 		9590546522CB595500A859B9 /* pestMonitoring_v0_5Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9590546422CB595500A859B9 /* pestMonitoring_v0_5Tests.swift */; };
 		9590547022CB595500A859B9 /* pestMonitoring_v0_5UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9590546F22CB595500A859B9 /* pestMonitoring_v0_5UITests.swift */; };
 		9590547E22CDF5F900A859B9 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9590547D22CDF5F900A859B9 /* HomeViewController.swift */; };
+		9592166224458D8400892F2D /* CameraPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9592166124458D8400892F2D /* CameraPreviewController.swift */; };
 		95B567D42323732C007C47FE /* WSNMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B567D32323732C007C47FE /* WSNMenuController.swift */; };
 		95B567D62323739B007C47FE /* GeneralMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B567D52323739B007C47FE /* GeneralMenuController.swift */; };
 		95B567D823237642007C47FE /* DiseaseChildView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B567D723237642007C47FE /* DiseaseChildView.swift */; };
@@ -85,7 +86,7 @@
 		9571B0862407A13D00505732 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
 		95763FA823F2A4540025436B /* DetectionResultController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectionResultController.swift; sourceTree = "<group>"; };
 		957C498422F1800100E304D8 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
-		9590544922CB595200A859B9 /* pestMonitoring_v0.5.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pestMonitoring_v0.5.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9590544922CB595200A859B9 /* I2PDM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = I2PDM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9590544C22CB595200A859B9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9590544E22CB595200A859B9 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		9590545122CB595200A859B9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -100,6 +101,7 @@
 		9590546F22CB595500A859B9 /* pestMonitoring_v0_5UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pestMonitoring_v0_5UITests.swift; sourceTree = "<group>"; };
 		9590547122CB595500A859B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9590547D22CDF5F900A859B9 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		9592166124458D8400892F2D /* CameraPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewController.swift; sourceTree = "<group>"; };
 		95B567D32323732C007C47FE /* WSNMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSNMenuController.swift; sourceTree = "<group>"; };
 		95B567D52323739B007C47FE /* GeneralMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralMenuController.swift; sourceTree = "<group>"; };
 		95B567D723237642007C47FE /* DiseaseChildView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiseaseChildView.swift; sourceTree = "<group>"; };
@@ -174,7 +176,7 @@
 		9590544A22CB595200A859B9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9590544922CB595200A859B9 /* pestMonitoring_v0.5.app */,
+				9590544922CB595200A859B9 /* I2PDM.app */,
 				9590546022CB595500A859B9 /* pestMonitoring_v0.5Tests.xctest */,
 				9590546B22CB595500A859B9 /* pestMonitoring_v0.5UITests.xctest */,
 			);
@@ -259,6 +261,7 @@
 				956AB2C0236C3A1400CF4790 /* FarmViewController.swift */,
 				9501E59B23BDE504009C09D5 /* InboxTableViewController.swift */,
 				95763FA823F2A4540025436B /* DetectionResultController.swift */,
+				9592166124458D8400892F2D /* CameraPreviewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -328,7 +331,7 @@
 			);
 			name = pestMonitoring_v0.5;
 			productName = pestMonitoring_v0.5;
-			productReference = 9590544922CB595200A859B9 /* pestMonitoring_v0.5.app */;
+			productReference = 9590544922CB595200A859B9 /* I2PDM.app */;
 			productType = "com.apple.product-type.application";
 		};
 		9590545F22CB595500A859B9 /* pestMonitoring_v0.5Tests */ = {
@@ -544,6 +547,7 @@
 				95E211D023166A0C00ADF7B1 /* CameraController.swift in Sources */,
 				956AB2C7237D1DCF00CF4790 /* CalendarView.swift in Sources */,
 				9590544F22CB595200A859B9 /* LoginViewController.swift in Sources */,
+				9592166224458D8400892F2D /* CameraPreviewController.swift in Sources */,
 				95E211D5231F993700ADF7B1 /* menuController.swift in Sources */,
 				95B9C5BC23445188009E816B /* NodeChildView.swift in Sources */,
 				95B567D823237642007C47FE /* DiseaseChildView.swift in Sources */,
@@ -691,7 +695,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -748,7 +752,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -770,13 +774,14 @@
 				DEVELOPMENT_TEAM = 4XBTV4A7AV;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				INFOPLIST_FILE = pestMonitoring_v0.5/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.61;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ntu.bime.pest;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = I2PDM;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -794,13 +799,14 @@
 				DEVELOPMENT_TEAM = 4XBTV4A7AV;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				INFOPLIST_FILE = pestMonitoring_v0.5/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.61;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ntu.bime.pest;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = I2PDM;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;

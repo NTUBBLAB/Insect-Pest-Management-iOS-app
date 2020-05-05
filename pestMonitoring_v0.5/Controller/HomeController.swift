@@ -27,7 +27,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         for loc in self.locations{
             print(loc)
-            let env = Environment(location: loc)
+            //let env = Environment(location: loc)
             let cell = FarmCell()
             if chineseDict[loc] != nil{
                 cell.farmlabel = chineseDict[loc]
@@ -37,8 +37,8 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
             }
             let spinner = Spinner()
             let spinnerView = spinner.setSpinnerView(view: view)
-            env.getDbNumber(dbUrl: "http://140.112.94.123:20000/PEST_DETECT/_android/get_number_of_dbs.php?location" + loc){ (result) in
-                let url = URL(string: "http://140.112.94.123:20000/PEST_DETECT/_app/data_envi_current.php?db=" + result + "&loc=" + loc)
+            
+            let url = URL(string: "http://140.112.94.123:20000/PEST_DETECT/_app/data_envi_current.php?loc=" + loc)
                 // print(url)
                 URLSession.shared.dataTask(with: url!){ (data: Data?, response: URLResponse?, error: Error?) in
                     if error != nil{
@@ -49,8 +49,8 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
                         //print("GETTING CURRENT ENVS")
                         
                         let currentEnvJson = try JSON(data: data!)
-                        
-                        if currentEnvJson["status"] == 3{
+                        print(currentEnvJson)
+                        if currentEnvJson["status"] != -1{
                             let currentTemp = currentEnvJson["values"][0].stringValue
                             let currentHumid = currentEnvJson["values"][1].stringValue
                             let currentLight = currentEnvJson["values"][2].stringValue
@@ -71,68 +71,66 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
                         print(jsonError)
                     }
                 }.resume()
-            }
-            env.getDbNumber(dbUrl: "http://140.112.94.123:20000/PEST_DETECT/_android/get_number_of_dbs.php?location=" + loc) { (result) in
-                let url = URL(string: "http://140.112.94.123:20000/PEST_DETECT/_app/data_insect_current.php?db=" + result + "&loc=" + loc)
-                URLSession.shared.dataTask(with: url!){ (data: Data?, response: URLResponse?, error: Error?) in
-                    if error != nil{
-                        print(error!)
-                        return
-                    }
-                    do{
-                        let pestJson = try JSON(data: data!)
-                        
-                        //print(pestJson["status"])
-                        if pestJson["status"] == 3{
-                            print(pestJson["alarms"])
-                            print(pestJson)
-                            var species_array_cn = [String]()
-                            var species_array = [String]()
-                            var count_array = [Int]()
-                            var alarm = Dictionary<String, [Int]>()
-                            var i = 0
-                            for insect in pestJson["species_cn"].arrayObject as! [String]{
-                                species_array_cn.append(insect)
-                                alarm[insect] = (pestJson["alarms"][i].arrayObject as! [Int])
-                                i += 1
-                            }
-                            for count in pestJson["counts"].arrayObject as! [Int]{
-                                count_array.append(count)
-                            }
-                            for sp in pestJson["species"].arrayObject as! [String]{
-                                species_array.append(sp)
-                            }
-                            cell.species_cn = species_array_cn
-                            cell.species = species_array
-                            cell.pestCount = count_array
-                            cell.alarm = alarm
-                        }
-                        else{
-                            cell.pestCheck = 0
-                        }
-                        
-                        //print(cell.alarm)
-                        DispatchQueue.main.async {
-                            self.collectionView.reloadData()
-                        }
-                       
-                    }
-                    catch let jsonError{
-                        print(jsonError)
-                    }
-                }.resume()
-                DispatchQueue.main.async {
-                    spinnerView.removeFromSuperview()
-                    self.farmCell[loc] = cell
-                    self.collectionView.reloadData()
+            
+            let pestUrl = URL(string: "http://140.112.94.123:20000/PEST_DETECT/_app/data_insect_current.php?loc=" + loc)
+            URLSession.shared.dataTask(with: pestUrl!){ (data: Data?, response: URLResponse?, error: Error?) in
+                if error != nil{
+                    print(error!)
+                    return
                 }
-                
+                do{
+                    let pestJson = try JSON(data: data!)
+                    
+                    //print(pestJson["status"])
+                    if pestJson["status"] == 3{
+                        print(pestJson["alarms"])
+                        print(pestJson)
+                        var species_array_cn = [String]()
+                        var species_array = [String]()
+                        var count_array = [Int]()
+                        var alarm = Dictionary<String, [Int]>()
+                        var i = 0
+                        for insect in pestJson["species_cn"].arrayObject as! [String]{
+                            species_array_cn.append(insect)
+                            alarm[insect] = (pestJson["alarms"][i].arrayObject as! [Int])
+                            i += 1
+                        }
+                        for count in pestJson["counts"].arrayObject as! [Int]{
+                            count_array.append(count)
+                        }
+                        for sp in pestJson["species"].arrayObject as! [String]{
+                            species_array.append(sp)
+                        }
+                        cell.species_cn = species_array_cn
+                        cell.species = species_array
+                        cell.pestCount = count_array
+                        cell.alarm = alarm
+                    }
+                    else{
+                        cell.pestCheck = 0
+                    }
+                    
+                    //print(cell.alarm)
+                    DispatchQueue.main.async {
+                        self.collectionView.reloadData()
+                    }
+                   
+                }
+                catch let jsonError{
+                    print(jsonError)
+                }
+            }.resume()
+            DispatchQueue.main.async {
+                spinnerView.removeFromSuperview()
+                self.farmCell[loc] = cell
+                self.collectionView.reloadData()
             }
             
-            
+        
+        
+        
         }
-       
-       
+        
     }
     override func viewDidLoad() {
         super.viewDidLoad()

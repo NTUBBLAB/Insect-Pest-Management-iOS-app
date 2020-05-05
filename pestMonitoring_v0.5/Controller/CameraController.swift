@@ -12,37 +12,66 @@ import Photos
 import Vision
 import SwiftyJSON
 
-class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
+struct OuterBox{
+    let x = 10.0
+    let y = 60.0
+    var width: CGFloat
+    var height: CGFloat
+}
+
+class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet weak var capturePreviewView: UIView!
     @IBOutlet weak var shutterButton: UIButton!
     
+    @IBOutlet weak var galleryButton: UIButton!
+    @IBOutlet weak var saveModeSwitch: UISwitch!
+    @IBAction func switchClicked(_ sender: Any) {
+        if self.saveModeSwitch.isOn{
+            self.detectMode.text = NSLocalizedString("Detect Mode", comment: "")
+        }
+        else{
+            self.detectMode.text = NSLocalizedString("Save Mode", comment: "")
+        }
+    }
     @IBAction func captureImage(_ sender: Any) {
+        self.zoomIn(factor: 1.3)
         self.captureImage {(image, error) in
             guard let image = image else {
                 print(error ?? "Image capture error")
                 return
             }
-
-            
-            //self.postImage(image: image)
-            
-//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//            let controller = storyboard.instantiateViewController(withIdentifier: "ResultPage")
-//            self.present(controller, animated: true, completion: nil)
-            
-            // Safe Present
-            if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ResultPage") as? DetectionResultController
+            if let previewVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PreviewPage") as? CameraPreviewController
             {
-                vc.postImage(image: image)
-                self.present(vc, animated: true, completion: nil)
+                self.present(previewVC, animated: true, completion: nil)
+                previewVC.showPreview(image: image)
+                if self.saveModeSwitch.isOn{
+                    previewVC.switchMode = true
+                }
+                else{
+                    previewVC.switchMode = false
+                }
             }
             
+            // Safe Present
+//            if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ResultPage") as? DetectionResultController
+//            {
+//                vc.postImage(image: image)
+//                if self.saveModeSwitch.isOn{
+//                    self.present(vc, animated: true, completion: nil)
+//
+//                }
+//
+//            }
+            self.zoomIn(factor: 1.0)
             try? PHPhotoLibrary.shared().performChangesAndWait {
                 PHAssetChangeRequest.creationRequestForAsset(from: image)
             }
         }
     }
-
+    
+    
+    var imagePicker = UIImagePickerController()
+    var detectMode = UILabel()
     var photoCaptureCompletionBlock: ((UIImage?, Error?) -> Void)?
     var captureSession: AVCaptureSession?
     var frontCamera: AVCaptureDevice?
@@ -73,6 +102,8 @@ class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        drawBoundingBoxes()
+        
         shutterButton.setImage(UIImage(named: "shutter"), for: UIControl.State.normal)
         shutterButton.setImage(UIImage(named: "shutter_pressed"), for: UIControl.State.highlighted)
         shutterButton.imageView?.contentMode = .scaleAspectFit
@@ -82,7 +113,7 @@ class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
         }
         
         
-        self.navigationItem.title = "Pest Identifier"
+        self.navigationItem.title = "Insect Pest Identifier"
         // Do any additional setup after loading the view.
         func configureCameraController() {
             self.prepare { (error) in
@@ -93,26 +124,91 @@ class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
                 try? self.displayPreview(on: self.capturePreviewView)
             }
         }
-        
+        self.detectMode.text = NSLocalizedString("Detect Mode", comment: "")
+        self.detectMode.frame = CGRect(x: 50, y: 700, width: 150, height: 20)
 
+        self.view.addSubview(detectMode)
+        
         (UIApplication.shared.delegate as! AppDelegate).restrictRotation = .portrait // disable rotation
         
         configureCameraController()
         
     }
     
+    @IBAction func galleryButtonClicked(_ sender: Any) {
+            if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
+                print("Button capture")
+
+                imagePicker.delegate = self
+                imagePicker.sourceType = .photoLibrary
+                imagePicker.allowsEditing = false
+
+                present(imagePicker, animated: true, completion: nil)
+                
+            }
+            
+        }
+        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+            picker.dismiss(animated: true, completion: { () -> Void in
+
+            })
+        }
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            
+            picker.dismiss(animated: true, completion: nil)
+            
+            //var pickedImage = UIImage()
+            let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+            
+           
+            if let previewVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PreviewPage") as? CameraPreviewController
+            {
+                self.present(previewVC, animated: true, completion: nil)
+                previewVC.image = pickedImage
+                if self.saveModeSwitch.isOn{
+                    previewVC.switchMode = true
+                }
+                else{
+                    previewVC.switchMode = false
+                }
+            }
+            
+            
+        }
+    
     @objc func dismissFullscreenImage(_ sender: UITapGestureRecognizer? = nil) {
         sender!.view?.removeFromSuperview()
     }
     
+    func drawBoundingBoxes(){
+        let width = self.view.frame.width-20
+        let height = width*1.43
+        let outerBox = UIView(frame: CGRect(x: 10+(width-(width/1.3))/2, y: 60+(height-height/1.3)/2, width: width/1.3, height: height/1.3))
+        outerBox.layer.borderWidth = 3.0
+        outerBox.layer.borderColor = CGColor(srgbRed: 1, green: 0, blue: 0, alpha: 1)
+        self.view.addSubview(outerBox)
+    }
+    
+    func zoomIn(factor:CGFloat){
+        do {
+            try self.rearCamera?.lockForConfiguration()
+        }
+        catch{
+            print(error)
+        }
+        self.rearCamera?.videoZoomFactor = factor
+        self.rearCamera?.unlockForConfiguration()
+    }
+    
     func postImage(image: UIImage){
-        
+        var rotatedImg = UIImage()
+        rotatedImg = self.imageRotatedByDegrees(oldImage: image, deg: 30)
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyyMMdd_HHmmss"
         let stringOfDateTimeStamp = formatter.string(from: Date())
         let myUrl = URL(string: "http://140.112.94.123:20000/PEST_DETECT/PEST_PAPER_IMAGES/PAPER_COUNTER/RX_IMG.php?username=bblabx")
         //        print("Date time stamp String: \(stringOfDateTimeStamp)")
-        let remoteName = "IMG_\(stringOfDateTimeStamp)"+".png"
+        let remoteName = "IMG_\(stringOfDateTimeStamp)"+".jpg"
         let request = NSMutableURLRequest(url: myUrl!)
         request.httpMethod = "POST"
         let boundary = generateBoundaryString()
@@ -123,7 +219,7 @@ class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
         let fname = remoteName
         let mimetype = "image/jpg"
         
-        let imageData = image.jpegData(compressionQuality: 1)
+        let imageData = rotatedImg.jpegData(compressionQuality: 1)
         body.append("--\(boundary)\r\n".data(
             using: String.Encoding.utf8,
             allowLossyConversion: false)!)
@@ -235,7 +331,9 @@ class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
         self.previewLayer?.connection?.videoOrientation = .portrait
         
         view.layer.insertSublayer(self.previewLayer!, at: 0)
-        self.previewLayer?.frame = view.frame
+        let previewBox = UIView(frame: CGRect(x: 10, y: 60, width: view.frame.width-20, height: 1.43 * (view.frame.width-20)))
+        
+        self.previewLayer?.frame = previewBox.frame
         
     }
     
@@ -257,8 +355,12 @@ class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
                 self.rearCamera = camera
                 
                 try camera.lockForConfiguration()
+                defer {
+                    camera.unlockForConfiguration()
+                }
                 camera.focusMode = .continuousAutoFocus
-                camera.unlockForConfiguration()
+                //camera.videoZoomFactor = 2.0
+                //camera.unlockForConfiguration()
             }
             
         }
@@ -343,5 +445,25 @@ extension CameraController: AVCapturePhotoCaptureDelegate {
         else {
             self.photoCaptureCompletionBlock?(nil, CameraControllerError.unknown)
         }
+    }
+    public func imageRotatedByDegrees(oldImage: UIImage, deg degrees: CGFloat) -> UIImage {
+        //Calculate the size of the rotated view's containing box for our drawing space
+        let rotatedViewBox: UIView = UIView(frame: CGRect(x: 0, y: 0, width: oldImage.size.width, height: oldImage.size.height))
+        let t: CGAffineTransform = CGAffineTransform(rotationAngle: degrees * CGFloat(M_PI / 180))
+        rotatedViewBox.transform = t
+        let rotatedSize: CGSize = rotatedViewBox.frame.size
+        //Create the bitmap context
+        UIGraphicsBeginImageContext(rotatedSize)
+        let bitmap: CGContext = UIGraphicsGetCurrentContext()!
+        //Move the origin to the middle of the image so we will rotate and scale around the center.
+        bitmap.translateBy(x: rotatedSize.width / 2, y: rotatedSize.height / 2)
+        //Rotate the image context
+        bitmap.rotate(by: (degrees * CGFloat(M_PI / 180)))
+        //Now, draw the rotated/scaled image into the context
+        bitmap.scaleBy(x: 1.0, y: -1.0)
+        bitmap.draw(oldImage.cgImage!, in: CGRect(x: -rotatedSize.width / 2, y: -rotatedSize.height / 2, width: rotatedSize.width, height: rotatedSize.height))
+        let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return newImage
     }
 }

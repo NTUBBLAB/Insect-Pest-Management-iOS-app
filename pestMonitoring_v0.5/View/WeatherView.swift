@@ -152,6 +152,7 @@ class WeatherView: UIView{
         let spinnerView = spinner.setSpinnerView(view: view)
         
         let url = URL(string: "http://140.112.94.123:20000/PEST_DETECT/_app/data_local_weather.php?city=" + self.city!.split(separator: " ")[0] + "%20" + self.city!.split(separator: " ")[1])
+        //print(self.city)
         URLSession.shared.dataTask(with: url!) { (data: Data?, response: URLResponse?, error: Error?) in
             if error != nil{
                 print(error!)
@@ -161,28 +162,31 @@ class WeatherView: UIView{
                 let json = try JSON(data: data!)
                 
                 DispatchQueue.main.async {
-                    let dates = json["DATES"].arrayObject as! [String]
-                    let temp = json["TPREDS"].arrayObject as! [String]
-                    var newDates = [String]()
-                    self.titleLabel.text = NSLocalizedString( self.city!, comment: "city")
-                    self.tempLabel.text = json["T"].stringValue + " °C"
-                    self.humdLabel.text = json["H"].stringValue + " %RH"
-                    self.rainLabel.text = json["RPOP"].stringValue + "%"
-                    self.windLabel.text = json["WS"].stringValue + "m/s"
-                    for date in dates{
-                        let newDate = String(date.split(separator: "-")[1] + "-" + date.split(separator: "-")[2])
-                        newDates.append(newDate)
-                    }
-                    if self.forecastViews.count>0{
-                        for view in self.forecastViews{
-                            view.removeFromSuperview()
+                    if json["DATES"].arrayObject != nil{
+                        let dates = json["DATES"].arrayObject as! [String]
+                        let temp = json["TPREDS"].arrayObject as! [String]
+                        var newDates = [String]()
+                        self.titleLabel.text = NSLocalizedString( self.city!, comment: "city")
+                        self.tempLabel.text = json["T"].stringValue + " °C"
+                        self.humdLabel.text = json["H"].stringValue + " %RH"
+                        self.rainLabel.text = json["RPOP"].stringValue + "%"
+                        self.windLabel.text = json["WS"].stringValue + "m/s"
+                        for date in dates{
+                            let newDate = String(date.split(separator: "-")[1] + "-" + date.split(separator: "-")[2])
+                            newDates.append(newDate)
                         }
-                    }
-                    for i in 0..<5{
+                        if self.forecastViews.count>0{
+                            for view in self.forecastViews{
+                                view.removeFromSuperview()
+                            }
+                        }
+                        for i in 0..<5{
+                            
+                            self.setForecastViews(x: CGFloat(i), date: newDates[2*i], highTemp: temp[2*i], lowTemp: temp[2*i+1])
+                        }
+                        //self.Date.text = time[0]
                         
-                        self.setForecastViews(x: CGFloat(i), date: newDates[2*i], highTemp: temp[2*i], lowTemp: temp[2*i+1])
                     }
-                    //self.Date.text = time[0]
                     spinnerView.removeFromSuperview()
                 }
                 

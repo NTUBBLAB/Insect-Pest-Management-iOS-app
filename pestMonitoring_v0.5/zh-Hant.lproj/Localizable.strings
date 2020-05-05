@@ -1,0 +1,48 @@
+/* 
+  Localizable.strings
+  pestMonitoring_v0.5
+
+  Created by Lab405 on 2020/2/24.
+  Copyright © 2020年 Lab405. All rights reserved.
+*/
+"KEY" = "CONTENT";
+"YUNLIN_GH" = "雲林福成";
+"CHIAYI_GH" = "嘉義育家";
+"JINGPIN_GH" = "京品";
+"YUNLIN_GH" = "雲林福成";
+"YONGZHUANG_GH" = "勇壯育苗場";
+"PULIMOUNT_GH" = "埔里番茄溫室";
+"PULICITY_GH" = "霧峰番茄溫室";
+"TAINANDARES_GH" = "台南農改場洋桔梗溫室";
+"TAINANMO_FF" = "台南農改場芒果園";
+"TAICHUNGSB_GH" = "草屯光之莓草莓園";
+"QINGYUAN_GH" = "擎園蝴蝶蘭溫室";
+"TEST_GH" = "測試溫室";
+"gnat" = "蚊蚋";
+"fly" = "蠅類";
+"thrips" = "薊馬";
+"whitefly" = "粉蝨";
+"low" = "低";
+"high" = "高";
+"severe" = "嚴重";
+"guarded" = "警戒";
+"More" = "點擊看更多";
+"Chiayi City" = "嘉義市";
+"Yunlin County" = "雲林縣";
+"Tainan City" = "台南市";
+"Nantou County" = "南投縣";
+"Home" = "首頁";
+"Inbox" = "通知";
+"Notification time" = "通知時間";
+"Node" = "裝置";
+"Last updated: " = "上次更新時間: ";
+"Last updated: None" = "上次更新時間：無";
+"Environment" = "環境資訊";
+"Pest" = "蟲害資訊";
+"Nodal" = "裝置資訊";
+"Disease" = "病害資訊";
+"Temperature" = "溫度";
+"Humidity" = "濕度";
+"Light intensity" = "照度";
+"Detect Mode" = "即時辨識";
+"Save Mode" = "存入資料庫";
