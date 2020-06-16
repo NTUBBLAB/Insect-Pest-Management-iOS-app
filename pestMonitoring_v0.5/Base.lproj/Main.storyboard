@@ -980,10 +980,13 @@
                                         </connections>
                                     </switch>
                                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q11-zp-JAa">
-                                        <rect key="frame" x="278" y="566" width="89" height="53"/>
+                                        <rect key="frame" x="260" y="566" width="107" height="53"/>
+                                        <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="53" id="WNa-WX-YWj"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
+                                        <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <state key="normal" title="Select image"/>
                                         <connections>
                                             <action selector="galleryButtonClicked:" destination="VVP-Nx-Yj3" eventType="touchUpInside" id="jfu-S4-tQg"/>
@@ -992,11 +995,11 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="q11-zp-JAa" firstAttribute="leading" secondItem="feh-ns-Mqg" secondAttribute="trailing" constant="48" id="3Jh-g9-DrN"/>
+                                    <constraint firstItem="q11-zp-JAa" firstAttribute="leading" secondItem="feh-ns-Mqg" secondAttribute="trailing" constant="35" id="3Jh-g9-DrN"/>
                                     <constraint firstItem="feh-ns-Mqg" firstAttribute="leading" secondItem="bS1-uv-b6n" secondAttribute="trailing" constant="69" id="OG9-Xn-Q5h"/>
                                     <constraint firstItem="bS1-uv-b6n" firstAttribute="centerY" secondItem="feh-ns-Mqg" secondAttribute="centerY" id="dTz-kb-hXB"/>
                                     <constraint firstItem="feh-ns-Mqg" firstAttribute="bottom" secondItem="rsO-wF-TaH" secondAttribute="bottomMargin" id="gMm-Vf-mm0"/>
-                                    <constraint firstAttribute="bottom" secondItem="q11-zp-JAa" secondAttribute="bottom" constant="64" id="iSr-ZP-FVQ"/>
+                                    <constraint firstAttribute="bottom" secondItem="q11-zp-JAa" secondAttribute="bottom" constant="68" id="iSr-ZP-FVQ"/>
                                     <constraint firstItem="feh-ns-Mqg" firstAttribute="centerX" secondItem="rsO-wF-TaH" secondAttribute="centerX" id="uNs-FI-Vwu"/>
                                 </constraints>
                             </view>

@@ -779,7 +779,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.61;
+				MARKETING_VERSION = 1.62;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ntu.bime.pest;
 				PRODUCT_NAME = I2PDM;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -804,7 +804,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.61;
+				MARKETING_VERSION = 1.62;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ntu.bime.pest;
 				PRODUCT_NAME = I2PDM;
 				PROVISIONING_PROFILE_SPECIFIER = "";

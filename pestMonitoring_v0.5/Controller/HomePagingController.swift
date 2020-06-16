@@ -229,8 +229,7 @@ class HomePagingController: UIViewController, UNUserNotificationCenterDelegate {
                 return
             }
             do{
-                //print("GETTING CURRENT ENVS")
-                
+               
                 let currentEnvJson = try JSON(data: data!)
                 DispatchQueue.main.async {
                     if currentEnvJson["status"] != -1{
@@ -267,8 +266,9 @@ class HomePagingController: UIViewController, UNUserNotificationCenterDelegate {
         
     }
     func getPestData(){
+      
         
-        let url = URL(string: "http://140.112.94.123:20000/PEST_DETECT/_app/data_insect_current.php?loc=" + self.currentLoc!)
+        let url = URL(string: "http://140.112.94.123:20000/PEST_DETECT/_app/data_insect_current2.php?loc=" + self.currentLoc!)
         URLSession.shared.dataTask(with: url!){ (data: Data?, response: URLResponse?, error: Error?) in
             if error != nil{
                 print(error!)
@@ -276,6 +276,7 @@ class HomePagingController: UIViewController, UNUserNotificationCenterDelegate {
             }
             do{
                 let pestJson = try JSON(data: data!)
+                print(pestJson)
                 DispatchQueue.main.async {
                     if pestJson["status"] == 3{
                         if self.pestLabels.count != 0{
@@ -293,12 +294,12 @@ class HomePagingController: UIViewController, UNUserNotificationCenterDelegate {
                         var species_array_cn = [String]()
                         var species_array = [String]()
                         var count_array = [Int]()
-                        var alarm = Dictionary<String, [Int]>()
-                        var i = 0
+                        let alarm = pestJson["alarms"].arrayObject as! [Int];
+                        //var i = 0
                         for insect in pestJson["species_cn"].arrayObject as! [String]{
                             species_array_cn.append(insect)
-                            alarm[insect] = (pestJson["alarms"][i].arrayObject as! [Int])
-                            i += 1
+//                            alarm[insect] = (pestJson["alarms"][i].arrayObject as! [Int])
+//                            i += 1
                         }
                         for count in pestJson["counts"].arrayObject as! [Int]{
                             count_array.append(count)
@@ -309,7 +310,7 @@ class HomePagingController: UIViewController, UNUserNotificationCenterDelegate {
                         for i in 0..<species_array.count{
                             self.setPest(view: self.summaryCell, pestName: species_array[i], pestCount: count_array[i], x: 50, y: CGFloat(200+30*i), w: 80, h: 20)
                         }
-                        self.setPestAlarm(view: self.summaryCell, alarm: alarm, count: count_array, spec: species_array_cn)
+                        self.setPestAlarm(view: self.summaryCell, alarm: alarm, spec: species_array_cn)
                     }
                     else{
                         if self.pestLabels.count != 0{
@@ -334,25 +335,25 @@ class HomePagingController: UIViewController, UNUserNotificationCenterDelegate {
             }
         }.resume()
     }
-    func setPestAlarm(view: UIView, alarm: Dictionary<String, [Int]>, count: [Int], spec: [String]){
+    func setPestAlarm(view: UIView, alarm: [Int], spec: [String]){
         for i in 0..<alarm.count {
             let alarmLabel = UILabel()
             
-            let level = alarm[spec[i]]
+            //let level = alarm[spec[i]]
             alarmLabel.textColor = UIColor.black
-            if count[i] <= level![1]{
+            if alarm[i] == 0{
                 alarmLabel.text = NSLocalizedString("low", comment: "low")
                 alarmLabel.backgroundColor = .green
                 
             }
-            else if (count[i] > level![1]) && (count[i] < level![2]){
+            else if alarm[i] == 1{
                 alarmLabel.text = NSLocalizedString("guarded", comment: "low")
                 alarmLabel.backgroundColor = .blue
                 alarmLabel.textColor = UIColor.white
                 
                 sendNotification(type: "high", pest: spec[i])
             }
-            else if (count[i] > level![2]) && (count[i] < level![3]){
+            else if alarm[i] == 2{
                 alarmLabel.text = NSLocalizedString("high", comment: "low")
                 alarmLabel.backgroundColor = .yellow
                 sendNotification(type: "high", pest: spec[i])
@@ -597,9 +598,7 @@ class HomePagingController: UIViewController, UNUserNotificationCenterDelegate {
             //else { print("success!!!") }
             
         }
-//        center.getDeliveredNotifications(){ (notifications) in
-//            print(notification)
-//        }
+
     }
 }
 
@@ -611,7 +610,7 @@ extension UIView{
         self.layer.shadowOffset = CGSize.zero
         self.layer.shadowRadius = 2
         
-        //self.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: self.frame.height-50, width: self.frame.width, height: 50)).cgPath
+        
         self.layer.shadowPath = UIBezierPath(rect: self.bounds).cgPath
         self.layer.shouldRasterize = true
         self.layer.rasterizationScale = UIScreen.main.scale

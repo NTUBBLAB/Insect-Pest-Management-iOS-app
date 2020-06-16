@@ -271,7 +271,14 @@ class WeatherController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         let url = URL(string: "https://agriapi.tari.gov.tw/api/CWB_PreWeathers/predictions?postalCode=" + self.postCode + "&eleName=" + "T" + "&projectkey=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9qZWN0bmFtZSI6IlBlc3RfMDEiLCJuYW1lIjoiTlRVQkJMQUJfUGVzdCIsImlhdCI6MTU1NzEwNjQxMX0.u3udopC3XGpV0sRy_olvuFx-mTPnrUY5c4E0y1bgx0A")
         let spinner = Spinner()
         let spinnerView = spinner.setSpinnerView(view: view)
-        URLSession.shared.dataTask(with: url!) { (data: Data?, response: URLResponse?, error: Error?) in
+        //let request = URLSession.shared
+    
+        let sessionConfig = URLSessionConfiguration.default
+        sessionConfig.timeoutIntervalForRequest = 30.0
+        sessionConfig.timeoutIntervalForResource = 60.0
+        let session = URLSession(configuration: sessionConfig)
+        
+        session.dataTask(with: url!) { (data: Data?, response: URLResponse?, error: Error?) in
             if error != nil{
                 print(error!)
                 return

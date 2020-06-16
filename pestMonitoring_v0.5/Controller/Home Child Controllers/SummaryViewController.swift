@@ -41,9 +41,7 @@ class SummaryViewController: UIViewController {
        
         
     }
-    func setWeatherCell(){
-        
-    }
+
     
     func hexStringToUIColor (hex:String) -> UIColor {
         var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
